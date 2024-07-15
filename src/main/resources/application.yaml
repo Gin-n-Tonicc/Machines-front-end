@@ -1,0 +1,22 @@
+server:
+  port: 8081
+spring:
+  resources:
+    static-locations: classpath:/static/
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+  servlet:
+    multipart:
+      enabled: true
+  mvc:
+    view:
+      prefix: /templates/
+      suffix: .html
+backend:
+  base-url: http://localhost:8080/api/v1
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080
