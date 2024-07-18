@@ -17,7 +17,7 @@ public interface AuthenticationClient {
     @PostMapping("/register")
     AuthenticationResponse register(@RequestBody RegisterRequest request);
 
-    @PostMapping("/login")
+    @PostMapping("/authenticate")
     AuthenticationResponse login(@RequestBody AuthenticationRequest request);
 
     @PostMapping("/refresh-token")
