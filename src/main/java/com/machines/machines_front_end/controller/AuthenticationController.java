@@ -59,10 +59,29 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute RegisterRequest registerRequest, Model model) {
-        AuthenticationResponse response = authenticationClient.register(registerRequest);
-        model.addAttribute("response", response);
-        return "registrationResult";
+    public String registerUser(RegisterRequest request, Model model) {
+        try {
+            authenticationClient.register(request);
+            return "register-success"; // Name of the success Thymeleaf template
+        } catch (Exception e) {
+            String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
+                    ? e.getCause().getMessage()
+                    : e.getMessage();
+            model.addAttribute("error", errorMessage);
+            return "register"; // Return to the registration form with an error message
+        }
+    }
+
+    @GetMapping("/registrationConfirm")
+    public String confirmRegistration(@RequestParam("token") String token, Model model) {
+        try {
+            ResponseEntity<String> response = authenticationClient.confirmRegistration(token, null);
+            model.addAttribute("message", response.getBody());
+            return "registration-confirmation"; // Name of the confirmation Thymeleaf template
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "registration-confirmation"; // Return to the confirmation page with an error message
+        }
     }
 
     @GetMapping("/forgot-password")

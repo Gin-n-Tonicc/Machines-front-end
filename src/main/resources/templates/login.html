@@ -38,6 +38,12 @@
                                             </div>
                                         </center>
                                     </form>
+
+<!--                                    TODO: change the hardcoded url-->
+                                    <a href="http://localhost:8080/oauth2/authorization/google" class="btn btn-google">
+                                        <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"
+                                             alt="Впиши се с Google">
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -51,4 +57,22 @@
     <th:block th:insert="~{fragments/footer}"></th:block>
 </div>
 </body>
+<style>
+    /* Add your custom styles here */
+
+.oauth-login {
+    margin-top: 20px;
+}
+
+.btn-google {
+    display: inline-block;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.btn-google img {
+    max-width: 100%;
+    height: auto;
+}
+</style>
 </html>

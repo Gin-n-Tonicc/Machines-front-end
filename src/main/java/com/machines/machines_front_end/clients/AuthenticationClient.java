@@ -4,6 +4,7 @@ import com.machines.machines_front_end.dtos.auth.AuthenticationRequest;
 import com.machines.machines_front_end.dtos.auth.AuthenticationResponse;
 import com.machines.machines_front_end.dtos.auth.RefreshTokenBodyDTO;
 import com.machines.machines_front_end.dtos.auth.RegisterRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,9 @@ public interface AuthenticationClient {
 
     @PostMapping("/register")
     AuthenticationResponse register(@RequestBody RegisterRequest request);
+
+    @GetMapping("/registrationConfirm")
+    ResponseEntity<String> confirmRegistration(@RequestParam("token") String token, HttpServletResponse httpServletResponse);
 
     @PostMapping("/authenticate")
     AuthenticationResponse login(@RequestBody AuthenticationRequest request);

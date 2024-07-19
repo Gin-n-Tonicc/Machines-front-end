@@ -53,8 +53,16 @@
                                                    placeholder="Повтори паролата" required>
                                         </div>
                                         <div id="error-message" style="color: red;"></div>
-                                        <button type="submit" class="btn btn-primary mt-4">Register</button>
+                                        <button type="submit" class="btn btn-primary mt-4">Регистрирай се</button>
+                                        <p th:text="${message}" th:if="${message}">Success message will appear here</p>
+                                        <p th:text="${error}" th:if="${error}" style="color: red;">Error message will appear here</p>
                                     </form>
+
+<!--                                    TODO: change the hardcoded url-->
+                                    <a href="http://localhost:8080/oauth2/authorization/google" class="btn btn-google">
+                                        <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"
+                                             alt="Регистривай се с Google">
+                                    </a>
                                 </div>
                             </div>
                         </div>
