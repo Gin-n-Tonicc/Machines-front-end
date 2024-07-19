@@ -22,7 +22,7 @@
                             <div class="card flex-grow-1 mb-md-0">
                                 <div class="card-body">
                                     <h3 class="card-title" style="text-align: center;">Впиши се</h3>
-                                    <form th:action="@{/register}" method="post">
+                                    <form th:action="@{/login}" method="post">
                                             <div class="form-group">
                                                 <input type="email" name="email" class="form-control"
                                                        placeholder="Въведи имейл ">
@@ -31,7 +31,7 @@
                                                 <input type="password" name="password" class="form-control"
                                                        placeholder="Въведи парола ">
                                                 <small class="form-text text-muted">
-                                                    <a href="">Забравена парола?</a>
+                                                    <a href="/forgot-password">Забравена парола?</a>
                                                 </small>
                                                 <button type="submit" class="btn btn-primary mt-4">Впиши се</button>
                                             </div>
