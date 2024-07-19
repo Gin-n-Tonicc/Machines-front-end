@@ -32,12 +32,12 @@
     <div class="site__body">
         <div class="block">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-6 d-flex flex-column" style="padding-top: 20px;">
+                <div>
+                    <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
                         <div class="card flex-grow-1 mb-md-0">
                             <div class="card-body">
-                                <div class="card flex-grow-1 mb-0">
                                     <h3 class="card-title" style="text-align: center;">Регистрация</h3>
+                                <div style="text-align: center;">
                                     <form th:action="@{/register}" th:object="${registerRequest}" method="post"
                                           onsubmit="return validatePasswords()">
                                         <div class="form-group">
@@ -57,12 +57,7 @@
                                         <p th:text="${message}" th:if="${message}">Success message will appear here</p>
                                         <p th:text="${error}" th:if="${error}" style="color: red;">Error message will appear here</p>
                                     </form>
-
-<!--                                    TODO: change the hardcoded url-->
-                                    <a href="http://localhost:8080/oauth2/authorization/google" class="btn btn-google">
-                                        <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"
-                                             alt="Регистривай се с Google">
-                                    </a>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -74,6 +69,5 @@
         <!-- site__footer -->
         <th:block th:insert="~{fragments/footer}"></th:block>
     </div>
-</div>
 </body>
 </html>
