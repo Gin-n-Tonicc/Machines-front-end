@@ -2,7 +2,6 @@ package com.machines.machines_front_end.session;
 
 import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
-import org.springframework.context.annotation.Configuration;
 
 public class SessionListener implements HttpSessionListener {
     @Override

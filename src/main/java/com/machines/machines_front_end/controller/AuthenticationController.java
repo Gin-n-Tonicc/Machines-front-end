@@ -14,16 +14,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class AuthenticationController {
-    private final AuthenticationClient authenticationClient;
-    private final SessionManager sessionManager;
     private static final String REDIRECT_INDEX = "redirect:/index";
     private static final String REDIRECT_LOGIN = "redirect:/login";
+    private final AuthenticationClient authenticationClient;
+    private final SessionManager sessionManager;
 
     @GetMapping("login")
     public String login() {
@@ -62,5 +63,43 @@ public class AuthenticationController {
         AuthenticationResponse response = authenticationClient.register(registerRequest);
         model.addAttribute("response", response);
         return "registrationResult";
+    }
+
+    @GetMapping("/forgot-password")
+    public String showForgotPasswordForm() {
+        return "forgot-password"; // Name of the Thymeleaf template
+    }
+
+    @PostMapping("/forgot-password")
+    public String forgotPassword(@RequestParam("email") String email, Model model) {
+        try {
+            ResponseEntity<String> response = authenticationClient.forgotPassword(email);
+            model.addAttribute("message", response.getBody());
+            return "forgot-password-success"; // Name of the success Thymeleaf template
+        } catch (Exception e) {
+            String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
+                    ? e.getCause().getMessage()
+                    : e.getMessage();
+            model.addAttribute("error", errorMessage);
+            return "forgot-password"; // Redirect back to the form with error message
+        }
+    }
+
+    @GetMapping("/forgotten-password")
+    public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
+        model.addAttribute("token", token);
+        return "reset-password";
+    }
+
+    @PostMapping("/reset-password")
+    public String resetPassword(@RequestParam("token") String token, @RequestParam("password") String password, Model model) {
+        try {
+            authenticationClient.resetPassword(token, password);
+            model.addAttribute("message", "Password successfully updated.");
+            return "reset-password-success"; // Name of the success Thymeleaf template
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "reset-password"; // Return to the form with an error message
+        }
     }
 }
