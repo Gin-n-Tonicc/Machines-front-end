@@ -59,10 +59,11 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public String registerUser(RegisterRequest request, Model model) {
+    public String registerUser(RegisterRequest request, Model model, HttpServletRequest httpServletRequest) {
         try {
-            authenticationClient.register(request);
-            return "register-success"; // Name of the success Thymeleaf template
+            AuthenticationResponse authenticationResponse = authenticationClient.register(request);
+            sessionManager.setSessionToken(httpServletRequest, authenticationResponse.getAccessToken(), authenticationResponse.getUser().getRole().toString());
+            return "index"; // Name of the success Thymeleaf template
         } catch (Exception e) {
             String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
                     ? e.getCause().getMessage()
