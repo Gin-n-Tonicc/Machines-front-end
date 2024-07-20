@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,15 +39,17 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ModelAndView login(AuthenticationRequest authenticationRequest, HttpServletRequest httpServletRequest) {
+    public String login(AuthenticationRequest authenticationRequest, Model model, HttpServletRequest httpServletRequest) {
         try {
             AuthenticationResponse authenticationResponse = authenticationClient.login(authenticationRequest);
             sessionManager.setSessionToken(httpServletRequest, authenticationResponse.getAccessToken(), authenticationResponse.getUser().getRole().toString());
-            return new ModelAndView(REDIRECT_INDEX);
+            return REDIRECT_INDEX ; // Redirect to a success page, e.g., home page
         } catch (Exception e) {
-            ModelAndView modelAndView = new ModelAndView(REDIRECT_LOGIN);
-            modelAndView.addObject("error", "Невалидно име или парола");
-            return modelAndView;
+            String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
+                    ? e.getCause().getMessage()
+                    : e.getMessage();
+            model.addAttribute("error", "Невалидно име или парола"); // Customize the error message as needed
+            return "login"; // Return to the login form with an error message
         }
     }
 
@@ -63,7 +64,7 @@ public class AuthenticationController {
         try {
             AuthenticationResponse authenticationResponse = authenticationClient.register(request);
             sessionManager.setSessionToken(httpServletRequest, authenticationResponse.getAccessToken(), authenticationResponse.getUser().getRole().toString());
-            return "index"; // Name of the success Thymeleaf template
+            return REDIRECT_INDEX ; // Name of the success Thymeleaf template
         } catch (Exception e) {
             String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
                     ? e.getCause().getMessage()

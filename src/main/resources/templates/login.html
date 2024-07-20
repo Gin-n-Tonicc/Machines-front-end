@@ -5,6 +5,7 @@
     <title>Впиши се</title>
     <!--    LINKS  -->
     <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
 </head>
 
 <body>
@@ -13,8 +14,15 @@
     <!-- mobile site__header -->
     <th:block th:insert="~{fragments/header}"></th:block>
     <!-- site__body -->
-    <center>
-        <div class="site__body">
+    <div class="site__body">
+        <!-- Toast notification container -->
+        <div id="toast" class="toast"></div>
+
+        <!-- Hidden error message container for Thymeleaf -->
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
+            appear here</p>
+
+        <center>
             <div class="block">
                 <div class="container">
                     <div>
@@ -36,16 +44,10 @@
                                             <button type="submit" class="btn btn-primary mt-4">Впиши се</button>
                                         </div>
                                     </form>
-
-                                    <!--                                    TODO: change the hardcoded url-->
-<!--                                    <a href="http://localhost:8080/oauth2/authorization/google" class="btn btn-google">-->
-<!--                                        <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"-->
-<!--                                             alt="Впиши се с Google">-->
-<!--                                    </a>-->
-                                    <button type="button" class="login-with-google-btn" onclick="redirectToGoogleAuth()">
+                                    <button type="button" class="login-with-google-btn"
+                                            onclick="redirectToGoogleAuth()">
                                         Впиши се с Google
                                     </button>
-
                                     <script>
                                         function redirectToGoogleAuth() {
                                             window.location.href = "http://localhost:8080/oauth2/authorization/google";
@@ -58,13 +60,15 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </center>
+        </center>
+    </div>
     <!-- site__body / end -->
     <!-- site__footer -->
     <th:block th:insert="~{fragments/footer}"></th:block>
 </div>
-</body>
+
+<!-- Include toast.js file -->
+<script th:src="@{/js/toast.js}"></script>
 <style>
     .login-with-google-btn {
   transition: background-color .3s, box-shadow .3s;
@@ -108,4 +112,5 @@
   }
 }
 </style>
+</body>
 </html>
