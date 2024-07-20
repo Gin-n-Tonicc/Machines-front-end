@@ -43,7 +43,7 @@ public class AuthenticationController {
         try {
             AuthenticationResponse authenticationResponse = authenticationClient.login(authenticationRequest);
             sessionManager.setSessionToken(httpServletRequest, authenticationResponse.getAccessToken(), authenticationResponse.getUser().getRole().toString());
-            return REDIRECT_INDEX ; // Redirect to a success page, e.g., home page
+            return REDIRECT_INDEX; // Redirect to a success page, e.g., home page
         } catch (Exception e) {
             String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
                     ? e.getCause().getMessage()
@@ -64,7 +64,7 @@ public class AuthenticationController {
         try {
             AuthenticationResponse authenticationResponse = authenticationClient.register(request);
             sessionManager.setSessionToken(httpServletRequest, authenticationResponse.getAccessToken(), authenticationResponse.getUser().getRole().toString());
-            return REDIRECT_INDEX ; // Name of the success Thymeleaf template
+            return REDIRECT_INDEX; // Name of the success Thymeleaf template
         } catch (Exception e) {
             String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
                     ? e.getCause().getMessage()
