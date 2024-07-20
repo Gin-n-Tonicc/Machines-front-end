@@ -1,8 +1,6 @@
 server:
   port: 8081
 spring:
-  resources:
-    static-locations: classpath:/static/
   thymeleaf:
     enabled: true
     prefix: classpath:/templates/
@@ -14,6 +12,9 @@ spring:
     view:
       prefix: /templates/
       suffix: .html
+  web:
+    resources:
+      static-locations: classpath:/static/
 backend:
   base-url: http://localhost:8080/api/v1
 eureka:

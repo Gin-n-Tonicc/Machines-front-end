@@ -1,0 +1,42 @@
+
+        .toast {
+        visibility: hidden; /* Hidden by default */
+        min-width: 250px;
+        background-color: #001367;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 16px;
+        position: fixed;
+        z-index: 9999;
+        top: 20px;
+        right: 20px;
+        font-size: 17px;
+        transition: opacity 0.5s ease-in-out;
+        }
+
+        .toast.show {
+        visibility: visible; /* Show the toast */
+        -webkit-animation: fadein 0.5s, fadeout 1.5s 4.5s;
+        animation: fadein 0.5s, fadeout 1.5s 4.5s;
+        }
+
+        @-webkit-keyframes fadein {
+        from {opacity: 0;}
+        to {opacity: 1;}
+        }
+
+        @keyframes fadein {
+        from {opacity: 0;}
+        to {opacity: 1;}
+        }
+
+        @-webkit-keyframes fadeout {
+        from {opacity: 1;}
+        to {opacity: 0;}
+        }
+
+        @keyframes fadeout {
+        from {opacity: 1;}
+        to {opacity: 0;}
+        }

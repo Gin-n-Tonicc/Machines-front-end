@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>Регистрирай се</title>
+    <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- site__body -->
+    <div class="site__body">
+        <!-- Toast notification container -->
+        <div id="toast" class="toast"></div>
+
+        <!-- Hidden error message container for Thymeleaf -->
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
+            appear here</p>
+
+        <div class="block">
+            <div class="container">
+                <div>
+                    <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
+                        <div class="card flex-grow-1 mb-md-0">
+                            <div class="card-body">
+                                <h3 class="card-title" style="text-align: center;">Регистрация</h3>
+                                <div style="text-align: center;">
+                                    <form th:action="@{/register}" th:object="${registerRequest}" method="post"
+                                          onsubmit="return validatePasswords()">
+                                        <div class="form-group">
+                                            <input type="email" id="email" th:field="*{email}" class="form-control"
+                                                   placeholder="Въведи имейл" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" id="password" th:field="*{password}"
+                                                   class="form-control" placeholder="Въведи парола" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" id="confirmPassword" class="form-control"
+                                                   placeholder="Повтори паролата" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mt-4">Регистрирай се</button>
+                                        <div id="error-message" style="color: red;" hidden="hidden"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:insert="~{fragments/footer}"></th:block>
+<script th:src="@{/js/toast.js}"></script>
+<script>
+    function validatePasswords() {
+       const password = document.getElementById("password").value;
+       const confirmPassword = document.getElementById("confirmPassword").value;
+       const errorMessage = document.getElementById("error-message");
+
+       if (password !== confirmPassword) {
+           errorMessage.textContent = "Паролите не съвпадат!";
+           showToast("Паролите не съвпадат!");
+           return false;
+       } else {
+           errorMessage.textContent = "";
+           return true;
+       }
+   }
+</script>
+</body>
+
+</html>

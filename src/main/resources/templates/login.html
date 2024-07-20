@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>Впиши се</title>
+    <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- site__body -->
+    <div class="site__body">
+        <!-- Toast notification container -->
+        <div id="toast" class="toast"></div>
+
+        <!-- Hidden error message container for Thymeleaf -->
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
+            appear here</p>
+
+        <center>
+            <div class="block">
+                <div class="container">
+                    <div>
+                        <div class="col-md-6 d-flex flex-column" style="padding-top: 20px;">
+                            <div class="card flex-grow-1 mb-md-0">
+                                <div class="card-body">
+                                    <h3 class="card-title" style="text-align: center;">Впиши се</h3>
+                                    <form th:action="@{/login}" method="post">
+                                        <div class="form-group">
+                                            <input type="email" name="email" class="form-control"
+                                                   placeholder="Въведи имейл ">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" name="password" class="form-control"
+                                                   placeholder="Въведи парола ">
+                                            <small class="form-text text-muted">
+                                                <a href="/forgot-password">Забравена парола?</a>
+                                            </small>
+                                            <button type="submit" class="btn btn-primary mt-4">Впиши се</button>
+                                        </div>
+                                    </form>
+                                    <button type="button" class="login-with-google-btn"
+                                            onclick="redirectToGoogleAuth()">
+                                        Впиши се с Google
+                                    </button>
+                                    <script>
+                                        function redirectToGoogleAuth() {
+                                            window.location.href = "http://localhost:8080/oauth2/authorization/google";
+                                        }
+                                    </script>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </center>
+    </div>
+    <!-- site__body / end -->
+    <!-- site__footer -->
+    <th:block th:insert="~{fragments/footer}"></th:block>
+</div>
+
+<!-- Include toast.js file -->
+<script th:src="@{/js/toast.js}"></script>
+<style>
+    .login-with-google-btn {
+  transition: background-color .3s, box-shadow .3s;
+
+  padding: 12px 16px 12px 42px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
+
+  color: #757575;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: 12px 11px;
+
+  &:hover {
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
+  }
+
+  &:active {
+    background-color: #eeeeee;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow:
+      0 -1px 0 rgba(0, 0, 0, .04),
+      0 2px 4px rgba(0, 0, 0, .25),
+      0 0 0 3px #c8dafc;
+  }
+
+  &:disabled {
+    filter: grayscale(100%);
+    background-color: #ebebeb;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
+    cursor: not-allowed;
+  }
+}
+</style>
+</body>
+</html>
