@@ -1,3 +1,4 @@
+<html lang="en" dir="ltr" xmlns:th="">
 <header class="site__header d-lg-none">
     <!-- data-sticky-mode - one of [pullToShow, alwaysOnTop] -->
     <div class="mobile-header mobile-header--sticky" data-sticky-mode="pullToShow">
@@ -1047,7 +1048,7 @@
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
                                     <a class="nav-links__item-link" href="account-login.html">
                                         <div class="nav-links__item-body">
-                                            Account
+                                            Акаунт
                                             <svg class="nav-links__item-arrow" width="9px" height="6px">
                                                 <use xlink:href="images/sprite.svg#arrow-rounded-down-9x6"></use>
                                             </svg>
@@ -1058,13 +1059,27 @@
                                         <div class="menu menu--layout--classic ">
                                             <div class="menu__submenus-container"></div>
                                             <ul class="menu__list">
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="account-login.html">
-                                                        Login
-                                                    </a>
-                                                </li>
+                                                <th:block th:if="${session.sessionToken == null}">
+                                                    <li class="menu__item">
+                                                        <a class="menu__item-link" href="/login">
+                                                            <span class="align-middle">Впиши се</span>
+                                                        </a>
+                                                    </li>
+                                                </th:block>
+                                                <th:block th:if="${session.sessionToken == null}">
+                                                    <li class="menu__item">
+                                                        <a class="menu__item-link" href="/register">
+                                                            <span class="align-middle">Регистрирай се</span>
+                                                        </a>
+                                                    </li>
+                                                </th:block>
+                                                <th:block th:if="${session.sessionToken != null}">
+                                                    <li class="menu__item">
+                                                        <a class="menu__item-link" href="/logout">
+                                                            <span class="align-middle">Излез</span>
+                                                        </a>
+                                                    </li>
+                                                </th:block>
                                                 <li class="menu__item">
                                                     <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
                                                     <div class="menu__item-submenu-offset"></div>
@@ -1254,13 +1269,6 @@
                                         </div>
                                         <!-- .menu / end -->
                                     </div>
-                                </li>
-                                <li class="nav-links__item ">
-                                    <a class="nav-links__item-link" href="https://themeforest.net/item/stroyka-tools-store-html-template/23326943">
-                                        <div class="nav-links__item-body">
-                                            Buy Theme
-                                        </div>
-                                    </a>
                                 </li>
                             </ul>
                         </div>

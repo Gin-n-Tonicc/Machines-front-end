@@ -6,6 +6,7 @@ import com.machines.machines_front_end.dtos.auth.AuthenticationResponse;
 import com.machines.machines_front_end.dtos.auth.RegisterRequest;
 import com.machines.machines_front_end.session.SessionManager;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -26,17 +27,19 @@ public class AuthenticationController {
     private final SessionManager sessionManager;
 
     @GetMapping("login")
-    public String login() {
+    public String login(HttpSession session) {
+        if (session.getAttribute("sessionToken") != null) {
+            return "redirect:/index";
+        }
         return "login";
     }
 
     @GetMapping("/logout")
     public ModelAndView logout(HttpServletRequest request) {
-        String token = (String) request.getSession().getAttribute("sessionToken");
-        authenticationClient.logout(token);
         sessionManager.invalidateSession(request);
-        return new ModelAndView(REDIRECT_INDEX);
+        return new ModelAndView("redirect:/index");
     }
+
 
     @PostMapping("/login")
     public String login(AuthenticationRequest authenticationRequest, Model model, HttpServletRequest httpServletRequest) {
@@ -45,16 +48,16 @@ public class AuthenticationController {
             sessionManager.setSessionToken(httpServletRequest, authenticationResponse.getAccessToken(), authenticationResponse.getUser().getRole().toString());
             return REDIRECT_INDEX; // Redirect to a success page, e.g., home page
         } catch (Exception e) {
-            String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
-                    ? e.getCause().getMessage()
-                    : e.getMessage();
             model.addAttribute("error", "Невалидно име или парола"); // Customize the error message as needed
             return "login"; // Return to the login form with an error message
         }
     }
 
     @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
+    public String showRegistrationForm(Model model, HttpSession session) {
+        if (session.getAttribute("sessionToken") != null) {
+            return "redirect:/index";
+        }
         model.addAttribute("registerRequest", new RegisterRequest());
         return "register";
     }
