@@ -29,16 +29,17 @@
                     <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
                         <div class="card flex-grow-1 mb-md-0">
                             <div class="card-body">
-                                <h3 class="card-title" style="text-align: center;">Забравена парола</h3>
+                                <h3 class="card-title" style="text-align: center;">Създай категория</h3>
                                 <div style="text-align: center;">
-                                    <form th:action="@{/forgot-password}" method="post">
+                                    <form th:action="@{/categories/create}" th:object="${category}" method="post">
                                         <div class="form-group">
-                                            <input type="email" id="email" name="email" class="form-control"
-                                                   placeholder="Въведи имейла си" required>
+                                            <input type="text" id="name" name="name" th:field="*{name}"
+                                                   class="form-control"
+                                                   placeholder="Въведи името на категорията" required>
                                         </div>
                                         <div id="error-message" style="color: red;"></div>
                                         <button type="submit" class="btn btn-primary mt-4" style="text-align: center;">
-                                            Изпратете линка за нулиране
+                                            Създай категория
                                         </button>
                                     </form>
                                 </div>

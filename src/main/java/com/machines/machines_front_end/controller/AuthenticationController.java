@@ -58,6 +58,7 @@ public class AuthenticationController {
         if (session.getAttribute("sessionToken") != null) {
             return "redirect:/index";
         }
+
         model.addAttribute("registerRequest", new RegisterRequest());
         return "register";
     }
