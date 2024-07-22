@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>Подкатегории</title>
+    <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- site__body -->
+    <div class="site__body">
+        <!-- Toast notification container -->
+        <div id="toast" class="toast"></div>
+
+        <!-- Hidden error message container for Thymeleaf -->
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
+            appear here</p>
+        <div class="block">
+            <div class="container">
+                <div>
+                    <div class="col-md-10 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
+                        <div class="card flex-grow-1 mb-md-0">
+                            <div class="card-body">
+                                <h3 class="card-title" style="text-align: center;">Подкатегории</h3>
+                                <div style="text-align: center;">
+                                    <div>
+                                        <a href="/subcategories/create">
+                                            <button type="button" class="btn btn-primary">Създай нова подкатегория
+                                            </button>
+                                        </a><br>
+                                    </div>
+                                    <br>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Име</th>
+                                                <th>Категория</th>
+                                                <th>Изтрий/редактирай</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="subcategory : ${subcategories}">
+                                                <td th:text="${subcategory.name}"></td>
+                                                <td th:text="${categoryNameMap[subcategory.categoryId]}">Име на
+                                                    категория
+                                                </td>
+                                                <td>
+                                                    <a th:href="@{/subcategories/update/{id}(id=${subcategory.id})}"
+                                                       class="btn btn-info">Редактирай</a>
+                                                    <form th:action="@{/subcategories/delete/{id}(id=${subcategory.id})}"
+                                                          method="post" style="display:inline;">
+                                                        <button type="submit" class="btn btn-danger">Изтрий</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- site__body / end -->
+            <!-- site__footer -->
+        </div>
+    </div>
+</div>
+<th:block th:insert="~{fragments/footer}"></th:block>
+<!-- Include the toast.js file -->
+<script th:src="@{/js/toast.js}"></script>
+</body>
+</html>

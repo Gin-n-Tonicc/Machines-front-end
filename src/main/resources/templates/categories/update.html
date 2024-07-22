@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no">
-    <title>Създай категория</title>
+    <title>Редактирай категория</title>
     <th:block th:insert="~{fragments/links}"></th:block>
     <link rel="stylesheet" th:href="@{/css/toast.css}">
 </head>
@@ -29,17 +29,18 @@
                     <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
                         <div class="card flex-grow-1 mb-md-0">
                             <div class="card-body">
-                                <h3 class="card-title" style="text-align: center;">Създай категория</h3>
+                                <h3 class="card-title" style="text-align: center;">Редактирай категория</h3>
                                 <div style="text-align: center;">
-                                    <form th:action="@{/categories/create}" th:object="${category}" method="post">
+                                    <form th:action="@{/categories/update/{id}(id=${category.id})}" th:object="${category}" method="post">
                                         <div class="form-group">
+                                            <label>Име на категорията</label>
                                             <input type="text" id="name" name="name" th:field="*{name}"
                                                    class="form-control"
                                                    placeholder="Въведи името на категорията" required>
                                         </div>
                                         <div id="error-message" style="color: red;"></div>
                                         <button type="submit" class="btn btn-primary mt-4" style="text-align: center;">
-                                            Създай категория
+                                            Редактирай категория
                                         </button>
                                     </form>
                                 </div>
