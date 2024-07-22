@@ -29,20 +29,31 @@
                     <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
                         <div class="card flex-grow-1 mb-md-0">
                             <div class="card-body">
-                                <h3 class="card-title" style="text-align: center;">Създай категория</h3>
-                                <div style="text-align: center;">
-                                    <form th:action="@{/categories/create}" th:object="${category}" method="post">
-                                        <div class="form-group">
-                                            <input type="text" id="name" name="name" th:field="*{name}"
-                                                   class="form-control"
-                                                   placeholder="Въведи името на категорията" required>
-                                        </div>
-                                        <div id="error-message" style="color: red;"></div>
-                                        <button type="submit" class="btn btn-primary mt-4" style="text-align: center;">
-                                            Създай категория
-                                        </button>
-                                    </form>
-                                </div>
+                                <th:block th:if="${session.sessionRole == 'ADMIN'}">
+                                    <h3 class="card-title" style="text-align: center;">Създай категория</h3>
+                                    <div style="text-align: center;">
+                                        <form th:action="@{/categories/create}" th:object="${category}" method="post">
+                                            <div class="form-group">
+                                                <input type="text" id="name" name="name" th:field="*{name}"
+                                                       class="form-control"
+                                                       placeholder="Въведи името на категорията" required>
+                                            </div>
+                                            <div id="error-message" style="color: red;"></div>
+                                            <button type="submit" class="btn btn-primary mt-4"
+                                                    style="text-align: center;">
+                                                Създай категория
+                                            </button>
+                                        </form>
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${session.sessionRole != 'ADMIN'}">
+                                    <div class="site">
+                                        <h1 style="text-align: center;">Отказан достъп</h1>
+                                        <p style="text-align: center;">Само администраторите на платформата имат достъп
+                                            до тази страница!
+                                        </p>
+                                    </div>
+                                </th:block>
                             </div>
                         </div>
                     </div>

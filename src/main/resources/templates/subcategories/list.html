@@ -29,43 +29,52 @@
                     <div class="col-md-10 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
                         <div class="card flex-grow-1 mb-md-0">
                             <div class="card-body">
-                                <h3 class="card-title" style="text-align: center;">Подкатегории</h3>
-                                <div style="text-align: center;">
-                                    <div>
-                                        <a href="/subcategories/create">
-                                            <button type="button" class="btn btn-primary">Създай нова подкатегория
-                                            </button>
-                                        </a><br>
+                                <th:block th:if="${session.sessionRole == 'ADMIN'}">
+                                    <h3 class="card-title" style="text-align: center;">Подкатегории</h3>
+                                    <div style="text-align: center;">
+                                        <div>
+                                            <a href="/subcategories/create">
+                                                <button type="button" class="btn btn-primary">Създай нова подкатегория
+                                                </button>
+                                            </a><br>
+                                        </div>
+                                        <br>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Име</th>
+                                                    <th>Категория</th>
+                                                    <th>Изтрий/редактирай</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="subcategory : ${subcategories}">
+                                                    <td th:text="${subcategory.name}"></td>
+                                                    <td th:text="${categoryNameMap[subcategory.categoryId]}">Име на
+                                                        категория
+                                                    </td>
+                                                    <td>
+                                                        <a th:href="@{/subcategories/update/{id}(id=${subcategory.id})}"
+                                                           class="btn btn-info">Редактирай</a>
+                                                        <form th:action="@{/subcategories/delete/{id}(id=${subcategory.id})}"
+                                                              method="post" style="display:inline;">
+                                                            <button type="submit" class="btn btn-danger">Изтрий</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                    <br>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>Име</th>
-                                                <th>Категория</th>
-                                                <th>Изтрий/редактирай</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="subcategory : ${subcategories}">
-                                                <td th:text="${subcategory.name}"></td>
-                                                <td th:text="${categoryNameMap[subcategory.categoryId]}">Име на
-                                                    категория
-                                                </td>
-                                                <td>
-                                                    <a th:href="@{/subcategories/update/{id}(id=${subcategory.id})}"
-                                                       class="btn btn-info">Редактирай</a>
-                                                    <form th:action="@{/subcategories/delete/{id}(id=${subcategory.id})}"
-                                                          method="post" style="display:inline;">
-                                                        <button type="submit" class="btn btn-danger">Изтрий</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                </th:block>
+                                <th:block th:if="${session.sessionRole != 'ADMIN'}">
+                                    <div class="site">
+                                        <h1 style="text-align: center;">Отказан достъп</h1>
+                                        <p style="text-align: center;">Само администраторите на платформата имат достъп
+                                            до тази страница!</p>
                                     </div>
-                                </div>
+                                </th:block>
                             </div>
                         </div>
                     </div>
