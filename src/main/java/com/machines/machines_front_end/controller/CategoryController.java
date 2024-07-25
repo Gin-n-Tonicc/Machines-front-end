@@ -3,6 +3,7 @@ package com.machines.machines_front_end.controller;
 import com.machines.machines_front_end.clients.CategoryClient;
 import com.machines.machines_front_end.clients.SubcategoryClient;
 import com.machines.machines_front_end.dtos.request.CategoryRequestDTO;
+import com.machines.machines_front_end.dtos.response.CategoryAdminResponseDTO;
 import com.machines.machines_front_end.dtos.response.CategoryResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,7 @@ public class CategoryController {
 
     @GetMapping
     public String listCategories(Model model) {
-        List<CategoryResponseDTO> categories = categoryClient.getAll();
+        List<CategoryAdminResponseDTO> categories = categoryClient.getAllAdmin();
         model.addAttribute("categories", categories);
         return "categories/list";
     }
