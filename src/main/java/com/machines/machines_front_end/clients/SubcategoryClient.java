@@ -1,6 +1,7 @@
 package com.machines.machines_front_end.clients;
 
 import com.machines.machines_front_end.dtos.request.SubcategoryRequestDTO;
+import com.machines.machines_front_end.dtos.response.SubcategoryAdminResponseDTO;
 import com.machines.machines_front_end.dtos.response.SubcategoryResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -25,4 +26,7 @@ public interface SubcategoryClient {
 
     @DeleteMapping("/{id}")
     void delete(@PathVariable UUID id);
+
+    @GetMapping("/all/admin")
+    List<SubcategoryAdminResponseDTO> getAllAdmin();
 }

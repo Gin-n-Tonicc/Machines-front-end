@@ -2,6 +2,8 @@ package com.machines.machines_front_end.controller;
 
 import com.machines.machines_front_end.clients.SubcategoryClient;
 import com.machines.machines_front_end.dtos.request.SubcategoryRequestDTO;
+import com.machines.machines_front_end.dtos.response.CategoryAdminResponseDTO;
+import com.machines.machines_front_end.dtos.response.SubcategoryAdminResponseDTO;
 import com.machines.machines_front_end.dtos.response.SubcategoryResponseDTO;
 import com.machines.machines_front_end.clients.CategoryClient;
 import com.machines.machines_front_end.dtos.response.CategoryResponseDTO;
@@ -51,8 +53,8 @@ public class SubcategoryController {
 
     @GetMapping
     public String listSubcategories(Model model) {
-        List<SubcategoryResponseDTO> subcategories = subcategoryClient.getAll();
-        List<CategoryResponseDTO> categories = categoryClient.getAll();
+        List<SubcategoryAdminResponseDTO> subcategories = subcategoryClient.getAllAdmin();
+        List<CategoryAdminResponseDTO> categories = categoryClient.getAllAdmin();
 
         // Create a map for quick lookup of category names by categoryId
         Map<UUID, String> categoryNameMap = categories.stream()
