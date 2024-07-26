@@ -40,6 +40,14 @@
                                             </a><br>
                                         </div>
                                         <br>
+                                        <!-- Toggle switch for active/inactive entities -->
+                                        <div class="form-check form-switch" style="text-align: center;">
+                                            <input class="form-check-input" type="checkbox"
+                                                   id="toggleActiveInactive">
+                                            <label class="form-check-label" for="toggleActiveInactive">Покажи
+                                                неизтритите записи</label>
+                                        </div>
+                                        <br>
                                         <div class="table-responsive">
                                             <table id="example" class="table table-striped">
                                                 <thead>
@@ -67,13 +75,16 @@
                                                         <th:block th:if="${subcategory.deletedAt == null}">
                                                             <form th:action="@{/subcategories/delete/{id}(id=${subcategory.id})}"
                                                                   method="post" style="display:inline;">
-                                                                <button type="submit" class="btn btn-danger">Изтрий</button>
+                                                                <button type="submit" class="btn btn-danger">Изтрий
+                                                                </button>
                                                             </form>
                                                         </th:block>
                                                         <th:block th:if="${subcategory.deletedAt != null}">
                                                             <form th:action="@{/subcategories/delete/{id}(id=${subcategory.id})}"
                                                                   method="post" style="display:inline;">
-                                                                <button type="submit" class="btn btn-success">Възстанови</button>
+                                                                <button type="submit" class="btn btn-success">
+                                                                    Възстанови
+                                                                </button>
                                                             </form>
                                                         </th:block>
                                                     </td>
@@ -116,7 +127,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize DataTables with Bootstrap pagination
-        $('#example').DataTable({
+        var table = $('#example').DataTable({
             paging: true,
             lengthChange: false,
             pageLength: 5,
@@ -126,6 +137,26 @@
                     next: '»'
                 }
             }
+        });
+
+        // Toggle between active and inactive entities
+        $('#toggleActiveInactive').on('change', function() {
+            var showActive = $(this).prop('checked');
+            table.rows().every(function() {
+                var row = this.node();
+                var deletedAt = $(row).find('td:nth-child(5)').text().trim();
+                if (showActive) {
+                    // Show active entities
+                    if (deletedAt) {
+                        $(row).hide();
+                    } else {
+                        $(row).show();
+                    }
+                } else {
+                    // Show all entities
+                    $(row).show();
+                }
+            });
         });
     });
 </script>
