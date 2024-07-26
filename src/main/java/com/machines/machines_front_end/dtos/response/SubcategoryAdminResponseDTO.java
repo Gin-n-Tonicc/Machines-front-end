@@ -12,5 +12,4 @@ import java.time.LocalDateTime;
 public class SubcategoryAdminResponseDTO extends SubcategoryResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private LocalDateTime deletedAt;
 }

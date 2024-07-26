@@ -15,7 +15,5 @@ import java.util.UUID;
 public class SubcategoryResponseDTO extends SubcategoryDTO {
     private UUID id;
     private UUID categoryId;
-
-    @JsonIgnore
     private LocalDateTime deletedAt;
 }

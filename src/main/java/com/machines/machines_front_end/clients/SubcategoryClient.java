@@ -5,6 +5,7 @@ import com.machines.machines_front_end.dtos.response.SubcategoryAdminResponseDTO
 import com.machines.machines_front_end.dtos.response.SubcategoryResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,9 @@ public interface SubcategoryClient {
 
     @GetMapping("/{id}")
     SubcategoryResponseDTO getById(@PathVariable UUID id);
+
+    @GetMapping("/{id}/admin")
+    SubcategoryAdminResponseDTO getByIdAdmin(@PathVariable UUID id);
 
     @PostMapping("/create")
     SubcategoryResponseDTO create(@Valid @RequestBody SubcategoryRequestDTO subcategoryRequestDTO);

@@ -19,6 +19,9 @@ public interface CategoryClient {
     @GetMapping("/{id}")
     CategoryResponseDTO getById(@PathVariable UUID id);
 
+    @GetMapping("/{id}/admin")
+    CategoryAdminResponseDTO getByIdAdmin(@PathVariable UUID id);
+
     @PostMapping("/create")
     CategoryResponseDTO create(@Valid @RequestBody CategoryRequestDTO categoryRequestDTO);
 

@@ -69,8 +69,8 @@ public class SubcategoryController {
 
     @GetMapping("/update/{id}")
     public String showUpdateSubcategoryForm(@PathVariable UUID id, Model model) {
-        SubcategoryResponseDTO subcategory = subcategoryClient.getById(id);
-        List<CategoryResponseDTO> categories = categoryClient.getAll();
+        SubcategoryAdminResponseDTO subcategory = subcategoryClient.getByIdAdmin(id);
+        List<CategoryAdminResponseDTO> categories = categoryClient.getAllAdmin();
         model.addAttribute("subcategory", subcategory);
         model.addAttribute("categories", categories); // Pass categories to the view
         return "subcategories/update"; // Thymeleaf view name

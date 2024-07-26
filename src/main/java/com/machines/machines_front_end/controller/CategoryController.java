@@ -52,7 +52,7 @@ public class CategoryController {
 
     @GetMapping("/update/{id}")
     public String showUpdateCategoryForm(@PathVariable UUID id, Model model) {
-        CategoryResponseDTO category = categoryClient.getById(id);
+        CategoryResponseDTO category = categoryClient.getByIdAdmin(id);
         model.addAttribute("category", category);
         return "categories/update";
     }

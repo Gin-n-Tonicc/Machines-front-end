@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no">
     <title>Категории</title>
-    <link href="https://cdn.datatables.net/2.1.2/css/dataTables.bootstrap5.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <th:block th:insert="~{fragments/links}"></th:block>
     <link rel="stylesheet" th:href="@{/css/toast.css}">
 </head>
@@ -62,15 +62,20 @@
                                                             <button type="button" class="btn btn-info">Редактирай
                                                             </button>
                                                         </a>
-                                                        <form th:action="@{/categories/delete/{id}(id=${category.id})}"
-                                                              method="post" style="display:inline">
-                                                            <button class="btn btn-danger" type="submit">Изтрий</button>
-                                                        </form>
+                                                        <th:block th:if="${category.deletedAt == null}">
+                                                            <form th:action="@{/categories/delete/{id}(id=${category.id})}"
+                                                                  method="post" style="display:inline;">
+                                                                <button type="submit" class="btn btn-danger">Изтрий</button>
+                                                            </form>
+                                                        </th:block>
+                                                        <th:block th:if="${category.deletedAt != null}">
+                                                            <form th:action="@{/categories/delete/{id}(id=${category.id})}"
+                                                                  method="post" style="display:inline;">
+                                                                <button type="submit" class="btn btn-success">Възстанови</button>
+                                                            </form>
+                                                        </th:block>
                                                     </td>
                                                 </tr>
-                                                </tbody>
-                                                <tbody id="tableBody">
-                                                <!-- Table rows will be injected by JavaScript -->
                                                 </tbody>
                                             </table>
                                         </div>
@@ -96,69 +101,30 @@
 <th:block th:insert="~{fragments/footer}"></th:block>
 <!-- Include the toast.js file -->
 <script th:src="@{/js/toast.js}"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <!-- Bootstrap JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
 <!-- DataTables JavaScript -->
-<script src="https://cdn.datatables.net/2.1.2/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.1.2/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 
-<!-- Initialize DataTables and Custom Pagination -->
+<!-- Initialize DataTables -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize DataTables
-        const table = new DataTable('#example');
-
-        // Custom pagination script
-        const rowsPerPage = 20;
-        const tableBody = document.getElementById('tableBody');
-        const paginationControls = document.getElementById('paginationControls');
-
-        // Get all rows
-        const rows = Array.from(document.querySelectorAll('#example tbody tr'));
-
-        // Function to render the current page
-        function renderPage(pageNumber) {
-            // Calculate start and end indices of rows to display
-            const start = (pageNumber - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-
-            // Hide all rows
-            rows.forEach(row => row.style.display = 'none');
-
-            // Show only the rows for the current page
-            rows.slice(start, end).forEach(row => row.style.display = '');
-
-            // Update pagination controls
-            updatePaginationControls(pageNumber);
-        }
-
-        // Function to update pagination controls
-        function updatePaginationControls(currentPage) {
-            // Calculate number of pages
-            const numberOfPages = Math.ceil(rows.length / rowsPerPage);
-
-            // Create pagination controls
-            paginationControls.innerHTML = '';
-
-            for (let i = 1; i <= numberOfPages; i++) {
-                const button = document.createElement('button');
-                button.textContent = i;
-                button.className = 'page-btn btn btn-primary';
-                button.disabled = i === currentPage;
-
-                button.addEventListener('click', () => {
-                    renderPage(i);
-                });
-
-                paginationControls.appendChild(button);
+        // Initialize DataTables with Bootstrap pagination
+        $('#example').DataTable({
+            paging: true,
+            lengthChange: false,
+            pageLength: 5,
+            language: {
+                paginate: {
+                    previous: '«',
+                    next: '»'
+                }
             }
-        }
-
-        // Render the first page by default
-        renderPage(1);
+        });
     });
 </script>
 </body>
