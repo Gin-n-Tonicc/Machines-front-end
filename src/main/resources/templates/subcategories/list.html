@@ -22,8 +22,7 @@
         <div id="toast" class="toast"></div>
 
         <!-- Hidden error message container for Thymeleaf -->
-        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
-            appear here</p>
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will appear here</p>
         <div class="block">
             <div class="container">
                 <div>
@@ -35,17 +34,27 @@
                                     <div style="text-align: center;">
                                         <div>
                                             <a href="/subcategories/create">
-                                                <button type="button" class="btn btn-primary">Създай нова подкатегория
-                                                </button>
+                                                <button type="button" class="btn btn-primary">Създай нова подкатегория</button>
                                             </a><br>
                                         </div>
                                         <br>
                                         <!-- Toggle switch for active/inactive entities -->
                                         <div class="form-check form-switch" style="text-align: center;">
-                                            <input class="form-check-input" type="checkbox"
-                                                   id="toggleActiveInactive">
-                                            <label class="form-check-label" for="toggleActiveInactive">Покажи
-                                                неизтритите записи</label>
+                                            <input class="form-check-input" type="checkbox" id="toggleActiveInactive">
+                                            <label class="form-check-label" for="toggleActiveInactive">Покажи неизтритите записи</label>
+                                        </div>
+                                        <br>
+                                        <!-- Dropdown for page length selection -->
+                                        <div class="form-group" style="text-align: center;">
+                                            <label for="pageLengthSelect">Брой записи:</label>
+                                            <select id="pageLengthSelect" class="form-select" style="display: inline-block; width: auto;">
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
                                         </div>
                                         <br>
                                         <div class="table-responsive">
@@ -63,28 +72,20 @@
                                                 <tbody>
                                                 <tr th:each="subcategory : ${subcategories}">
                                                     <td th:text="${subcategory.name}"></td>
-                                                    <td th:text="${categoryNameMap[subcategory.categoryId]}">Име на
-                                                        категория
-                                                    </td>
+                                                    <td th:text="${categoryNameMap[subcategory.categoryId]}">Име на категория</td>
                                                     <td th:text="${subcategory.createdAt}"></td>
                                                     <td th:text="${subcategory.updatedAt}"></td>
                                                     <td th:text="${subcategory.deletedAt}"></td>
                                                     <td>
-                                                        <a th:href="@{/subcategories/update/{id}(id=${subcategory.id})}"
-                                                           class="btn btn-info">Редактирай</a>
+                                                        <a th:href="@{/subcategories/update/{id}(id=${subcategory.id})}" class="btn btn-info">Редактирай</a>
                                                         <th:block th:if="${subcategory.deletedAt == null}">
-                                                            <form th:action="@{/subcategories/delete/{id}(id=${subcategory.id})}"
-                                                                  method="post" style="display:inline;">
-                                                                <button type="submit" class="btn btn-danger">Изтрий
-                                                                </button>
+                                                            <form th:action="@{/subcategories/delete/{id}(id=${subcategory.id})}" method="post" style="display:inline;">
+                                                                <button type="submit" class="btn btn-danger">Изтрий</button>
                                                             </form>
                                                         </th:block>
                                                         <th:block th:if="${subcategory.deletedAt != null}">
-                                                            <form th:action="@{/subcategories/delete/{id}(id=${subcategory.id})}"
-                                                                  method="post" style="display:inline;">
-                                                                <button type="submit" class="btn btn-success">
-                                                                    Възстанови
-                                                                </button>
+                                                            <form th:action="@{/subcategories/delete/{id}(id=${subcategory.id})}" method="post" style="display:inline;">
+                                                                <button type="submit" class="btn btn-success">Възстанови</button>
                                                             </form>
                                                         </th:block>
                                                     </td>
@@ -97,8 +98,7 @@
                                 <th:block th:if="${session.sessionRole != 'ADMIN'}">
                                     <div class="site">
                                         <h1 style="text-align: center;">Отказан достъп</h1>
-                                        <p style="text-align: center;">Само администраторите на платформата имат достъп
-                                            до тази страница!</p>
+                                        <p style="text-align: center;">Само администраторите на платформата имат достъп до тази страница!</p>
                                     </div>
                                 </th:block>
                             </div>
@@ -126,7 +126,7 @@
 <!-- Initialize DataTables -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize DataTables with Bootstrap pagination
+        // Initialize DataTables with default page length
         var table = $('#example').DataTable({
             paging: true,
             lengthChange: false,
@@ -137,6 +137,12 @@
                     next: '»'
                 }
             }
+        });
+
+        // Handle page length change
+        $('#pageLengthSelect').on('change', function() {
+            var pageLength = $(this).val();
+            table.page.len(parseInt(pageLength)).draw();
         });
 
         // Toggle between active and inactive entities
@@ -157,7 +163,7 @@
                     $(row).show();
                 }
             });
-        });
+        }).trigger('change');  // Trigger change event on page load to ensure initial state
     });
 </script>
 </body>
