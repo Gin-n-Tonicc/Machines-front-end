@@ -1,6 +1,5 @@
 package com.machines.machines_front_end.dtos.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.machines.machines_front_end.dtos.CityDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

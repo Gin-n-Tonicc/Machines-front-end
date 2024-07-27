@@ -3,8 +3,9 @@ package com.machines.machines_front_end.controller;
 import com.machines.machines_front_end.clients.CountryClient;
 import com.machines.machines_front_end.clients.RegionClient;
 import com.machines.machines_front_end.dtos.request.RegionRequestDTO;
-import com.machines.machines_front_end.dtos.request.RegionRequestDTO;
-import com.machines.machines_front_end.dtos.response.*;
+import com.machines.machines_front_end.dtos.response.CountryAdminResponseDTO;
+import com.machines.machines_front_end.dtos.response.CountryResponseDTO;
+import com.machines.machines_front_end.dtos.response.RegionAdminResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -68,7 +69,7 @@ public class RegionController {
     @GetMapping("/update/{id}")
     public String showUpdateRegionForm(@PathVariable UUID id, Model model) {
         RegionAdminResponseDTO region = regionClient.getByIdAdmin(id);
-        List<CountryAdminResponseDTO> countries = countryClient.getAllAdmin(false);
+        List<CountryResponseDTO> countries = countryClient.getAll(false);
         model.addAttribute("region", region);
         model.addAttribute("countries", countries); // Pass countries to the view
         return "regions/update"; // Thymeleaf view name
@@ -85,10 +86,10 @@ public class RegionController {
                     : e.getMessage();
             model.addAttribute("error", errorMessage);
             List<CountryResponseDTO> countries = countryClient.getAll(false);
-            RegionResponseDTO region = regionClient.getById(id);
+            RegionAdminResponseDTO regionAdminResponseDTO = regionClient.getByIdAdmin(id);
 
             model.addAttribute("countries", countries);
-            model.addAttribute("region", region);
+            model.addAttribute("region", regionAdminResponseDTO);
             return "regions/update";
         }
     }

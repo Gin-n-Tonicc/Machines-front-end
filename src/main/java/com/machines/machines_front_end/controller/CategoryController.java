@@ -66,8 +66,10 @@ public class CategoryController {
             String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
                     ? e.getCause().getMessage()
                     : e.getMessage();
+
+            CategoryAdminResponseDTO categoryAdminResponseDTO = categoryClient.getByIdAdmin(id);
             model.addAttribute("error", errorMessage);
-            model.addAttribute("category", categoryDTO);
+            model.addAttribute("category", categoryAdminResponseDTO);
             return "categories/update";
         }
     }

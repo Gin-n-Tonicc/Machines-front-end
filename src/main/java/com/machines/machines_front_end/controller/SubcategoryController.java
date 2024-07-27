@@ -1,12 +1,11 @@
 package com.machines.machines_front_end.controller;
 
+import com.machines.machines_front_end.clients.CategoryClient;
 import com.machines.machines_front_end.clients.SubcategoryClient;
 import com.machines.machines_front_end.dtos.request.SubcategoryRequestDTO;
 import com.machines.machines_front_end.dtos.response.CategoryAdminResponseDTO;
-import com.machines.machines_front_end.dtos.response.SubcategoryAdminResponseDTO;
-import com.machines.machines_front_end.dtos.response.SubcategoryResponseDTO;
-import com.machines.machines_front_end.clients.CategoryClient;
 import com.machines.machines_front_end.dtos.response.CategoryResponseDTO;
+import com.machines.machines_front_end.dtos.response.SubcategoryAdminResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -70,7 +69,7 @@ public class SubcategoryController {
     @GetMapping("/update/{id}")
     public String showUpdateSubcategoryForm(@PathVariable UUID id, Model model) {
         SubcategoryAdminResponseDTO subcategory = subcategoryClient.getByIdAdmin(id);
-        List<CategoryAdminResponseDTO> categories = categoryClient.getAllAdmin();
+        List<CategoryResponseDTO> categories = categoryClient.getAll();
         model.addAttribute("subcategory", subcategory);
         model.addAttribute("categories", categories); // Pass categories to the view
         return "subcategories/update"; // Thymeleaf view name
@@ -87,7 +86,7 @@ public class SubcategoryController {
                     : e.getMessage();
             model.addAttribute("error", errorMessage);
             List<CategoryResponseDTO> categories = categoryClient.getAll();
-            SubcategoryResponseDTO subcategory = subcategoryClient.getById(id);
+            SubcategoryAdminResponseDTO subcategory = subcategoryClient.getByIdAdmin(id);
 
             model.addAttribute("categories", categories);
             model.addAttribute("subcategory", subcategory);

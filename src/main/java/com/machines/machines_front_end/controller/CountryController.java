@@ -64,8 +64,10 @@ public class CountryController {
             String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
                     ? e.getCause().getMessage()
                     : e.getMessage();
+
+            CountryAdminResponseDTO countryAdminResponseDTO = countryClient.getByIdAdmin(id);
             model.addAttribute("error", errorMessage);
-            model.addAttribute("country", countryDTO);
+            model.addAttribute("country", countryAdminResponseDTO);
             return "countries/update";
         }
     }
