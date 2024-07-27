@@ -16,7 +16,6 @@ public interface CountryClient {
     List<CountryResponseDTO> getAll(@RequestParam(defaultValue = "false") boolean includeRegions);
 
     @GetMapping("/all/admin")
-//    @PreAuthorize("hasRole('ADMIN')")
     List<CountryAdminResponseDTO> getAllAdmin(@RequestParam(defaultValue = "false") boolean includeRegions);
 
     @GetMapping("/{id}/admin")

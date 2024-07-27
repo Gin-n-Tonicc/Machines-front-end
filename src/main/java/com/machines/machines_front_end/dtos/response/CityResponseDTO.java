@@ -16,6 +16,5 @@ public class CityResponseDTO extends CityDTO {
     private UUID id;
     private UUID regionId;
 
-    @JsonIgnore
     private LocalDateTime deletedAt;
 }
