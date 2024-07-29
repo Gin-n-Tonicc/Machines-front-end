@@ -41,4 +41,12 @@ public class OfferDTO extends BaseDTO {
     private String dimensions;
     private double ownWeight;
     private String workMoves;
+
+    public boolean isBulgarian() {
+        return isBulgarian;
+    }
+
+    public void setBulgarian(boolean bulgarian) {
+        isBulgarian = bulgarian;
+    }
 }

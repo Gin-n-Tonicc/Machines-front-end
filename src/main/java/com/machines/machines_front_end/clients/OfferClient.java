@@ -1,12 +1,13 @@
 package com.machines.machines_front_end.clients;
 
 import com.machines.machines_front_end.dtos.request.OfferRequestDTO;
-import com.machines.machines_front_end.dtos.response.OfferAdminResponseDTO;
 import com.machines.machines_front_end.dtos.response.OfferResponseDTO;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,9 +23,9 @@ public interface OfferClient {
     @GetMapping("/{id}")
     OfferResponseDTO getById(@PathVariable UUID id);
 
-//    @PostMapping("/create")
-//    OfferResponseDTO create(@Valid @RequestBody OfferRequestDTO offerRequestDTO, HttpServletRequest httpServletRequest);
-//
+    @PostMapping("/create")
+    OfferResponseDTO create(@RequestBody OfferRequestDTO offerRequestDTO);
+
 //    @PutMapping("/{id}")
 //    OfferResponseDTO update(@PathVariable UUID id, @Valid @RequestBody OfferRequestDTO offerRequestDTO, HttpServletRequest httpServletRequest);
 //
