@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>Редактирай регион</title>
+    <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- site__body -->
+    <div class="site__body">
+        <!-- Toast notification container -->
+        <div id="toast" class="toast"></div>
+
+        <!-- Hidden error message container for Thymeleaf -->
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
+            appear here</p>
+        <div class="block">
+            <div class="container">
+                <div>
+                    <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
+                        <div class="card flex-grow-1 mb-md-0">
+                            <div class="card-body">
+                                <th:block th:if="${session.sessionRole == 'ADMIN'}">
+                                    <h3 class="card-title" style="text-align: center;">Редактирай регион</h3>
+                                    <div style="text-align: center;">
+                                        <form th:action="@{/regions/update/{id}(id=${region.id})}"
+                                              th:object="${region}" method="post">
+                                            <div class="form-group">
+                                                <label>Име</label>
+                                                <input type="text" id="name" name="name" th:field="*{name}"
+                                                       class="form-control"
+                                                       placeholder="Въведи името на регионта" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="countryId">Държава:</label>
+                                                <select id="countryId" th:field="*{countryId}" class="form-control"
+                                                        required>
+                                                    <option th:each="country : ${countries}"
+                                                            th:value="${country.id}"
+                                                            th:text="${country.name}"
+                                                            th:selected="${country.id == region.countryId}"></option>
+                                                </select>
+                                            </div>
+                                            <div id="error-message" style="color: red;"></div>
+                                            <button type="submit" class="btn btn-primary mt-4"
+                                                    style="text-align: center;">
+                                                Редактирай регион
+                                            </button>
+                                        </form>
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${session.sessionRole != 'ADMIN'}">
+                                    <div class="site">
+                                        <h1 style="text-align: center;">Отказан достъп</h1>
+                                        <p style="text-align: center;">Само администраторите на платформата имат достъп
+                                            до тази страница!</p>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- site__body / end -->
+    <!-- site__footer -->
+    <th:block th:insert="~{fragments/footer}"></th:block>
+</div>
+<!-- Include the toast.js file -->
+<script th:src="@{/js/toast.js}"></script>
+</body>
+</html>
+

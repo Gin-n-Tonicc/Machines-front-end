@@ -1,6 +1,6 @@
 package com.machines.machines_front_end.dtos.response;
 
-import com.machines.machines_front_end.dtos.SubcategoryDTO;
+import com.machines.machines_front_end.dtos.CityDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -11,8 +11,9 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class SubcategoryResponseDTO extends SubcategoryDTO {
+public class CityResponseDTO extends CityDTO {
     private UUID id;
-    private UUID categoryId;
+    private UUID regionId;
+
     private LocalDateTime deletedAt;
 }
