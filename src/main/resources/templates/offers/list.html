@@ -981,7 +981,16 @@
                                     <div th:each="offer : ${offers}" class="products-list__item">
                                         <div class="product-card product-card--hidden-actions">
                                             <div class="product-card__badges-list">
-<!--                                                <div class="product-card__badge product-card__badge&#45;&#45;new" th:if="${offer.isBulgarian}"></div>-->
+                                                <div th:switch="${offer.offerState.name()}">
+                                                    <div th:case="'NEW'" class="product-card__badge product-card__badge--new">НОВ</div>
+                                                    <div th:case="'NEW_IMPORTATION'" class="product-card__badge product-card__badge--hot">НОВ ВНОС</div>
+                                                    <div th:case="'USED'" class="product-card__badge product-card__badge--sale">ИЗПОЛЗВАНО</div>
+                                                </div>
+                                                <div th:switch="${offer.OfferSaleType.name()}">
+                                                    <div th:case="'SALE'" class="product-card__badge product-card__badge--new">ЗА ПРОДАН</div>
+                                                    <div th:case="'FOR_RENT'" class="product-card__badge product-card__badge--hot">ПОД НАЕМ</div>
+                                                    <div th:case="'SERVICES'" class="product-card__badge product-card__badge--sale">УСЛУГИ</div>
+                                                </div>
                                             </div>
                                             <div class="product-card__image product-image">
                                                 <a class="product-image__body">
