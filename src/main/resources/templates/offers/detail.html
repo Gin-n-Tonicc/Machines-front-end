@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>Детайли</title>
+    <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- site__body -->
+    <div class="site__body">
+        <div class="page-header">
+            <div class="page-header__container container">
+                <div class="page-header__breadcrumb">
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <div class="container">
+                <div class="product product--layout--standard" data-layout="standard">
+                    <div class="product__content">
+                        <!-- .product__gallery -->
+                        <div class="product__gallery">
+                            <div class="product-gallery">
+                                <!-- Featured Image Carousel -->
+                                <div class="product-gallery__featured">
+                                    <button class="product-gallery__zoom">
+                                        <svg width="24px" height="24px">
+                                            <use xlink:href="images/sprite.svg#zoom-in-24"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="owl-carousel" id="product-image">
+                                        <div class="product-image product-image--location--gallery">
+                                            <a th:href="@{${offer.mainPicture.path}}" data-width="700" data-height="700"
+                                               class="product-image__body" target="_blank">
+                                                <img th:src="@{${offer.mainPicture.path}}" class="product-image__img"
+                                                     alt="Main Image">
+                                            </a>
+                                        </div>
+                                        <div th:each="picture : ${offer.pictures}">
+                                            <div class="product-image product-image--location--gallery">
+                                                <a th:href="@{${picture.path}}" data-width="700" data-height="700"
+                                                   class="product-image__body" target="_blank">
+                                                    <img th:src="@{${picture.path}}" class="product-image__img"
+                                                         alt="Additional Image">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Thumbnail Carousel -->
+                                <div class="product-gallery__carousel">
+                                    <div class="owl-carousel" id="product-carousel">
+                                        <a th:href="@{${offer.mainPicture.path}}"
+                                           class="product-image product-gallery__carousel-item">
+                                            <div class="product-image__body">
+                                                <img th:src="@{${offer.mainPicture.path}}"
+                                                     class="product-image__img product-gallery__carousel-image"
+                                                     alt="Main Image">
+                                            </div>
+                                        </a>
+                                        <div th:each="picture : ${offer.pictures}">
+                                            <a th:href="@{${picture.path}}"
+                                               class="product-image product-gallery__carousel-item">
+                                                <div class="product-image__body">
+                                                    <img th:src="@{${picture.path}}"
+                                                         class="product-image__img product-gallery__carousel-image"
+                                                         alt="Additional Image">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .product__gallery / end -->
+
+                        <!-- .product__info -->
+                        <div class="product__info">
+                            <h1 class="product__name" th:text="${offer.title}"></h1>
+                            <br><br>
+                            <div class="spec__section">
+                                <h3 class="spec__section-title">Общи характерискити </h3>
+                                <table class="product__meta-table">
+                                    <tbody>
+                                    <tr>
+                                        <td class="spec__name">Цена</td>
+                                        <td class="spec__value" th:text="'лв.' + ${offer.price}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="spec__name">Собственик на обявата</td>
+                                        <td class="spec__value"
+                                            th:text="${offer.owner.name} + ' ' + ${offer.owner.surname}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="spec__name">Тел. за връзка</td>
+                                        <td class="spec__value" th:text="${offer.phoneNumber}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="spec__name">Град</td>
+                                        <td class="spec__value" th:text="${offer.city.name}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="spec__name">Категория</td>
+                                        <td class="spec__value" th:text="${offer.subcategory.name}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="spec__name">Уеб сайт</td>
+                                        <td class="spec__value" th:text="${offer.websiteURL}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="spec__name">Българско</td>
+                                        <td class="spec__value" th:text="${offer.isBulgarian ? 'ДА' : 'НЕ'}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="product-card__actions">
+                            <h4 class="product-card__prices" th:text="'Цена: лв.' + ${offer.price}"></h4>
+                        </div>
+                        <div class="product__footer">
+                            <div class="product__tags tags">
+                                <div class="tags__list">
+                                    <!-- Include tags if applicable -->
+                                </div>
+                            </div>
+                            <div class="product__share-links share-links">
+                                <ul class="share-links__list">
+                                    <!-- Include share links if applicable -->
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- .product__footer / end -->
+                    </div>
+                    <div class="product-tabs  product-tabs--sticky">
+                        <div class="product-tabs__list">
+                            <div class="product-tabs__list-body">
+                                <div class="product-tabs__list-container container">
+                                    <a href="#tab-description" class="product-tabs__item product-tabs__item--active">Описание</a>
+                                    <a href="#tab-specification" class="product-tabs__item">Характерискити</a>
+                                    <a href="#tab-more" class="product-tabs__item">Допълнителни характерискити</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-tabs__content">
+                        <div class="product-tabs__content">
+                            <div class="product-tabs__pane product-tabs__pane--active" id="tab-description">
+                                <div class="typography">
+                                    <h3>Описание на продукта</h3>
+                                    <div class="product__description" th:text="${offer.description}"></div>
+                                </div>
+                            </div>
+                            <div class="product-tabs__pane" id="tab-specification">
+                                <div class="spec__section">
+                                    <h2 class="spec__section-title">Общи характерискити </h2>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Цена</div>
+                                        <div class="spec__value" th:text="'лв.' + ${offer.price}"></div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Собственик на обявата</div>
+                                        <div class="spec__value"
+                                             th:text="${offer.owner.name} + ' ' + ${offer.owner.surname}"></div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Тел. за връзка</div>
+                                        <div class="spec__value" th:text="${offer.phoneNumber}"></div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Град</div>
+                                        <div class="spec__value" th:text="${offer.city.name}"></div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Категория</div>
+                                        <div class="spec__value" th:text="${offer.subcategory.name}"></div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Уеб сайт</div>
+                                        <div class="spec__value" th:text="${offer.websiteURL}"></div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Българско</div>
+                                        <div class="spec__value" th:text="${offer.isBulgarian ? 'ДА' : 'НЕ'}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-tabs__pane" id="tab-more">
+                                <!-- Product Meta -->
+                                <h2 class="spec__section-title">Допълнителни характерискити</h2>
+                                <div class="spec__section">
+                                    <div class="spec__row" th:if="${offer.model != null}">
+                                        <div class="spec__name">Модел</div>
+                                        <div class="spec__value" th:text="${offer.model}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.manufactureYear != null}">
+                                        <div class="spec__name">Година на производство</div>
+                                        <div class="spec__value" th:text="${offer.manufactureYear}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.powerSupplyVoltage != null}">
+                                        <div class="spec__name">Захранващо напрежение</div>
+                                        <div class="spec__value" th:text="${offer.powerSupplyVoltage}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.fuelType != null}">
+                                        <div class="spec__name">Тип гориво</div>
+                                        <div class="spec__value" th:text="${offer.fuelType}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.horsePower != null}">
+                                        <div class="spec__name">Конс. мощност</div>
+                                        <div class="spec__value" th:text="${offer.horsePower}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.consumption != null}">
+                                        <div class="spec__name">Консумация</div>
+                                        <div class="spec__value" th:text="${offer.consumption}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.outputPower != null}">
+                                        <div class="spec__name">Изх. мощност</div>
+                                        <div class="spec__value" th:text="${offer.outputPower}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.productivity != null}">
+                                        <div class="spec__name">Производителност (капацитет, дебит)</div>
+                                        <div class="spec__value" th:text="${offer.productivity}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.capacity != null}">
+                                        <div class="spec__name">Товароносимост</div>
+                                        <div class="spec__value" th:text="${offer.capacity}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.minRevolutions != null}">
+                                        <div class="spec__name">Мин. обороти</div>
+                                        <div class="spec__value" th:text="${offer.minRevolutions}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.nominalRevolutions != null}">
+                                        <div class="spec__name">Ном. обороти</div>
+                                        <div class="spec__value" th:text="${offer.nominalRevolutions}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.maxRevolutions != null}">
+                                        <div class="spec__name">Макс. обороти</div>
+                                        <div class="spec__value" th:text="${offer.maxRevolutions}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.dimensions != null}">
+                                        <div class="spec__name">Габаритни размери</div>
+                                        <div class="spec__value" th:text="${offer.dimensions}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.ownWeight != null}">
+                                        <div class="spec__name">Собствена маса</div>
+                                        <div class="spec__value" th:text="${offer.ownWeight}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.workMoves != null}">
+                                        <div class="spec__name">Работни ходове</div>
+                                        <div class="spec__value" th:text="${offer.workMoves}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- site__body / end -->
+<!-- site__footer -->
+</div>
+</div>
+</div>
+<th:block th:insert="~{fragments/footer}"></th:block>
+<!-- Include the toast.js file -->
+<script th:src="@{/js/toast.js}"></script>
+</body>
+</html>

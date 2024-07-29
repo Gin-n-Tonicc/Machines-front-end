@@ -47,7 +47,7 @@ public class CategoryController {
     public String listCategories(Model model) {
         List<CategoryAdminResponseDTO> categories = categoryClient.getAllAdmin();
         model.addAttribute("categories", categories);
-        return "categories/list";
+        return "categories/list.html";
     }
 
     @GetMapping("/update/{id}")
