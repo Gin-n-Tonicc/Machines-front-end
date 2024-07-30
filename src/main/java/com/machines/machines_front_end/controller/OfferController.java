@@ -7,6 +7,7 @@ import com.machines.machines_front_end.clients.SubcategoryClient;
 import com.machines.machines_front_end.dtos.File;
 import com.machines.machines_front_end.dtos.request.OfferRequestDTO;
 import com.machines.machines_front_end.dtos.response.OfferResponseDTO;
+import com.machines.machines_front_end.dtos.response.OfferSingleResponseDTO;
 import com.machines.machines_front_end.enums.OfferSaleType;
 import com.machines.machines_front_end.enums.OfferState;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;

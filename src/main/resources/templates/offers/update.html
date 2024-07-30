@@ -38,14 +38,14 @@
                                               method="post" enctype="multipart/form-data">
                                             <!-- Product/Ad Name -->
                                             <div class="form-group">
-                                                <label for="title">Product/Ad Name:</label>
+                                                <label for="title">Име на продукта/обявата:</label>
                                                 <input type="text" id="title" name="title" th:field="*{title}"
                                                        class="form-control" placeholder="Product/Ad Name" required>
                                             </div>
 
                                             <!-- Phone Number -->
                                             <div class="form-group">
-                                                <label for="phoneNumber">Phone Number:</label>
+                                                <label for="phoneNumber">Телефонен номер:</label>
                                                 <input type="text" id="phoneNumber" name="phoneNumber"
                                                        th:field="*{phoneNumber}" class="form-control"
                                                        placeholder="Phone Number" required>
@@ -53,7 +53,7 @@
 
                                             <!-- Description -->
                                             <div class="form-group">
-                                                <label for="description">Description:</label>
+                                                <label for="description">Описание на обявата:</label>
                                                 <textarea id="description" name="description" th:field="*{description}"
                                                           class="form-control" placeholder="Description"
                                                           required></textarea>
@@ -61,7 +61,7 @@
 
                                             <!-- Website URL -->
                                             <div class="form-group">
-                                                <label for="websiteURL">Website URL:</label>
+                                                <label for="websiteURL">Вашият уеб сайт линк:</label>
                                                 <input type="url" id="websiteURL" name="websiteURL"
                                                        th:field="*{websiteURL}"
                                                        class="form-control" placeholder="Website URL" required>
@@ -69,7 +69,7 @@
 
                                             <!-- Price -->
                                             <div class="form-group">
-                                                <label for="price">Price:</label>
+                                                <label for="price">Цена:</label>
                                                 <input type="number" id="price" name="price" th:field="*{price}"
                                                        class="form-control" placeholder="Price" step="0.01" required>
                                             </div>
@@ -78,12 +78,12 @@
                                             <div class="form-group">
                                                 <input type="checkbox" id="bulgarian" name="bulgarian"
                                                        th:field="*{bulgarian}" class="form-check-input">
-                                                <label for="bulgarian">Is Bulgarian?</label>
+                                                <label for="bulgarian">Българско ли е?</label>
                                             </div>
 
                                             <!-- City -->
                                             <div class="form-group">
-                                                <label for="cityId">City:</label>
+                                                <label for="cityId">Град:</label>
                                                 <select id="cityId" th:field="*{cityId}" class="form-control" required>
                                                     <option th:each="city : ${cities}" th:value="${city.id}"
                                                             th:text="${city.name}"></option>
@@ -92,7 +92,7 @@
 
                                             <!-- Subcategory -->
                                             <div class="form-group">
-                                                <label for="subcategoryId">Category:</label>
+                                                <label for="subcategoryId">Категория:</label>
                                                 <select id="subcategoryId" th:field="*{subcategoryId}"
                                                         class="form-control"
                                                         required>
@@ -104,7 +104,7 @@
 
                                             <!--                                         Offer State -->
                                             <div class="form-group">
-                                                <label for="offerState">Offer State:</label>
+                                                <label for="offerState">Състояние на продукта:</label>
                                                 <select id="offerState" th:field="*{offerState}" class="form-control">
                                                     <option th:each="offerState : ${offerStates}"
                                                             th:value="${offerState}"
@@ -114,7 +114,7 @@
 
                                             <!-- Offer Sale Type -->
                                             <div class="form-group">
-                                                <label for="offerSaleType">Sale Type:</label>
+                                                <label for="offerSaleType">Състояние на обявата:</label>
                                                 <select id="offerSaleType" th:field="*{offerSaleType}"
                                                         class="form-control">
                                                     <option th:each="offerSaleType : ${offerSaleTypes}"
@@ -127,11 +127,11 @@
                                             <div class="form-group">
                                                 <input type="checkbox" id="autoUpdate" name="autoUpdate"
                                                        th:field="*{autoUpdate}" class="form-check-input">
-                                                <label for="autoUpdate">Auto Update</label>
+                                                <label for="autoUpdate">Автоматично подновяване</label>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="mainPicture">Main Picture:</label>
+                                                <label for="mainPicture">Главна снимка:</label>
                                                 <input type="file" id="mainPicture" name="mainPicture"
                                                        class="form-control" onchange="previewMainPicture(event)">
                                                 <img th:if="${mainPictureUrl}" id="mainPicturePreview"
@@ -141,7 +141,7 @@
 
                                             <!-- Additional Pictures -->
                                             <div class="form-group">
-                                                <label for="pictures">Additional Pictures:</label>
+                                                <label for="pictures">Допълнителни снимки към обявата:</label>
                                                 <input class="form-control" type="file" id="pictures" name="pictures"
                                                        multiple onchange="previewAdditionalPictures(event)">
                                                 <div th:if="${additionalPictureUrls}" id="additionalPicturesPreview"
@@ -154,30 +154,31 @@
                                             </div>
 
                                             <!-- Extra Info Toggle Button -->
-                                            <button type="button" class="btn btn-secondary" data-toggle="collapse"
+                                            <button type="button" class="btn btn-info" data-toggle="collapse"
                                                     data-target="#extraInfo">
-                                                Show/Hide Extra Info
+                                                Покажи
+                                                допълнителна информация
                                             </button>
 
                                             <!-- Extra Info -->
                                             <div id="extraInfo" class="collapse mt-4">
-                                                <h4>Additional Information</h4>
+                                                <h4>Допълнителна информация</h4>
 
                                                 <div class="form-group">
-                                                    <label for="manufactureYear">Manufacture Year:</label>
+                                                    <label for="manufactureYear">Година на производство:</label>
                                                     <input type="number" id="manufactureYear" name="manufactureYear"
                                                            th:field="*{manufactureYear}" class="form-control"
                                                            placeholder="Manufacture Year">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="model">Model:</label>
+                                                    <label for="model">Модел:</label>
                                                     <input type="text" id="model" name="model" th:field="*{model}"
                                                            class="form-control" placeholder="Model">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="powerSupplyVoltage">Power Supply Voltage:</label>
+                                                    <label for="powerSupplyVoltage">Захранващо напрежение:</label>
                                                     <input type="number" id="powerSupplyVoltage"
                                                            name="powerSupplyVoltage"
                                                            th:field="*{powerSupplyVoltage}" class="form-control"
@@ -185,56 +186,56 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="fuelType">Fuel Type:</label>
+                                                    <label for="fuelType">Тип гориво:</label>
                                                     <input type="text" id="fuelType" name="fuelType"
                                                            th:field="*{fuelType}"
                                                            class="form-control" placeholder="Fuel Type">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="horsePower">Horse Power:</label>
+                                                    <label for="horsePower">Конски сили:</label>
                                                     <input type="number" id="horsePower" name="horsePower"
                                                            th:field="*{horsePower}" class="form-control"
                                                            placeholder="Horse Power" step="0.01">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="consumption">Consumption:</label>
+                                                    <label for="consumption">Консумация:</label>
                                                     <input type="text" id="consumption" name="consumption"
                                                            th:field="*{consumption}" class="form-control"
                                                            placeholder="Consumption">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="outputPower">Output Power:</label>
+                                                    <label for="outputPower">Изходяща мощност:</label>
                                                     <input type="number" id="outputPower" name="outputPower"
                                                            th:field="*{outputPower}" class="form-control"
                                                            placeholder="Output Power" step="0.01">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="productivity">Productivity:</label>
+                                                    <label for="productivity">Производителност:</label>
                                                     <input type="text" id="productivity" name="productivity"
                                                            th:field="*{productivity}" class="form-control"
                                                            placeholder="Productivity">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="capacity">Capacity:</label>
+                                                    <label for="capacity">Капацитет:</label>
                                                     <input type="number" id="capacity" name="capacity"
                                                            th:field="*{capacity}" class="form-control"
                                                            placeholder="Capacity" step="0.01">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="minRevolutions">Minimum Revolutions:</label>
+                                                    <label for="minRevolutions">Минимални обороти:</label>
                                                     <input type="number" id="minRevolutions" name="minRevolutions"
                                                            th:field="*{minRevolutions}" class="form-control"
                                                            placeholder="Minimum Revolutions" step="0.01">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="nominalRevolutions">Nominal Revolutions:</label>
+                                                    <label for="nominalRevolutions">Номинални революции:</label>
                                                     <input type="number" id="nominalRevolutions"
                                                            name="nominalRevolutions"
                                                            th:field="*{nominalRevolutions}" class="form-control"
@@ -242,28 +243,28 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="maxRevolutions">Maximum Revolutions:</label>
+                                                    <label for="maxRevolutions">Максимални обороти:</label>
                                                     <input type="number" id="maxRevolutions" name="maxRevolutions"
                                                            th:field="*{maxRevolutions}" class="form-control"
                                                            placeholder="Maximum Revolutions" step="0.01">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="dimensions">Dimensions:</label>
+                                                    <label for="dimensions">Размери:</label>
                                                     <input type="text" id="dimensions" name="dimensions"
                                                            th:field="*{dimensions}" class="form-control"
                                                            placeholder="Dimensions">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="ownWeight">Own Weight:</label>
+                                                    <label for="ownWeight">Собствено тегло:</label>
                                                     <input type="number" id="ownWeight" name="ownWeight"
                                                            th:field="*{ownWeight}" class="form-control"
                                                            placeholder="Own Weight" step="0.01">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="workMoves">Work Moves:</label>
+                                                    <label for="workMoves">Работни ходове:</label>
                                                     <input type="text" id="workMoves" name="workMoves"
                                                            th:field="*{workMoves}" class="form-control"
                                                            placeholder="Work Moves">
@@ -271,7 +272,7 @@
                                             </div>
 
                                             <!-- Submit Button -->
-                                            <button type="submit" class="btn btn-primary mt-4">Update Offer</button>
+                                            <button type="submit" class="btn btn-primary mt-4">Редактирай обявата</button>
                                         </form>
                                     </div>
                                 </th:block>

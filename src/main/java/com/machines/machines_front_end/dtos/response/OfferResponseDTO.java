@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
@@ -18,4 +19,5 @@ public class OfferResponseDTO extends OfferDTO {
     private SubcategoryResponseDTO subcategory;
     private File mainPicture;
     private Set<File> pictures;
+    private List<OfferResponseDTO> similarOffers;
 }
