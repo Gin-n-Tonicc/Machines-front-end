@@ -35,8 +35,10 @@ public class OfferController {
     private final CityClient cityClient;
 
     @GetMapping
-    public String listOffers(Model model) {
-        Page<OfferResponseDTO> offers = offerClient.getAll(1, 10);
+    public String listOffers(@RequestParam(defaultValue = "1") int page,
+                             @RequestParam(defaultValue = "5") int size,
+                             Model model) {
+        Page<OfferResponseDTO> offers = offerClient.getAll(page, size);
         model.addAttribute("offers", offers);
         return "offers/list";
     }

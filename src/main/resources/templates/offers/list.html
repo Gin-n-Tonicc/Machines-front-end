@@ -960,11 +960,15 @@
                                         </div>
                                     </div>
                                     <div class="view-options__control">
-                                        <label for="">Show</label>
+                                        <label for="pageSizeSelect">Брой обяви на страница</label>
                                         <div>
-                                            <select class="form-control form-control-sm" name="" id="">
-                                                <option value="">12</option>
-                                                <option value="">24</option>
+                                            <select class="form-control form-control-sm" id="pageSizeSelect">
+                                                <option value="5">Брой</option>
+                                                <option value="3">3</option>
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
                                             </select>
                                         </div>
                                     </div>
@@ -982,41 +986,74 @@
                                         <div class="product-card product-card--hidden-actions">
                                             <div class="product-card__badges-list">
                                                 <div th:switch="${offer.offerState.name()}">
-                                                    <div th:case="'NEW'" class="product-card__badge product-card__badge--new">НОВ</div>
-                                                    <div th:case="'NEW_IMPORTATION'" class="product-card__badge product-card__badge--hot">НОВ ВНОС</div>
-                                                    <div th:case="'USED'" class="product-card__badge product-card__badge--sale">ИЗПОЛЗВАНО</div>
+                                                    <div th:case="'NEW'"
+                                                         class="product-card__badge product-card__badge--new">НОВ
+                                                    </div>
+                                                    <div th:case="'NEW_IMPORTATION'"
+                                                         class="product-card__badge product-card__badge--hot">НОВ ВНОС
+                                                    </div>
+                                                    <div th:case="'USED'"
+                                                         class="product-card__badge product-card__badge--sale">
+                                                        ИЗПОЛЗВАНО
+                                                    </div>
                                                 </div>
                                                 <div th:switch="${offer.OfferSaleType.name()}">
-                                                    <div th:case="'SALE'" class="product-card__badge product-card__badge--new">ЗА ПРОДАН</div>
-                                                    <div th:case="'FOR_RENT'" class="product-card__badge product-card__badge--hot">ПОД НАЕМ</div>
-                                                    <div th:case="'SERVICES'" class="product-card__badge product-card__badge--sale">УСЛУГИ</div>
+                                                    <div th:case="'SALE'"
+                                                         class="product-card__badge product-card__badge--new">ЗА ПРОДАН
+                                                    </div>
+                                                    <div th:case="'FOR_RENT'"
+                                                         class="product-card__badge product-card__badge--hot">ПОД НАЕМ
+                                                    </div>
+                                                    <div th:case="'SERVICES'"
+                                                         class="product-card__badge product-card__badge--sale">УСЛУГИ
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="product-card__image product-image">
                                                 <a class="product-image__body">
-                                                    <img th:src="@{${offer.mainPicture.path}}" class="product-image__img" alt="">
+                                                    <img th:src="@{${offer.mainPicture.path}}"
+                                                         class="product-image__img" alt="">
                                                 </a>
                                             </div>
                                             <div class="product-card__info">
                                                 <div class="product-card__name">
-                                                    <a th:href="@{/offers/{id}(id=${offer.id})}" th:text="${offer.title}"></a>
+                                                    <a th:href="@{/offers/{id}(id=${offer.id})}"
+                                                       th:text="${offer.title}"></a>
                                                 </div>
                                                 <ul class="product-card__features-list">
                                                     <li th:text="'Българско : ' + (${offer.isBulgarian} ? 'ДА' : 'НЕ')"></li>
-                                                    <li th:if="${offer.model != null}" th:text="'Модел: ' + ${offer.model}"></li>
-                                                    <li th:if="${offer.manufactureYear != null}" th:text="'Година на производство: ' + ${offer.manufactureYear}"></li>
+                                                    <li th:if="${offer.model != null}"
+                                                        th:text="'Модел: ' + ${offer.model}"></li>
+                                                    <li th:if="${offer.manufactureYear != null}"
+                                                        th:text="'Година на производство: ' + ${offer.manufactureYear}"></li>
                                                     <li th:text="'Телефонен номер : ' + ${offer.phoneNumber}"></li>
                                                     <li th:text="'Собственик на обявата : ' + ${offer.owner.name} + ' ' + ${offer.owner.surname}"></li>
                                                 </ul>
                                             </div>
                                             <div class="product-card__actions">
-                                                <div class="product-card__prices" th:text="'Цена: ' + ${offer.price} + ' лв.'"></div>
+                                                <div class="product-card__prices"
+                                                     th:text="'Цена: ' + ${offer.price} + ' лв.'"></div>
                                                 <div class="product-card__buttons">
-                                                    <a href="#" th:href="@{/offers/{id}(id=${offer.id})}" class="btn btn-secondary product-card__addtocart product-card__addtocart--list">
+                                                    <a href="#" th:href="@{/offers/{id}(id=${offer.id})}"
+                                                       class="btn btn-secondary product-card__addtocart product-card__addtocart--list">
                                                         Прочети повече
                                                     </a>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="pagination">
+                                        <!-- Previous Page Link -->
+                                        <div th:if="${offers.hasPrevious()}">
+                                            <a th:href="@{/offers(page=${offers.number}, size=${offers.size})}" class="pagination__link">Предишна</a>
+                                        </div>
+
+                                        <!-- Page Number Display -->
+                                        <span>Страница <span th:text="${offers.number + 1}"></span> от <span th:text="${offers.totalPages}"></span></span>
+
+                                        <!-- Next Page Link -->
+                                        <div th:if="${offers.hasNext()}">
+                                            <a th:href="@{/offers(page=${offers.number + 2}, size=${offers.size})}" class="pagination__link">Следваща</a>
                                         </div>
                                     </div>
                                 </div>
@@ -1036,5 +1073,27 @@
 <th:block th:insert="~{fragments/footer}"></th:block>
 <!-- Include the toast.js file -->
 <script th:src="@{/js/toast.js}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const pageSizeSelect = document.getElementById('pageSizeSelect');
+
+        // Function to reload page with new page size
+        function updatePageSize(pageSize) {
+            const currentPage = new URLSearchParams(window.location.search).get('page') || 1;
+            window.location.href = `/offers?page=${currentPage}&size=${pageSize}`;
+        }
+
+        // Event listener for page size change
+        pageSizeSelect.addEventListener('change', function() {
+            const pageSize = pageSizeSelect.value;
+            updatePageSize(pageSize);
+        });
+
+        // Set the initial value based on current page size
+        const currentSize = new URLSearchParams(window.location.search).get('size') || 5;
+        pageSizeSelect.value = currentSize;
+    });
+</script>
+
 </body>
 </html>
