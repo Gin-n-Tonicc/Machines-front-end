@@ -6,6 +6,7 @@ import com.machines.machines_front_end.clients.OfferClient;
 import com.machines.machines_front_end.clients.SubcategoryClient;
 import com.machines.machines_front_end.dtos.File;
 import com.machines.machines_front_end.dtos.request.OfferRequestDTO;
+import com.machines.machines_front_end.dtos.response.OfferAdminResponseDTO;
 import com.machines.machines_front_end.dtos.response.OfferResponseDTO;
 import com.machines.machines_front_end.dtos.response.OfferSingleResponseDTO;
 import com.machines.machines_front_end.enums.OfferSaleType;
@@ -48,6 +49,13 @@ public class OfferController {
         OfferResponseDTO offer = offerClient.getById(id);
         model.addAttribute("offer", offer);
         return "offers/detail";
+    }
+
+    @GetMapping("/admin")
+    public String listOffersAdmin (Model model) {
+        List<OfferAdminResponseDTO> offers = offerClient.getAllAdmin();
+        model.addAttribute("offers", offers);
+        return "offers/listAdmin";
     }
 
     @GetMapping("/create")
@@ -216,5 +224,11 @@ public class OfferController {
         offerRequestDTO.setWorkMoves(offerResponseDTO.getWorkMoves());
 
         return offerRequestDTO;
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteOffer(@PathVariable UUID id) {
+        offerClient.delete(id);
+        return "redirect:/offers";
     }
 }
