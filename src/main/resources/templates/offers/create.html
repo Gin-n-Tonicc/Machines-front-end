@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no">
-    <title>Create Offer</title>
+    <title>Създай обява</title>
     <th:block th:insert="~{fragments/links}"></th:block>
     <link rel="stylesheet" th:href="@{/css/toast.css}">
 </head>
@@ -29,28 +29,28 @@
                     <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
                         <div class="card flex-grow-1 mb-md-0">
                             <div class="card-body">
-                                <h3 class="card-title" style="text-align: center;">Create Offer</h3>
+                                <h3 class="card-title" style="text-align: center;">Създай обява</h3>
                                 <div style="text-align: center;">
                                     <form th:action="@{/offers/create}" th:object="${offer}" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <input type="text" id="title" name="title" th:field="*{title}"
-                                                   class="form-control" placeholder="Enter title" required>
+                                                   class="form-control" placeholder="Име на продукта/обявата" required>
                                         </div>
                                         <div class="form-group">
                                             <input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}"
-                                                   class="form-control" placeholder="Enter phone number">
+                                                   class="form-control" placeholder="Телефонен номер ">
                                         </div>
                                         <div class="form-group">
                                                 <textarea id="description" name="description" th:field="*{description}"
-                                                          class="form-control" placeholder="Enter description"></textarea>
+                                                          class="form-control" placeholder="Описание на обявата"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <input type="url" id="websiteURL" name="websiteURL" th:field="*{websiteURL}"
-                                                   class="form-control" placeholder="Enter website URL">
+                                                   class="form-control" placeholder="Вашият уеб сайт линк">
                                         </div>
                                         <div class="form-group">
                                             <input type="number" id="price" name="price" th:field="*{price}"
-                                                   class="form-control" placeholder="Enter price" step="0.01">
+                                                   class="form-control" placeholder="Цена" step="0.01">
                                         </div>
 <!--                                        <div class="form-group">-->
 <!--                                            <input type="checkbox" id="isBulgarian" name="isBulgarian" th:field="*{isBulgarian}"-->
@@ -60,85 +60,85 @@
                                         <div class="form-group">
                                             <input type="checkbox" id="autoUpdate" name="autoUpdate" th:field="*{autoUpdate}"
                                                    class="form-check-input">
-                                            <label for="autoUpdate">Auto Update</label>
+                                            <label for="autoUpdate">Автоматично подновяване</label>
                                         </div>
 
                                         <!-- Extra Info -->
                                         <h4>Extra Info</h4>
                                         <div class="form-group">
                                             <input type="number" id="manufactureYear" name="manufactureYear" th:field="*{manufactureYear}"
-                                                   class="form-control" placeholder="Manufacture Year">
+                                                   class="form-control" placeholder="Година на производство">
                                         </div>
                                         <div class="form-group">
                                             <input type="text" id="model" name="model" th:field="*{model}"
-                                                   class="form-control" placeholder="Model">
+                                                   class="form-control" placeholder="Модел">
                                         </div>
                                         <div class="form-group">
                                             <input type="number" id="powerSupplyVoltage" name="powerSupplyVoltage" th:field="*{powerSupplyVoltage}"
-                                                   class="form-control" placeholder="Power Supply Voltage" step="0.01">
+                                                   class="form-control" placeholder="Захранващо напрежение" step="0.01">
                                         </div>
                                         <div class="form-group">
                                             <input type="text" id="fuelType" name="fuelType" th:field="*{fuelType}"
-                                                   class="form-control" placeholder="Fuel Type">
+                                                   class="form-control" placeholder="Тип гориво">
                                         </div>
                                         <div class="form-group">
                                             <input type="number" id="horsePower" name="horsePower" th:field="*{horsePower}"
-                                                   class="form-control" placeholder="Horse Power" step="0.01">
+                                                   class="form-control" placeholder="Конски сили " step="0.01">
                                         </div>
                                         <div class="form-group">
                                             <input type="text" id="consumption" name="consumption" th:field="*{consumption}"
-                                                   class="form-control" placeholder="Consumption">
+                                                   class="form-control" placeholder="Консумация">
                                         </div>
                                         <div class="form-group">
                                             <input type="number" id="outputPower" name="outputPower" th:field="*{outputPower}"
-                                                   class="form-control" placeholder="Output Power" step="0.01">
+                                                   class="form-control" placeholder="Изходяща мощност" step="0.01">
                                         </div>
                                         <div class="form-group">
                                             <input type="text" id="productivity" name="productivity" th:field="*{productivity}"
-                                                   class="form-control" placeholder="Productivity">
+                                                   class="form-control" placeholder="Производителност">
                                         </div>
                                         <div class="form-group">
                                             <input type="number" id="capacity" name="capacity" th:field="*{capacity}"
-                                                   class="form-control" placeholder="Capacity" step="0.01">
+                                                   class="form-control" placeholder="Капацитет" step="0.01">
                                         </div>
                                         <div class="form-group">
                                             <input type="number" id="minRevolutions" name="minRevolutions" th:field="*{minRevolutions}"
-                                                   class="form-control" placeholder="Min Revolutions" step="0.01">
+                                                   class="form-control" placeholder="Минимални обороти" step="0.01">
                                         </div>
                                         <div class="form-group">
                                             <input type="number" id="nominalRevolutions" name="nominalRevolutions" th:field="*{nominalRevolutions}"
-                                                   class="form-control" placeholder="Nominal Revolutions" step="0.01">
+                                                   class="form-control" placeholder="Номинални революции" step="0.01">
                                         </div>
                                         <div class="form-group">
                                             <input type="number" id="maxRevolutions" name="maxRevolutions" th:field="*{maxRevolutions}"
-                                                   class="form-control" placeholder="Max Revolutions" step="0.01">
+                                                   class="form-control" placeholder="Максимални обороти" step="0.01">
                                         </div>
                                         <div class="form-group">
                                             <input type="text" id="dimensions" name="dimensions" th:field="*{dimensions}"
-                                                   class="form-control" placeholder="Dimensions">
+                                                   class="form-control" placeholder="Размери">
                                         </div>
                                         <div class="form-group">
                                             <input type="number" id="ownWeight" name="ownWeight" th:field="*{ownWeight}"
-                                                   class="form-control" placeholder="Own Weight" step="0.01">
+                                                   class="form-control" placeholder="Собствено тегло" step="0.01">
                                         </div>
                                         <div class="form-group">
                                             <input type="text" id="workMoves" name="workMoves" th:field="*{workMoves}"
-                                                   class="form-control" placeholder="Work Moves">
+                                                   class="form-control" placeholder="Работни ходове">
                                         </div>
 
                                         <!-- Main Picture -->
                                         <div class="form-group">
-                                            <label for="mainPicture">Main Picture:</label>
+                                            <label for="mainPicture">Главна снимка на обявата:</label>
                                             <input type="file" id="mainPicture" name="mainPicture" class="form-control">
                                         </div>
 
                                         <!-- Additional Pictures -->
                                         <div class="form-group">
-                                            <label for="pictures">Additional Pictures:</label>
+                                            <label for="pictures">Допълнителни снимки към обявата:</label>
                                             <input type="file" id="pictures" name="pictures" class="form-control" multiple>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary mt-4">Create Offer</button>
+                                        <button type="submit" class="btn btn-primary mt-4">Създай обява</button>
                                     </form>
                                 </div>
                             </div>

@@ -1,5 +1,6 @@
 package com.machines.machines_front_end.clients;
 
+import com.machines.machines_front_end.config.FeignClientConfiguration;
 import com.machines.machines_front_end.dtos.request.RegionRequestDTO;
 import com.machines.machines_front_end.dtos.response.RegionAdminResponseDTO;
 import com.machines.machines_front_end.dtos.response.RegionResponseDTO;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@FeignClient(name = "machines-api-region", url = "${backend.base-url}/regions")
+@FeignClient(name = "machines-api-region", url = "${backend.base-url}/regions", configuration = FeignClientConfiguration.class)
 public interface RegionClient {
     @GetMapping("/all")
     List<RegionResponseDTO> getAll();

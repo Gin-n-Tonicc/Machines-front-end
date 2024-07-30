@@ -1,5 +1,6 @@
 package com.machines.machines_front_end.clients;
 
+import com.machines.machines_front_end.config.FeignClientConfiguration;
 import com.machines.machines_front_end.dtos.request.CityRequestDTO;
 import com.machines.machines_front_end.dtos.response.CityAdminResponseDTO;
 import com.machines.machines_front_end.dtos.response.CityResponseDTO;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@FeignClient(name = "machines-api-city", url = "${backend.base-url}/cities")
+@FeignClient(name = "machines-api-city", url = "${backend.base-url}/cities", configuration = FeignClientConfiguration.class)
 public interface CityClient {
     @GetMapping("/all")
     List<CityResponseDTO> getAll();

@@ -1,12 +1,16 @@
 package com.machines.machines_front_end.controller;
 
+import com.machines.machines_front_end.clients.CityClient;
 import com.machines.machines_front_end.clients.FileClient;
 import com.machines.machines_front_end.clients.OfferClient;
+import com.machines.machines_front_end.clients.SubcategoryClient;
 import com.machines.machines_front_end.dtos.File;
 import com.machines.machines_front_end.dtos.request.OfferRequestDTO;
 import com.machines.machines_front_end.dtos.response.OfferResponseDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +28,12 @@ import java.util.UUID;
 public class OfferController {
     private final OfferClient offerClient;
     private final FileClient fileClient;
+    private final SubcategoryClient subcategoryClient;
+    private final CityClient cityClient;
 
     @GetMapping
     public String listOffers(Model model) {
-        List<OfferResponseDTO> offers = offerClient.getAll();
+        Page<OfferResponseDTO> offers = offerClient.getAll(1, 10);
         model.addAttribute("offers", offers);
         return "offers/list";
     }
@@ -40,7 +46,10 @@ public class OfferController {
     }
 
     @GetMapping("/create")
-    public String showCreateOfferForm(Model model) {
+    public String showCreateOfferForm(Model model, HttpServletRequest request) {
+        String token = (String) request.getSession().getAttribute("sessionToken");
+        model.addAttribute("cities", cityClient.getAll());
+        model.addAttribute("subcategories", subcategoryClient.getAll());
         model.addAttribute("offer", new OfferRequestDTO());
         return "offers/create";
     }
