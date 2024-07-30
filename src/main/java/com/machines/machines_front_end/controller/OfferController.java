@@ -7,6 +7,8 @@ import com.machines.machines_front_end.clients.SubcategoryClient;
 import com.machines.machines_front_end.dtos.File;
 import com.machines.machines_front_end.dtos.request.OfferRequestDTO;
 import com.machines.machines_front_end.dtos.response.OfferResponseDTO;
+import com.machines.machines_front_end.enums.OfferSaleType;
+import com.machines.machines_front_end.enums.OfferState;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,10 +48,11 @@ public class OfferController {
     }
 
     @GetMapping("/create")
-    public String showCreateOfferForm(Model model, HttpServletRequest request) {
-        String token = (String) request.getSession().getAttribute("sessionToken");
+    public String showCreateOfferForm(Model model) {
         model.addAttribute("cities", cityClient.getAll());
         model.addAttribute("subcategories", subcategoryClient.getAll());
+        model.addAttribute("offerStates", OfferState.values());
+        model.addAttribute("offerSaleTypes", OfferSaleType.values());
         model.addAttribute("offer", new OfferRequestDTO());
         return "offers/create";
     }
@@ -80,6 +83,11 @@ public class OfferController {
                     ? e.getCause().getMessage()
                     : e.getMessage();
             model.addAttribute("error", errorMessage);
+            model.addAttribute("cities", cityClient.getAll());
+            model.addAttribute("subcategories", subcategoryClient.getAll());
+            model.addAttribute("offerStates", OfferState.values());
+            model.addAttribute("offerSaleTypes", OfferSaleType.values());
+            model.addAttribute("offer", new OfferRequestDTO());
             return "offers/create";
         }
     }

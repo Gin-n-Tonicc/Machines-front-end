@@ -17,7 +17,7 @@ public class OfferDTO extends BaseDTO {
     private String description;
     private String websiteURL;
     private double price;
-    private boolean isBulgarian;
+    private boolean bulgarian;
     private boolean autoUpdate = false;
     private OfferState offerState;
     private OfferSaleType offerSaleType;
@@ -41,12 +41,4 @@ public class OfferDTO extends BaseDTO {
     private String dimensions;
     private double ownWeight;
     private String workMoves;
-
-    public boolean isBulgarian() {
-        return isBulgarian;
-    }
-
-    public void setBulgarian(boolean bulgarian) {
-        isBulgarian = bulgarian;
-    }
 }
