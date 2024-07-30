@@ -30,230 +30,251 @@
                     <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
                         <div class="card flex-grow-1 mb-md-0">
                             <div class="card-body">
-                                <h3 class="card-title" style="text-align: center;">Създай обява</h3>
-                                <div style="text-align: center;">
-                                    <form th:action="@{/offers/create}" th:object="${offer}" method="post"
-                                          enctype="multipart/form-data">
-                                        <!-- Basic Info -->
-                                        <div class="form-group">
-                                            <label for="title">Име на продукта/обявата:</label>
-                                            <input type="text" id="title" name="title" th:field="*{title}"
-                                                   class="form-control" placeholder="Име на продукта/обявата" required>
-                                        </div>
+                                <th:block th:if="${session.sessionToken != null}">
+                                    <h3 class="card-title" style="text-align: center;">Създай обява</h3>
+                                    <div style="text-align: center;">
+                                        <form th:action="@{/offers/create}" th:object="${offer}" method="post"
+                                              enctype="multipart/form-data">
+                                            <!-- Basic Info -->
+                                            <div class="form-group">
+                                                <label for="title">Име на продукта/обявата:</label>
+                                                <input type="text" id="title" name="title" th:field="*{title}"
+                                                       class="form-control" placeholder="Име на продукта/обявата"
+                                                       required>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label for="phoneNumber">Телефонен номер:</label>
-                                            <input type="text" id="phoneNumber" name="phoneNumber"
-                                                   th:field="*{phoneNumber}" class="form-control"
-                                                   placeholder="Телефонен номер" required>
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="phoneNumber">Телефонен номер:</label>
+                                                <input type="text" id="phoneNumber" name="phoneNumber"
+                                                       th:field="*{phoneNumber}" class="form-control"
+                                                       placeholder="Телефонен номер" required>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label for="description">Описание на обявата:</label>
-                                            <textarea id="description" name="description" th:field="*{description}"
-                                                      class="form-control" placeholder="Описание на обявата"
-                                                      required></textarea>
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="description">Описание на обявата:</label>
+                                                <textarea id="description" name="description" th:field="*{description}"
+                                                          class="form-control" placeholder="Описание на обявата"
+                                                          required></textarea>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label for="websiteURL">Вашият уеб сайт линк:</label>
-                                            <input type="url" id="websiteURL" name="websiteURL" th:field="*{websiteURL}"
-                                                   class="form-control" placeholder="Вашият уеб сайт линк" required>
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="websiteURL">Вашият уеб сайт линк:</label>
+                                                <input type="url" id="websiteURL" name="websiteURL"
+                                                       th:field="*{websiteURL}"
+                                                       class="form-control" placeholder="Вашият уеб сайт линк" required>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label for="price">Цена:</label>
-                                            <input type="number" id="price" name="price" th:field="*{price}"
-                                                   class="form-control" placeholder="Цена" step="0.01" required>
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="price">Цена:</label>
+                                                <input type="number" id="price" name="price" th:field="*{price}"
+                                                       class="form-control" placeholder="Цена" step="0.01" required>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <input type="checkbox" id="bulgarian" name="bulgarian"
-                                                   th:field="*{bulgarian}" class="form-check-input">
-                                            <label for="bulgarian">Българско ли е?</label>
-                                        </div>
+                                            <div class="form-group">
+                                                <input type="checkbox" id="bulgarian" name="bulgarian"
+                                                       th:field="*{bulgarian}" class="form-check-input">
+                                                <label for="bulgarian">Българско ли е?</label>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label for="cityId">Град:</label>
-                                            <select id="cityId" th:field="*{cityId}" class="form-control" required>
-                                                <option th:each="city : ${cities}" th:value="${city.id}"
-                                                        th:text="${city.name}"></option>
-                                            </select>
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="cityId">Град:</label>
+                                                <select id="cityId" th:field="*{cityId}" class="form-control" required>
+                                                    <option th:each="city : ${cities}" th:value="${city.id}"
+                                                            th:text="${city.name}"></option>
+                                                </select>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label for="subcategoryId">Категория:</label>
-                                            <select id="subcategoryId" th:field="*{subcategoryId}" class="form-control"
-                                                    required>
-                                                <option th:each="subcategory : ${subcategories}"
-                                                        th:value="${subcategory.id}"
-                                                        th:text="${subcategory.name}"></option>
-                                            </select>
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="subcategoryId">Категория:</label>
+                                                <select id="subcategoryId" th:field="*{subcategoryId}"
+                                                        class="form-control"
+                                                        required>
+                                                    <option th:each="subcategory : ${subcategories}"
+                                                            th:value="${subcategory.id}"
+                                                            th:text="${subcategory.name}"></option>
+                                                </select>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label for="offerState">Състояние на продукта:</label>
-                                            <select id="offerState" name="offerState" th:field="*{offerState}"
-                                                    class="form-control">
-                                                <option th:each="offerState : ${offerStates}" th:value="${offerState}"
-                                                        th:text="${offerState}"></option>
-                                            </select>
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="offerState">Състояние на продукта:</label>
+                                                <select id="offerState" name="offerState" th:field="*{offerState}"
+                                                        class="form-control">
+                                                    <option th:each="offerState : ${offerStates}"
+                                                            th:value="${offerState}"
+                                                            th:text="${offerState}"></option>
+                                                </select>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label for="offerSaleType">Вид на обявата:</label>
-                                            <select id="offerSaleType" name="offerSaleType" th:field="*{offerSaleType}"
-                                                    class="form-control">
-                                                <option th:each="offerSaleType : ${offerSaleTypes}"
-                                                        th:value="${offerSaleType}" th:text="${offerSaleType}"></option>
-                                            </select>
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="offerSaleType">Вид на обявата:</label>
+                                                <select id="offerSaleType" name="offerSaleType"
+                                                        th:field="*{offerSaleType}"
+                                                        class="form-control">
+                                                    <option th:each="offerSaleType : ${offerSaleTypes}"
+                                                            th:value="${offerSaleType}"
+                                                            th:text="${offerSaleType}"></option>
+                                                </select>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <input type="checkbox" id="autoUpdate" name="autoUpdate"
-                                                   th:field="*{autoUpdate}" class="form-check-input">
-                                            <label for="autoUpdate">Автоматично подновяване</label>
-                                        </div>
+                                            <div class="form-group">
+                                                <input type="checkbox" id="autoUpdate" name="autoUpdate"
+                                                       th:field="*{autoUpdate}" class="form-check-input">
+                                                <label for="autoUpdate">Автоматично подновяване</label>
+                                            </div>
 
-                                        <!-- Main Picture -->
-                                        <div class="form-group">
-                                            <label for="mainPicture">Главна снимка на обявата:</label>
-                                            <input type="file" id="mainPicture" name="mainPicture" class="form-control"
-                                                   onchange="previewMainPicture(event)" required>
-                                            <img th:if="${mainPictureUrl}" id="mainPicturePreview"
-                                                 th:src="@{${mainPictureUrl}}"
-                                                 alt="Main Picture" width="100" class="mt-2">
-                                        </div>
+                                            <!-- Main Picture -->
+                                            <div class="form-group">
+                                                <label for="mainPicture">Главна снимка на обявата:</label>
+                                                <input type="file" id="mainPicture" name="mainPicture"
+                                                       class="form-control"
+                                                       onchange="previewMainPicture(event)" required>
+                                                <img th:if="${mainPictureUrl}" id="mainPicturePreview"
+                                                     th:src="@{${mainPictureUrl}}"
+                                                     alt="Main Picture" width="100" class="mt-2">
+                                            </div>
 
-                                        <!-- Additional Pictures -->
-                                        <div class="form-group">
-                                            <label for="pictures">Допълнителни снимки към обявата:</label>
-                                            <input type="file" id="pictures" name="pictures" class="form-control"
-                                                   multiple onchange="previewAdditionalPictures(event)" required>
-                                            <div id="additionalPicturesPreview" class="picture-row">
-                                                <div th:each="url : ${additionalPictureUrls}">
-                                                    <img th:src="@{${url}}" alt="Additional Picture" width="100"
-                                                         class="mt-2">
+                                            <!-- Additional Pictures -->
+                                            <div class="form-group">
+                                                <label for="pictures">Допълнителни снимки към обявата:</label>
+                                                <input type="file" id="pictures" name="pictures" class="form-control"
+                                                       multiple onchange="previewAdditionalPictures(event)" required>
+                                                <div id="additionalPicturesPreview" class="picture-row">
+                                                    <div th:each="url : ${additionalPictureUrls}">
+                                                        <img th:src="@{${url}}" alt="Additional Picture" width="100"
+                                                             class="mt-2">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <!-- Extra Info Toggle Button -->
-                                        <button type="button" id="toggleExtraInfo" class="btn btn-info">Покажи
-                                            допълнителна информация
-                                        </button>
+                                            <!-- Extra Info Toggle Button -->
+                                            <button type="button" id="toggleExtraInfo" class="btn btn-info">Покажи
+                                                допълнителна информация
+                                            </button>
 
-                                        <!-- Extra Info Fields (Initially Hidden) -->
-                                        <div id="extraInfo" style="display: none;">
-                                            <h4>Допълнителна информация</h4>
+                                            <!-- Extra Info Fields (Initially Hidden) -->
+                                            <div id="extraInfo" style="display: none;">
+                                                <h4>Допълнителна информация</h4>
 
-                                            <div class="form-group">
-                                                <label for="manufactureYear">Година на производство:</label>
-                                                <input type="number" id="manufactureYear" name="manufactureYear"
-                                                       th:field="*{manufactureYear}" class="form-control"
-                                                       placeholder="Година на производство">
+                                                <div class="form-group">
+                                                    <label for="manufactureYear">Година на производство:</label>
+                                                    <input type="number" id="manufactureYear" name="manufactureYear"
+                                                           th:field="*{manufactureYear}" class="form-control"
+                                                           placeholder="Година на производство">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="model">Модел:</label>
+                                                    <input type="text" id="model" name="model" th:field="*{model}"
+                                                           class="form-control" placeholder="Модел">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="powerSupplyVoltage">Захранващо напрежение:</label>
+                                                    <input type="number" id="powerSupplyVoltage"
+                                                           name="powerSupplyVoltage"
+                                                           th:field="*{powerSupplyVoltage}" class="form-control"
+                                                           placeholder="Захранващо напрежение" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="fuelType">Тип гориво:</label>
+                                                    <input type="text" id="fuelType" name="fuelType"
+                                                           th:field="*{fuelType}"
+                                                           class="form-control" placeholder="Тип гориво">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="horsePower">Конски сили:</label>
+                                                    <input type="number" id="horsePower" name="horsePower"
+                                                           th:field="*{horsePower}" class="form-control"
+                                                           placeholder="Конски сили" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="consumption">Консумация:</label>
+                                                    <input type="text" id="consumption" name="consumption"
+                                                           th:field="*{consumption}" class="form-control"
+                                                           placeholder="Консумация">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="outputPower">Изходяща мощност:</label>
+                                                    <input type="number" id="outputPower" name="outputPower"
+                                                           th:field="*{outputPower}" class="form-control"
+                                                           placeholder="Изходяща мощност" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="productivity">Производителност:</label>
+                                                    <input type="text" id="productivity" name="productivity"
+                                                           th:field="*{productivity}" class="form-control"
+                                                           placeholder="Производителност">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="capacity">Капацитет:</label>
+                                                    <input type="number" id="capacity" name="capacity"
+                                                           th:field="*{capacity}"
+                                                           class="form-control" placeholder="Капацитет" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="minRevolutions">Минимални обороти:</label>
+                                                    <input type="number" id="minRevolutions" name="minRevolutions"
+                                                           th:field="*{minRevolutions}" class="form-control"
+                                                           placeholder="Минимални обороти" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="nominalRevolutions">Номинални революции:</label>
+                                                    <input type="number" id="nominalRevolutions"
+                                                           name="nominalRevolutions"
+                                                           th:field="*{nominalRevolutions}" class="form-control"
+                                                           placeholder="Номинални революции" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="maxRevolutions">Максимални обороти:</label>
+                                                    <input type="number" id="maxRevolutions" name="maxRevolutions"
+                                                           th:field="*{maxRevolutions}" class="form-control"
+                                                           placeholder="Максимални обороти" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="dimensions">Размери:</label>
+                                                    <input type="text" id="dimensions" name="dimensions"
+                                                           th:field="*{dimensions}"
+                                                           class="form-control" placeholder="Размери">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="ownWeight">Собствено тегло:</label>
+                                                    <input type="number" id="ownWeight" name="ownWeight"
+                                                           th:field="*{ownWeight}"
+                                                           class="form-control" placeholder="Собствено тегло"
+                                                           step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="workMoves">Работни ходове:</label>
+                                                    <input type="text" id="workMoves" name="workMoves"
+                                                           th:field="*{workMoves}"
+                                                           class="form-control" placeholder="Работни ходове">
+                                                </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label for="model">Модел:</label>
-                                                <input type="text" id="model" name="model" th:field="*{model}"
-                                                       class="form-control" placeholder="Модел">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="powerSupplyVoltage">Захранващо напрежение:</label>
-                                                <input type="number" id="powerSupplyVoltage" name="powerSupplyVoltage"
-                                                       th:field="*{powerSupplyVoltage}" class="form-control"
-                                                       placeholder="Захранващо напрежение" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="fuelType">Тип гориво:</label>
-                                                <input type="text" id="fuelType" name="fuelType" th:field="*{fuelType}"
-                                                       class="form-control" placeholder="Тип гориво">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="horsePower">Конски сили:</label>
-                                                <input type="number" id="horsePower" name="horsePower"
-                                                       th:field="*{horsePower}" class="form-control"
-                                                       placeholder="Конски сили" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="consumption">Консумация:</label>
-                                                <input type="text" id="consumption" name="consumption"
-                                                       th:field="*{consumption}" class="form-control"
-                                                       placeholder="Консумация">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="outputPower">Изходяща мощност:</label>
-                                                <input type="number" id="outputPower" name="outputPower"
-                                                       th:field="*{outputPower}" class="form-control"
-                                                       placeholder="Изходяща мощност" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="productivity">Производителност:</label>
-                                                <input type="text" id="productivity" name="productivity"
-                                                       th:field="*{productivity}" class="form-control"
-                                                       placeholder="Производителност">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="capacity">Капацитет:</label>
-                                                <input type="number" id="capacity" name="capacity"
-                                                       th:field="*{capacity}"
-                                                       class="form-control" placeholder="Капацитет" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="minRevolutions">Минимални обороти:</label>
-                                                <input type="number" id="minRevolutions" name="minRevolutions"
-                                                       th:field="*{minRevolutions}" class="form-control"
-                                                       placeholder="Минимални обороти" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="nominalRevolutions">Номинални революции:</label>
-                                                <input type="number" id="nominalRevolutions" name="nominalRevolutions"
-                                                       th:field="*{nominalRevolutions}" class="form-control"
-                                                       placeholder="Номинални революции" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="maxRevolutions">Максимални обороти:</label>
-                                                <input type="number" id="maxRevolutions" name="maxRevolutions"
-                                                       th:field="*{maxRevolutions}" class="form-control"
-                                                       placeholder="Максимални обороти" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="dimensions">Размери:</label>
-                                                <input type="text" id="dimensions" name="dimensions"
-                                                       th:field="*{dimensions}"
-                                                       class="form-control" placeholder="Размери">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="ownWeight">Собствено тегло:</label>
-                                                <input type="number" id="ownWeight" name="ownWeight"
-                                                       th:field="*{ownWeight}"
-                                                       class="form-control" placeholder="Собствено тегло" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="workMoves">Работни ходове:</label>
-                                                <input type="text" id="workMoves" name="workMoves"
-                                                       th:field="*{workMoves}"
-                                                       class="form-control" placeholder="Работни ходове">
-                                            </div>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary mt-4">Създай обява</button>
-                                    </form>
-                                </div>
+                                            <button type="submit" class="btn btn-primary mt-4">Създай обява</button>
+                                        </form>
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${session.sessionToken == null}">
+                                    <div class="site">
+                                        <h1 style="text-align: center;">Отказан достъп</h1>
+                                        <p style="text-align: center;">Само администраторите на платформата имат достъп
+                                            до тази страница!
+                                        </p>
+                                    </div>
+                                </th:block>
                             </div>
                         </div>
                     </div>

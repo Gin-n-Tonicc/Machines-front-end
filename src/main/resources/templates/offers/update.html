@@ -30,236 +30,259 @@
                     <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
                         <div class="card flex-grow-1 mb-md-0">
                             <div class="card-body">
-                                <h3 class="card-title" style="text-align: center;">Редактирай обява</h3>
-                                <div style="text-align: center;">
+                                <th:block th:if="${session.sessionToken != null}">
+                                    <h3 class="card-title" style="text-align: center;">Редактирай обява</h3>
+                                    <div style="text-align: center;">
 
-                                    <form th:action="@{/offers/update/{id}(id=${offer.id})}" th:object="${offer}"
-                                          method="post" enctype="multipart/form-data">
-                                        <!-- Product/Ad Name -->
-                                        <div class="form-group">
-                                            <label for="title">Product/Ad Name:</label>
-                                            <input type="text" id="title" name="title" th:field="*{title}"
-                                                   class="form-control" placeholder="Product/Ad Name" required>
-                                        </div>
+                                        <form th:action="@{/offers/update/{id}(id=${offer.id})}" th:object="${offer}"
+                                              method="post" enctype="multipart/form-data">
+                                            <!-- Product/Ad Name -->
+                                            <div class="form-group">
+                                                <label for="title">Product/Ad Name:</label>
+                                                <input type="text" id="title" name="title" th:field="*{title}"
+                                                       class="form-control" placeholder="Product/Ad Name" required>
+                                            </div>
 
-                                        <!-- Phone Number -->
-                                        <div class="form-group">
-                                            <label for="phoneNumber">Phone Number:</label>
-                                            <input type="text" id="phoneNumber" name="phoneNumber"
-                                                   th:field="*{phoneNumber}" class="form-control"
-                                                   placeholder="Phone Number" required>
-                                        </div>
+                                            <!-- Phone Number -->
+                                            <div class="form-group">
+                                                <label for="phoneNumber">Phone Number:</label>
+                                                <input type="text" id="phoneNumber" name="phoneNumber"
+                                                       th:field="*{phoneNumber}" class="form-control"
+                                                       placeholder="Phone Number" required>
+                                            </div>
 
-                                        <!-- Description -->
-                                        <div class="form-group">
-                                            <label for="description">Description:</label>
-                                            <textarea id="description" name="description" th:field="*{description}"
-                                                      class="form-control" placeholder="Description"
-                                                      required></textarea>
-                                        </div>
+                                            <!-- Description -->
+                                            <div class="form-group">
+                                                <label for="description">Description:</label>
+                                                <textarea id="description" name="description" th:field="*{description}"
+                                                          class="form-control" placeholder="Description"
+                                                          required></textarea>
+                                            </div>
 
-                                        <!-- Website URL -->
-                                        <div class="form-group">
-                                            <label for="websiteURL">Website URL:</label>
-                                            <input type="url" id="websiteURL" name="websiteURL" th:field="*{websiteURL}"
-                                                   class="form-control" placeholder="Website URL" required>
-                                        </div>
+                                            <!-- Website URL -->
+                                            <div class="form-group">
+                                                <label for="websiteURL">Website URL:</label>
+                                                <input type="url" id="websiteURL" name="websiteURL"
+                                                       th:field="*{websiteURL}"
+                                                       class="form-control" placeholder="Website URL" required>
+                                            </div>
 
-                                        <!-- Price -->
-                                        <div class="form-group">
-                                            <label for="price">Price:</label>
-                                            <input type="number" id="price" name="price" th:field="*{price}"
-                                                   class="form-control" placeholder="Price" step="0.01" required>
-                                        </div>
+                                            <!-- Price -->
+                                            <div class="form-group">
+                                                <label for="price">Price:</label>
+                                                <input type="number" id="price" name="price" th:field="*{price}"
+                                                       class="form-control" placeholder="Price" step="0.01" required>
+                                            </div>
 
-                                        <!-- Is Bulgarian -->
-                                        <div class="form-group">
-                                            <input type="checkbox" id="bulgarian" name="bulgarian"
-                                                   th:field="*{bulgarian}" class="form-check-input">
-                                            <label for="bulgarian">Is Bulgarian?</label>
-                                        </div>
+                                            <!-- Is Bulgarian -->
+                                            <div class="form-group">
+                                                <input type="checkbox" id="bulgarian" name="bulgarian"
+                                                       th:field="*{bulgarian}" class="form-check-input">
+                                                <label for="bulgarian">Is Bulgarian?</label>
+                                            </div>
 
-                                        <!-- City -->
-                                        <div class="form-group">
-                                            <label for="cityId">City:</label>
-                                            <select id="cityId" th:field="*{cityId}" class="form-control" required>
-                                                <option th:each="city : ${cities}" th:value="${city.id}"
-                                                        th:text="${city.name}"></option>
-                                            </select>
-                                        </div>
+                                            <!-- City -->
+                                            <div class="form-group">
+                                                <label for="cityId">City:</label>
+                                                <select id="cityId" th:field="*{cityId}" class="form-control" required>
+                                                    <option th:each="city : ${cities}" th:value="${city.id}"
+                                                            th:text="${city.name}"></option>
+                                                </select>
+                                            </div>
 
-                                        <!-- Subcategory -->
-                                        <div class="form-group">
-                                            <label for="subcategoryId">Category:</label>
-                                            <select id="subcategoryId" th:field="*{subcategoryId}" class="form-control"
-                                                    required>
-                                                <option th:each="subcategory : ${subcategories}"
-                                                        th:value="${subcategory.id}"
-                                                        th:text="${subcategory.name}"></option>
-                                            </select>
-                                        </div>
+                                            <!-- Subcategory -->
+                                            <div class="form-group">
+                                                <label for="subcategoryId">Category:</label>
+                                                <select id="subcategoryId" th:field="*{subcategoryId}"
+                                                        class="form-control"
+                                                        required>
+                                                    <option th:each="subcategory : ${subcategories}"
+                                                            th:value="${subcategory.id}"
+                                                            th:text="${subcategory.name}"></option>
+                                                </select>
+                                            </div>
 
-                                        <!--                                         Offer State -->
-                                        <div class="form-group">
-                                            <label for="offerState">Offer State:</label>
-                                            <select id="offerState" th:field="*{offerState}" class="form-control">
-                                                <option th:each="offerState : ${offerStates}" th:value="${offerState}"
-                                                        th:text="${offerState}"></option>
-                                            </select>
-                                        </div>
+                                            <!--                                         Offer State -->
+                                            <div class="form-group">
+                                                <label for="offerState">Offer State:</label>
+                                                <select id="offerState" th:field="*{offerState}" class="form-control">
+                                                    <option th:each="offerState : ${offerStates}"
+                                                            th:value="${offerState}"
+                                                            th:text="${offerState}"></option>
+                                                </select>
+                                            </div>
 
-                                        <!-- Offer Sale Type -->
-                                        <div class="form-group">
-                                            <label for="offerSaleType">Sale Type:</label>
-                                            <select id="offerSaleType" th:field="*{offerSaleType}" class="form-control">
-                                                <option th:each="offerSaleType : ${offerSaleTypes}"
-                                                        th:value="${offerSaleType}" th:text="${offerSaleType}"></option>
-                                            </select>
-                                        </div>
+                                            <!-- Offer Sale Type -->
+                                            <div class="form-group">
+                                                <label for="offerSaleType">Sale Type:</label>
+                                                <select id="offerSaleType" th:field="*{offerSaleType}"
+                                                        class="form-control">
+                                                    <option th:each="offerSaleType : ${offerSaleTypes}"
+                                                            th:value="${offerSaleType}"
+                                                            th:text="${offerSaleType}"></option>
+                                                </select>
+                                            </div>
 
-                                        <!-- Auto Update -->
-                                        <div class="form-group">
-                                            <input type="checkbox" id="autoUpdate" name="autoUpdate"
-                                                   th:field="*{autoUpdate}" class="form-check-input">
-                                            <label for="autoUpdate">Auto Update</label>
-                                        </div>
+                                            <!-- Auto Update -->
+                                            <div class="form-group">
+                                                <input type="checkbox" id="autoUpdate" name="autoUpdate"
+                                                       th:field="*{autoUpdate}" class="form-check-input">
+                                                <label for="autoUpdate">Auto Update</label>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label for="mainPicture">Main Picture:</label>
-                                            <input type="file" id="mainPicture" name="mainPicture" class="form-control" onchange="previewMainPicture(event)">
-                                            <img th:if="${mainPictureUrl}" id="mainPicturePreview" th:src="@{${mainPictureUrl}}"
-                                                 alt="Main Picture" width="100" class="mt-2">
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="mainPicture">Main Picture:</label>
+                                                <input type="file" id="mainPicture" name="mainPicture"
+                                                       class="form-control" onchange="previewMainPicture(event)">
+                                                <img th:if="${mainPictureUrl}" id="mainPicturePreview"
+                                                     th:src="@{${mainPictureUrl}}"
+                                                     alt="Main Picture" width="100" class="mt-2">
+                                            </div>
 
-                                        <!-- Additional Pictures -->
-                                        <div class="form-group">
-                                            <label for="pictures">Additional Pictures:</label>
-                                            <input class="form-control" type="file" id="pictures" name="pictures" multiple onchange="previewAdditionalPictures(event)">
-                                            <div th:if="${additionalPictureUrls}" id="additionalPicturesPreview" class="picture-row">
-                                                <div th:each="url : ${additionalPictureUrls}">
-                                                    <img th:src="@{${url}}" alt="Additional Picture" width="100" class="mt-2">
+                                            <!-- Additional Pictures -->
+                                            <div class="form-group">
+                                                <label for="pictures">Additional Pictures:</label>
+                                                <input class="form-control" type="file" id="pictures" name="pictures"
+                                                       multiple onchange="previewAdditionalPictures(event)">
+                                                <div th:if="${additionalPictureUrls}" id="additionalPicturesPreview"
+                                                     class="picture-row">
+                                                    <div th:each="url : ${additionalPictureUrls}">
+                                                        <img th:src="@{${url}}" alt="Additional Picture" width="100"
+                                                             class="mt-2">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <!-- Extra Info Toggle Button -->
-                                        <button type="button" class="btn btn-secondary" data-toggle="collapse"
-                                                data-target="#extraInfo">
-                                            Show/Hide Extra Info
-                                        </button>
+                                            <!-- Extra Info Toggle Button -->
+                                            <button type="button" class="btn btn-secondary" data-toggle="collapse"
+                                                    data-target="#extraInfo">
+                                                Show/Hide Extra Info
+                                            </button>
 
-                                        <!-- Extra Info -->
-                                        <div id="extraInfo" class="collapse mt-4">
-                                            <h4>Additional Information</h4>
+                                            <!-- Extra Info -->
+                                            <div id="extraInfo" class="collapse mt-4">
+                                                <h4>Additional Information</h4>
 
-                                            <div class="form-group">
-                                                <label for="manufactureYear">Manufacture Year:</label>
-                                                <input type="number" id="manufactureYear" name="manufactureYear"
-                                                       th:field="*{manufactureYear}" class="form-control"
-                                                       placeholder="Manufacture Year">
+                                                <div class="form-group">
+                                                    <label for="manufactureYear">Manufacture Year:</label>
+                                                    <input type="number" id="manufactureYear" name="manufactureYear"
+                                                           th:field="*{manufactureYear}" class="form-control"
+                                                           placeholder="Manufacture Year">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="model">Model:</label>
+                                                    <input type="text" id="model" name="model" th:field="*{model}"
+                                                           class="form-control" placeholder="Model">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="powerSupplyVoltage">Power Supply Voltage:</label>
+                                                    <input type="number" id="powerSupplyVoltage"
+                                                           name="powerSupplyVoltage"
+                                                           th:field="*{powerSupplyVoltage}" class="form-control"
+                                                           placeholder="Power Supply Voltage" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="fuelType">Fuel Type:</label>
+                                                    <input type="text" id="fuelType" name="fuelType"
+                                                           th:field="*{fuelType}"
+                                                           class="form-control" placeholder="Fuel Type">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="horsePower">Horse Power:</label>
+                                                    <input type="number" id="horsePower" name="horsePower"
+                                                           th:field="*{horsePower}" class="form-control"
+                                                           placeholder="Horse Power" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="consumption">Consumption:</label>
+                                                    <input type="text" id="consumption" name="consumption"
+                                                           th:field="*{consumption}" class="form-control"
+                                                           placeholder="Consumption">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="outputPower">Output Power:</label>
+                                                    <input type="number" id="outputPower" name="outputPower"
+                                                           th:field="*{outputPower}" class="form-control"
+                                                           placeholder="Output Power" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="productivity">Productivity:</label>
+                                                    <input type="text" id="productivity" name="productivity"
+                                                           th:field="*{productivity}" class="form-control"
+                                                           placeholder="Productivity">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="capacity">Capacity:</label>
+                                                    <input type="number" id="capacity" name="capacity"
+                                                           th:field="*{capacity}" class="form-control"
+                                                           placeholder="Capacity" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="minRevolutions">Minimum Revolutions:</label>
+                                                    <input type="number" id="minRevolutions" name="minRevolutions"
+                                                           th:field="*{minRevolutions}" class="form-control"
+                                                           placeholder="Minimum Revolutions" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="nominalRevolutions">Nominal Revolutions:</label>
+                                                    <input type="number" id="nominalRevolutions"
+                                                           name="nominalRevolutions"
+                                                           th:field="*{nominalRevolutions}" class="form-control"
+                                                           placeholder="Nominal Revolutions" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="maxRevolutions">Maximum Revolutions:</label>
+                                                    <input type="number" id="maxRevolutions" name="maxRevolutions"
+                                                           th:field="*{maxRevolutions}" class="form-control"
+                                                           placeholder="Maximum Revolutions" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="dimensions">Dimensions:</label>
+                                                    <input type="text" id="dimensions" name="dimensions"
+                                                           th:field="*{dimensions}" class="form-control"
+                                                           placeholder="Dimensions">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="ownWeight">Own Weight:</label>
+                                                    <input type="number" id="ownWeight" name="ownWeight"
+                                                           th:field="*{ownWeight}" class="form-control"
+                                                           placeholder="Own Weight" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="workMoves">Work Moves:</label>
+                                                    <input type="text" id="workMoves" name="workMoves"
+                                                           th:field="*{workMoves}" class="form-control"
+                                                           placeholder="Work Moves">
+                                                </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label for="model">Model:</label>
-                                                <input type="text" id="model" name="model" th:field="*{model}"
-                                                       class="form-control" placeholder="Model">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="powerSupplyVoltage">Power Supply Voltage:</label>
-                                                <input type="number" id="powerSupplyVoltage" name="powerSupplyVoltage"
-                                                       th:field="*{powerSupplyVoltage}" class="form-control"
-                                                       placeholder="Power Supply Voltage" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="fuelType">Fuel Type:</label>
-                                                <input type="text" id="fuelType" name="fuelType" th:field="*{fuelType}"
-                                                       class="form-control" placeholder="Fuel Type">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="horsePower">Horse Power:</label>
-                                                <input type="number" id="horsePower" name="horsePower"
-                                                       th:field="*{horsePower}" class="form-control"
-                                                       placeholder="Horse Power" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="consumption">Consumption:</label>
-                                                <input type="text" id="consumption" name="consumption"
-                                                       th:field="*{consumption}" class="form-control"
-                                                       placeholder="Consumption">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="outputPower">Output Power:</label>
-                                                <input type="number" id="outputPower" name="outputPower"
-                                                       th:field="*{outputPower}" class="form-control"
-                                                       placeholder="Output Power" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="productivity">Productivity:</label>
-                                                <input type="text" id="productivity" name="productivity"
-                                                       th:field="*{productivity}" class="form-control"
-                                                       placeholder="Productivity">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="capacity">Capacity:</label>
-                                                <input type="number" id="capacity" name="capacity"
-                                                       th:field="*{capacity}" class="form-control"
-                                                       placeholder="Capacity" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="minRevolutions">Minimum Revolutions:</label>
-                                                <input type="number" id="minRevolutions" name="minRevolutions"
-                                                       th:field="*{minRevolutions}" class="form-control"
-                                                       placeholder="Minimum Revolutions" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="nominalRevolutions">Nominal Revolutions:</label>
-                                                <input type="number" id="nominalRevolutions" name="nominalRevolutions"
-                                                       th:field="*{nominalRevolutions}" class="form-control"
-                                                       placeholder="Nominal Revolutions" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="maxRevolutions">Maximum Revolutions:</label>
-                                                <input type="number" id="maxRevolutions" name="maxRevolutions"
-                                                       th:field="*{maxRevolutions}" class="form-control"
-                                                       placeholder="Maximum Revolutions" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="dimensions">Dimensions:</label>
-                                                <input type="text" id="dimensions" name="dimensions"
-                                                       th:field="*{dimensions}" class="form-control"
-                                                       placeholder="Dimensions">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="ownWeight">Own Weight:</label>
-                                                <input type="number" id="ownWeight" name="ownWeight"
-                                                       th:field="*{ownWeight}" class="form-control"
-                                                       placeholder="Own Weight" step="0.01">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="workMoves">Work Moves:</label>
-                                                <input type="text" id="workMoves" name="workMoves"
-                                                       th:field="*{workMoves}" class="form-control"
-                                                       placeholder="Work Moves">
-                                            </div>
-                                        </div>
-
-                                        <!-- Submit Button -->
-                                        <button type="submit" class="btn btn-primary mt-4">Update Offer</button>
-                                    </form>
-                                </div>
+                                            <!-- Submit Button -->
+                                            <button type="submit" class="btn btn-primary mt-4">Update Offer</button>
+                                        </form>
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${session.sessionToken == null}">
+                                    <div class="site">
+                                        <h1 style="text-align: center;">Отказан достъп</h1>
+                                        <p style="text-align: center;">Само администраторите на платформата имат достъп
+                                            до тази страница!
+                                        </p>
+                                    </div>
+                                </th:block>
                             </div>
                         </div>
                     </div>
