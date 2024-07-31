@@ -11,7 +11,6 @@ import com.machines.machines_front_end.dtos.response.OfferResponseDTO;
 import com.machines.machines_front_end.dtos.response.OfferSingleAdminResponseDTO;
 import com.machines.machines_front_end.enums.OfferSaleType;
 import com.machines.machines_front_end.enums.OfferState;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -65,6 +64,15 @@ public class OfferController {
         Page<OfferAdminResponseDTO> offers = offerClient.getAllAdmin(page, size);
         model.addAttribute("offers", offers);
         return "offers/listAdmin";
+    }
+
+    @GetMapping("/all/user")
+    public String getAllForLoggedUser(@RequestParam(defaultValue = "1") int page,
+                                               @RequestParam(defaultValue = "5") int size,
+                                               Model model) {
+        Page<OfferAdminResponseDTO> offers = offerClient.getAllForLoggedUser(page, size);
+        model.addAttribute("offers", offers);
+        return "offers/myOffers";
     }
 
     @GetMapping("/create")
@@ -236,7 +244,7 @@ public class OfferController {
     @PostMapping("/delete/{id}")
     public String deleteOffer(@PathVariable UUID id) {
         offerClient.delete(id);
-        return "redirect:/offers";
+        return "redirect:/offers/all/user";
     }
 
     @PostMapping("/delete/admin/{id}")

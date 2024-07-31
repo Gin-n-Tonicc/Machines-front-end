@@ -294,6 +294,13 @@
                             <th:block th:if="${session.sessionToken != null}">
                                 <li class="mobile-links__item" data-collapse-item>
                                     <div class="mobile-links__item-title">
+                                        <a href="/offers/all/user" class="mobile-links__item-link">Моите обяви</a>
+                                    </div>
+                                </li>
+                            </th:block>
+                            <th:block th:if="${session.sessionToken != null}">
+                                <li class="mobile-links__item" data-collapse-item>
+                                    <div class="mobile-links__item-title">
                                         <a href="/logout" class="mobile-links__item-link">Излез</a>
                                     </div>
                                 </li>
@@ -385,6 +392,11 @@
                         </div>
                         <div class="mobile-links__item-sub-links" data-collapse-content>
                             <ul class="mobile-links mobile-links--level--1">
+                                <li class="mobile-links__item" data-collapse-item>
+                                    <div class="mobile-links__item-title">
+                                        <a href="/offers/admin" class="mobile-links__item-link">Обяви</a>
+                                    </div>
+                                </li>
                                 <li class="mobile-links__item" data-collapse-item>
                                     <div class="mobile-links__item-title">
                                         <a href="/categories" class="mobile-links__item-link">Категории</a>
