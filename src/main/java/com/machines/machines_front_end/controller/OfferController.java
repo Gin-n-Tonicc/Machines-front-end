@@ -8,9 +8,10 @@ import com.machines.machines_front_end.dtos.File;
 import com.machines.machines_front_end.dtos.request.OfferRequestDTO;
 import com.machines.machines_front_end.dtos.response.OfferAdminResponseDTO;
 import com.machines.machines_front_end.dtos.response.OfferResponseDTO;
-import com.machines.machines_front_end.dtos.response.OfferSingleResponseDTO;
+import com.machines.machines_front_end.dtos.response.OfferSingleAdminResponseDTO;
 import com.machines.machines_front_end.enums.OfferSaleType;
 import com.machines.machines_front_end.enums.OfferState;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -51,9 +51,18 @@ public class OfferController {
         return "offers/detail";
     }
 
+    @GetMapping("/admin/{id}")
+    public String getOfferByIdAdmin(@PathVariable UUID id, Model model) {
+        OfferSingleAdminResponseDTO offer = offerClient.getByIdAdmin(id);
+        model.addAttribute("offer", offer);
+        return "offers/detail";
+    }
+
     @GetMapping("/admin")
-    public String listOffersAdmin (Model model) {
-        List<OfferAdminResponseDTO> offers = offerClient.getAllAdmin();
+    public String listOffersAdmin(@RequestParam(defaultValue = "1") int page,
+                                  @RequestParam(defaultValue = "5") int size,
+                                  Model model) {
+        Page<OfferAdminResponseDTO> offers = offerClient.getAllAdmin(page, size);
         model.addAttribute("offers", offers);
         return "offers/listAdmin";
     }
@@ -110,7 +119,6 @@ public class OfferController {
                               @RequestPart(value = "pictures", required = false) MultipartFile[] pictures,
                               Model model) {
         try {
-            // Handle main picture upload or retain existing
             if (mainPicture != null && !mainPicture.isEmpty()) {
                 File profileFile = fileClient.upload(mainPicture);
                 offerDTO.setMainPictureId(profileFile.getId());
@@ -118,7 +126,6 @@ public class OfferController {
                 offerDTO.setMainPictureId(offerClient.getById(id).getMainPicture().getId());
             }
 
-            // Handle additional pictures upload or retain existing
             Set<UUID> additionalPicturesIds = new HashSet<>();
             if (pictures != null && pictures.length > 1) {
                 for (MultipartFile multipartFile : pictures) {
@@ -135,7 +142,7 @@ public class OfferController {
             offerDTO.setPictureIds(additionalPicturesIds);
             offerClient.update(id, offerDTO);
 
-            return "redirect:/offers";
+            return "redirect:/offers/" + id;
         } catch (Exception e) {
             String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
                     ? e.getCause().getMessage()
@@ -159,28 +166,28 @@ public class OfferController {
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") UUID id, Model model) {
         try {
-            OfferResponseDTO offerResponseDTO = offerClient.getById(id); // Fetch offer details by ID
+            OfferResponseDTO offerResponseDTO = offerClient.getById(id);
 
-            // Convert OfferResponseDTO to OfferRequestDTO
             OfferRequestDTO offerRequestDTO = convertToOfferRequestDTO(offerResponseDTO);
 
             model.addAttribute("offer", offerRequestDTO);
-            model.addAttribute("mainPictureUrl", offerResponseDTO.getMainPicture().getPath()); // Add main picture URL to model
+            model.addAttribute("mainPictureUrl", offerResponseDTO.getMainPicture().getPath());
             model.addAttribute("additionalPictureUrls", offerResponseDTO.getPictures().stream()
                     .map(File::getPath)
-                    .collect(Collectors.toList())); // Add additional picture URLs to model
-            model.addAttribute("cities", cityClient.getAll()); // Populate cities dropdown
-            model.addAttribute("subcategories", subcategoryClient.getAll()); // Populate subcategories dropdown
-            model.addAttribute("offerStates", OfferState.values()); // Populate offer states dropdown
-            model.addAttribute("offerSaleTypes", OfferSaleType.values()); // Populate offer sale types dropdown
+                    .collect(Collectors.toList()));
+            model.addAttribute("cities", cityClient.getAll());
+            model.addAttribute("subcategories", subcategoryClient.getAll());
+            model.addAttribute("offerStates", OfferState.values());
+            model.addAttribute("offerSaleTypes", OfferSaleType.values());
 
-            return "offers/update"; // Return the view name for the update form
+            return "offers/update";
         } catch (Exception e) {
             String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
                     ? e.getCause().getMessage()
                     : e.getMessage();
             model.addAttribute("error", errorMessage);
-            return "redirect:/offers"; // Redirect to the offers list on error
+
+            return "redirect:/offers";
         }
     }
 
@@ -230,5 +237,11 @@ public class OfferController {
     public String deleteOffer(@PathVariable UUID id) {
         offerClient.delete(id);
         return "redirect:/offers";
+    }
+
+    @PostMapping("/delete/admin/{id}")
+    public String deleteOfferAdmin(@PathVariable UUID id) {
+        offerClient.delete(id);
+        return "redirect:/offers/admin";
     }
 }
