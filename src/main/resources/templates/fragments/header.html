@@ -106,19 +106,21 @@
             <div class="site-header__search">
                 <div class="search search--location--header ">
                     <div class="search__body">
-                        <form class="search__form" action="">
-                            <select class="search__categories" aria-label="Category">
+                        <form class="search__form" method="get" action="/offers" id="searchForm">
+                            <!-- Subcategory Selector -->
+                            <select class="search__categories" name="subcategoryId" aria-label="Subcategory">
                                 <option value="all">Всички категории</option>
                                 <th:block th:each="category : ${categories}">
-                                    <option th:value="${category.id}" th:text="${category.name}"></option>
                                     <th:block th:each="subcategory : ${category.subcategories}">
-                                        <option th:value="${subcategory.id}"
-                                                th:text="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + ${subcategory.name}"></option>
+                                        <option th:value="${subcategory.id}" th:text="${subcategory.name}"></option>
                                     </th:block>
                                 </th:block>
                             </select>
-                            <input class="search__input" name="search" placeholder="Search over 10,000 products"
+
+                            <!-- Search Input -->
+                            <input class="search__input" name="search" placeholder="Търсете из всички наши продукти"
                                    aria-label="Site search" type="text" autocomplete="off">
+                            <!-- Submit Button -->
                             <button class="search__button search__button--type--submit" type="submit">
                                 <svg width="20px" height="20px">
                                     <use xlink:href="images/sprite.svg#search-20"></use>
@@ -142,7 +144,7 @@
                     <div class="nav-panel__row">
                         <div class="nav-panel__departments">
                             <!-- .departments -->
-                            <div class="departments " data-departments-fixed-by="">
+                            <div class="departments" data-departments-fixed-by="">
                                 <div class="departments__body">
                                     <div class="departments__links-wrapper">
                                         <div class="departments__submenus-container"></div>
@@ -168,7 +170,8 @@
                                                                         <div class="col-3">
                                                                             <ul class="megamenu__links megamenu__links--level--0">
                                                                                 <li class="megamenu__item">
-                                                                                    <a>
+                                                                                    <a href="#"
+                                                                                       th:href="@{/offers(subcategoryId=${subcategory.id})}">
                                                                                         <span th:text="${subcategory.name}">Subcategory Name</span>
                                                                                     </a>
                                                                                 </li>
@@ -183,7 +186,6 @@
                                                 </li>
                                             </th:block>
                                         </ul>
-
                                     </div>
                                 </div>
                                 <button class="departments__button">
@@ -255,8 +257,8 @@
                                         <!-- .menu / end -->
                                     </div>
                                 </li>
-                                <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="">
+                                <li class="nav-links__item nav-links__item--has-submenu">
+                                    <a class="nav-links__item-link" href="#">
                                         <div class="nav-links__item-body">
                                             Меню
                                             <svg class="nav-links__item-arrow" width="9px" height="6px">
@@ -269,18 +271,18 @@
                                         <div class="megamenu">
                                             <div class="megamenu__body">
                                                 <div class="row">
-                                                    <th:block th:each="category, iterStat : ${categories}">
+                                                    <th:block th:each="category : ${categories}">
                                                         <div class="col-6">
                                                             <ul class="megamenu__links megamenu__links--level--0">
                                                                 <li class="megamenu__item megamenu__item--with-submenu">
-                                                                    <a href="#">
+                                                                    <a>
                                                                         <span th:text="${category.name}">Category Name</span>
                                                                     </a>
                                                                     <ul class="megamenu__links megamenu__links--level--1">
-                                                                        <th:block
-                                                                                th:each="subcategory : ${category.subcategories}">
+                                                                        <th:block th:each="subcategory : ${category.subcategories}">
                                                                             <li class="megamenu__item">
-                                                                                <a href="#">
+                                                                                <!-- Update href with subcategoryId -->
+                                                                                <a th:href="@{/offers(subcategoryId=${subcategory.id})}">
                                                                                     <span th:text="${subcategory.name}">Subcategory Name</span>
                                                                                 </a>
                                                                             </li>

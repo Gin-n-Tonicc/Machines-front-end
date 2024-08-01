@@ -88,8 +88,10 @@
                                                                 th:text="'Модел: ' + ${offer.model}"></li>
                                                             <li th:if="${offer.manufactureYear != null}"
                                                                 th:text="'Година на производство: ' + ${offer.manufactureYear}"></li>
-                                                            <li th:text="'Телефонен номер : ' + ${offer.phoneNumber}"></li>
+                                                            <li th:text="'Телефонен номер: ' + ${offer.phoneNumber}"></li>
                                                             <li th:text="'Собственик на обявата : ' + ${offer.owner.name} + ' ' + ${offer.owner.surname}"></li>
+                                                            <li th:text="'Дата на създаване: ' + ${offer.createdAt}"></li>
+                                                            <li th:if="${offer.deletedAt != null}" th:text="'Дата на изтриване: ' + ${offer.deletedAt}"></li>
                                                         </ul>
                                                     </div>
                                                     <div class="product-card__actions">
