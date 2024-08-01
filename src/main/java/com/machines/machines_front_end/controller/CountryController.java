@@ -45,7 +45,7 @@ public class CountryController {
     public String listCountries(@RequestParam(defaultValue = "false") boolean includeRegions, Model model) {
         List<CountryAdminResponseDTO> countries = countryClient.getAllAdmin(includeRegions);
         model.addAttribute("countries", countries);
-        return "countries/list.html";
+        return "countries/list";
     }
 
     @GetMapping("/update/{id}")

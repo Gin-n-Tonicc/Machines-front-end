@@ -62,7 +62,7 @@ public class SubcategoryController {
         model.addAttribute("subcategories", subcategories);
         model.addAttribute("categoryNameMap", categoryNameMap); // Pass the map to the view
 
-        return "subcategories/list.html";
+        return "subcategories/list";
     }
 
 

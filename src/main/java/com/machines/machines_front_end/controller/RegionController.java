@@ -63,7 +63,7 @@ public class RegionController {
         model.addAttribute("regions", regions);
         model.addAttribute("countryNameMap", countryNameMap); // Pass the map to the view
 
-        return "regions/list.html";
+        return "regions/list";
     }
 
     @GetMapping("/update/{id}")
