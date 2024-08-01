@@ -10,6 +10,7 @@ import com.machines.machines_front_end.dtos.response.OfferAdminResponseDTO;
 import com.machines.machines_front_end.dtos.response.OfferResponseDTO;
 import com.machines.machines_front_end.dtos.response.OfferSingleAdminResponseDTO;
 import com.machines.machines_front_end.enums.OfferSaleType;
+import com.machines.machines_front_end.enums.OfferSort;
 import com.machines.machines_front_end.enums.OfferState;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,11 +36,23 @@ public class OfferController {
     private final CityClient cityClient;
 
     @GetMapping
-    public String listOffers(@RequestParam(defaultValue = "1") int page,
-                             @RequestParam(defaultValue = "5") int size,
-                             Model model) {
-        Page<OfferResponseDTO> offers = offerClient.getAll(page, size);
-        model.addAttribute("offers", offers);
+    public String getAll(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) UUID subcategoryId,
+            @RequestParam(required = false) UUID cityId,
+            @RequestParam(required = false) OfferState offerState,
+            @RequestParam(required = false) OfferSaleType offerSaleType,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) Boolean bulgarian,
+            @RequestParam(required = false, defaultValue = "def") OfferSort offerSort,
+            Model model
+    ) {
+        model.addAttribute("subcategories", subcategoryClient.getAll());
+        model.addAttribute("cities", cityClient.getAll());
+        model.addAttribute("offers" ,offerClient.getAllOffers(page, size, search, subcategoryId, cityId, offerState, offerSaleType, minPrice, maxPrice, bulgarian, offerSort));
         return "offers/list";
     }
 
