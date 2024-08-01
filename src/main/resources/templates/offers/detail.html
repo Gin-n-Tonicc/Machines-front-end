@@ -129,6 +129,17 @@
                         <div class="product-card__actions">
                             <h4 class="product-card__prices" th:text="'Цена: лв.' + ${offer.price}"></h4>
                         </div>
+                        <th:block th:if="${session.sessionToken != null and session.sessionRole == 'ADMIN'}">
+                            <a th:href="@{/offers/update/{id}(id=${offer.id})}">
+                                <button type="button" class="btn btn-info">Редактирай
+                                </button>
+                            </a>
+                            <form th:action="@{/offers/delete/admin/{id}(id=${offer.id})}"
+                                  method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Изтрий
+                                </button>
+                            </form>
+                        </th:block>
                         <div class="product__footer">
                             <div class="product__tags tags">
                                 <div class="tags__list">
@@ -286,36 +297,54 @@
                         </div>
                         <div class="block-products-carousel__slider">
                             <div class="owl-carousel">
-                                <div class="block-products-carousel__column" th:each="similarOffer : ${offer.similarOffers}">
+                                <div class="block-products-carousel__column"
+                                     th:each="similarOffer : ${offer.similarOffers}">
                                     <div class="block-products-carousel__cell">
                                         <div class="product-card product-card--hidden-actions">
                                             <div class="product-card__badges-list">
                                                 <div th:switch="${similarOffer.offerState.name()}">
-                                                    <div th:case="'NEW'" class="product-card__badge product-card__badge--new">НОВ</div>
-                                                    <div th:case="'NEW_IMPORTATION'" class="product-card__badge product-card__badge--hot">НОВ ВНОС</div>
-                                                    <div th:case="'USED'" class="product-card__badge product-card__badge--sale">ИЗПОЛЗВАНО</div>
+                                                    <div th:case="'NEW'"
+                                                         class="product-card__badge product-card__badge--new">НОВ
+                                                    </div>
+                                                    <div th:case="'NEW_IMPORTATION'"
+                                                         class="product-card__badge product-card__badge--hot">НОВ ВНОС
+                                                    </div>
+                                                    <div th:case="'USED'"
+                                                         class="product-card__badge product-card__badge--sale">
+                                                        ИЗПОЛЗВАНО
+                                                    </div>
                                                 </div>
                                                 <div th:switch="${offer.OfferSaleType.name()}">
-                                                    <div th:case="'SALE'" class="product-card__badge product-card__badge--new">ЗА ПРОДАН</div>
-                                                    <div th:case="'FOR_RENT'" class="product-card__badge product-card__badge--hot">ПОД НАЕМ</div>
-                                                    <div th:case="'SERVICES'" class="product-card__badge product-card__badge--sale">УСЛУГИ</div>
+                                                    <div th:case="'SALE'"
+                                                         class="product-card__badge product-card__badge--new">ЗА ПРОДАН
+                                                    </div>
+                                                    <div th:case="'FOR_RENT'"
+                                                         class="product-card__badge product-card__badge--hot">ПОД НАЕМ
+                                                    </div>
+                                                    <div th:case="'SERVICES'"
+                                                         class="product-card__badge product-card__badge--sale">УСЛУГИ
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="product-card__image product-image">
-                                                <a th:href="@{/offers/{id}(id=${similarOffer.id})}" class="product-image__body">
-                                                    <img class="product-image__img" th:src="@{${similarOffer.mainPicture.path}}"
+                                                <a th:href="@{/offers/{id}(id=${similarOffer.id})}"
+                                                   class="product-image__body">
+                                                    <img class="product-image__img"
+                                                         th:src="@{${similarOffer.mainPicture.path}}"
                                                          alt="Similar Offer Image">
                                                 </a>
                                             </div>
                                             <div class="product-card__info">
                                                 <div class="product-card__name">
-                                                    <a th:href="@{/offers/{id}(id=${similarOffer.id})}" th:text="${similarOffer.title}">Offer Title</a>
+                                                    <a th:href="@{/offers/{id}(id=${similarOffer.id})}"
+                                                       th:text="${similarOffer.title}">Offer Title</a>
                                                 </div>
                                                 <div class="product-card__prices">
                                                     <p th:text="${similarOffer.price}">Цена</p>
                                                 </div>
                                                 <div class="product-card__buttons">
-                                                    <a href="#" th:href="@{/offers/{id}(id=${similarOffer.id})}" class="btn btn-primary product-card__addtocart">
+                                                    <a href="#" th:href="@{/offers/{id}(id=${similarOffer.id})}"
+                                                       class="btn btn-primary product-card__addtocart">
                                                         Прочети повече
                                                     </a>
                                                 </div>
