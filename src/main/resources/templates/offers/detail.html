@@ -301,6 +301,16 @@
                                      th:each="similarOffer : ${offer.similarOffers}">
                                     <div class="block-products-carousel__cell">
                                         <div class="product-card product-card--hidden-actions">
+                                            <!-- Quick View Button -->
+                                            <button class="product-card__quickview" type="button"
+                                                    data-toggle="modal"
+                                                    th:data-target="'#quickviewModal_' + ${similarOffer.id}"
+                                                    th:data-id="${similarOffer.id}">
+                                                <svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#quickview-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon"></span>
+                                            </button>
                                             <div class="product-card__badges-list">
                                                 <div th:switch="${similarOffer.offerState.name()}">
                                                     <div th:case="'NEW'"
@@ -350,6 +360,108 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="modal fade" th:id="'quickviewModal_' + ${similarOffer.id}"
+                                             tabindex="-1" role="dialog"
+                                             aria-labelledby="'quickviewModalLabel_' + ${offer.id}"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-body">
+                                                        <!-- Quick View Content -->
+                                                        <div class="quickview">
+                                                            <button class="quickview__close" type="button"
+                                                                    data-dismiss="modal">
+                                                                <svg width="20px" height="20px">
+                                                                    <use xlink:href="/images/sprite.svg#cross-20"></use>
+                                                                </svg>
+                                                            </button>
+                                                            <div class="product product--layout--quickview"
+                                                                 data-layout="quickview">
+                                                                <div class="product__content">
+                                                                    <div class="product__gallery">
+                                                                        <div class="product-gallery">
+                                                                            <div class="product-gallery__featured">
+                                                                                <button class="product-gallery__zoom">
+                                                                                    <svg width="24px" height="24px">
+                                                                                        <use xlink:href="/images/sprite.svg#zoom-in-24"></use>
+                                                                                    </svg>
+                                                                                </button>
+                                                                                <div class="owl-carousel"
+                                                                                     id="product-image1">
+                                                                                    <div class="product-image product-image--location--gallery">
+                                                                                        <a th:href="@{${similarOffer.mainPicture.path}}"
+                                                                                           data-width="700"
+                                                                                           data-height="700"
+                                                                                           class="product-image__body"
+                                                                                           target="_blank">
+                                                                                            <img th:src="@{${similarOffer.mainPicture.path}}"
+                                                                                                 class="product-image__img"
+                                                                                                 alt="Main Image">
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <div th:each="picture : ${similarOffer.pictures}">
+                                                                                        <div class="product-image product-image--location--gallery">
+                                                                                            <a th:href="@{${picture.path}}"
+                                                                                               data-width="700"
+                                                                                               data-height="700"
+                                                                                               class="product-image__body"
+                                                                                               target="_blank">
+                                                                                                <img th:src="@{${picture.path}}"
+                                                                                                     class="product-image__img"
+                                                                                                     alt="Additional Image">
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- Thumbnail Carousel -->
+                                                                            <div class="product-gallery__carousel">
+                                                                                <div class="owl-carousel"
+                                                                                     id="product-carousel1">
+                                                                                    <a th:href="@{${similarOffer.mainPicture.path}}"
+                                                                                       class="product-image product-gallery__carousel-item">
+                                                                                        <div class="product-image__body">
+                                                                                            <img th:src="@{${similarOffer.mainPicture.path}}"
+                                                                                                 class="product-image__img product-gallery__carousel-image"
+                                                                                                 alt="Main Image">
+                                                                                        </div>
+                                                                                    </a>
+                                                                                    <div th:each="picture : ${similarOffer.pictures}">
+                                                                                        <a th:href="@{${picture.path}}"
+                                                                                           class="product-image product-gallery__carousel-item">
+                                                                                            <div class="product-image__body">
+                                                                                                <img th:src="@{${picture.path}}"
+                                                                                                     class="product-image__img product-gallery__carousel-image"
+                                                                                                     alt="Additional Image">
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product__info">
+                                                                        <h1 class="product__name"
+                                                                            th:text="${similarOffer.title}">Product
+                                                                            Name</h1>
+                                                                        <div class="product__description"
+                                                                             th:text="${similarOffer.description}">Product
+                                                                            Description
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product__sidebar">
+                                                                        <div class="product__prices"
+                                                                             th:text="'Price: ' + ${similarOffer.price} + ' лв.'">
+                                                                            Price
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -361,12 +473,8 @@
         </div>
     </div>
 </div>
-</div>
 <!-- site__body / end -->
 <!-- site__footer -->
-</div>
-</div>
-</div>
 <th:block th:insert="~{fragments/footer}"></th:block>
 <!-- Include the toast.js file -->
 <script th:src="@{/js/toast.js}"></script>
