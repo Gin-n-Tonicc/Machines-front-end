@@ -7,7 +7,7 @@
                 <div class="mobile-header__body">
                     <button class="mobile-header__menu-button">
                         <svg width="18px" height="14px">
-                            <use xlink:href="images/sprite.svg#menu-18x14"></use>
+                            <use xlink:href="/sprite.svg#menu-18x14"></use>
                         </svg>
                     </button>
                     <a class="mobile-header__logo" href="index">
@@ -15,22 +15,18 @@
                     </a>
                     <div class="search search--location--mobile-header mobile-header__search">
                         <div class="search__body">
-                            <form class="search__form" action="">
-                                <input class="search__input" name="search" placeholder="Search over 10,000 products"
+                            <form class="search__form" method="get" action="/offers" id="searchForm2">
+                                <!-- Search Input -->
+                                <input class="search__input" name="search" placeholder="Търсете из всички наши продукти"
                                        aria-label="Site search" type="text" autocomplete="off">
+                                <!-- Submit Button -->
                                 <button class="search__button search__button--type--submit" type="submit">
                                     <svg width="20px" height="20px">
-                                        <use xlink:href="images/sprite.svg#search-20"></use>
-                                    </svg>
-                                </button>
-                                <button class="search__button search__button--type--close" type="button">
-                                    <svg width="20px" height="20px">
-                                        <use xlink:href="images/sprite.svg#cross-20"></use>
+                                        <use xlink:href="/sprite.svg#search-20"></use>
                                     </svg>
                                 </button>
                                 <div class="search__border"></div>
                             </form>
-                            <div class="search__suggestions suggestions suggestions--location--mobile-header"></div>
                         </div>
                     </div>
                     <div class="mobile-header__indicators">
@@ -38,30 +34,10 @@
                             <button class="indicator__button">
                                         <span class="indicator__area">
                                             <svg width="20px" height="20px">
-                                                <use xlink:href="images/sprite.svg#search-20"></use>
+                                                <use xlink:href="/sprite.svg#search-20"></use>
                                             </svg>
                                         </span>
                             </button>
-                        </div>
-                        <div class="indicator indicator--mobile d-sm-flex d-none">
-                            <a href="wishlist.html" class="indicator__button">
-                                        <span class="indicator__area">
-                                            <svg width="20px" height="20px">
-                                                <use xlink:href="images/sprite.svg#heart-20"></use>
-                                            </svg>
-                                            <span class="indicator__value">0</span>
-                                        </span>
-                            </a>
-                        </div>
-                        <div class="indicator indicator--mobile">
-                            <a href="cart.html" class="indicator__button">
-                                        <span class="indicator__area">
-                                            <svg width="20px" height="20px">
-                                                <use xlink:href="images/sprite.svg#cart-20"></use>
-                                            </svg>
-                                            <span class="indicator__value">3</span>
-                                        </span>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -83,28 +59,17 @@
                 <div class="search search--location--header ">
                     <div class="search__body">
                         <form class="search__form" method="get" action="/offers" id="searchForm">
-                            <!-- Subcategory Selector -->
-                            <select class="search__categories" name="subcategoryId" aria-label="Subcategory">
-                                <option value="all">Всички категории</option>
-                                <th:block th:each="category : ${categories}">
-                                    <th:block th:each="subcategory : ${category.subcategories}">
-                                        <option th:value="${subcategory.id}" th:text="${subcategory.name}"></option>
-                                    </th:block>
-                                </th:block>
-                            </select>
-
                             <!-- Search Input -->
                             <input class="search__input" name="search" placeholder="Търсете из всички наши продукти"
                                    aria-label="Site search" type="text" autocomplete="off">
                             <!-- Submit Button -->
                             <button class="search__button search__button--type--submit" type="submit">
                                 <svg width="20px" height="20px">
-                                    <use xlink:href="images/sprite.svg#search-20"></use>
+                                    <use xlink:href="/sprite.svg#search-20"></use>
                                 </svg>
                             </button>
                             <div class="search__border"></div>
                         </form>
-                        <div class="search__suggestions suggestions suggestions--location--header"></div>
                     </div>
                 </div>
             </div>
@@ -131,7 +96,7 @@
                                                     <a class="departments__item-link">
                                                         <span th:text="${category.name}">Category Name</span>
                                                         <svg class="departments__item-arrow" width="6px" height="9px">
-                                                            <use xlink:href="images/sprite.svg#arrow-rounded-right-6x9"></use>
+                                                            <use xlink:href="/sprite.svg#arrow-rounded-right-6x9"></use>
                                                         </svg>
                                                     </a>
                                                     <div class="departments__submenu departments__submenu--type--megamenu departments__submenu--size--lg">
@@ -166,11 +131,11 @@
                                 </div>
                                 <button class="departments__button">
                                     <svg class="departments__button-icon" width="18px" height="14px">
-                                        <use xlink:href="images/sprite.svg#menu-18x14"></use>
+                                        <use xlink:href="/sprite.svg#menu-18x14"></use>
                                     </svg>
                                     Според категории
                                     <svg class="departments__button-arrow" width="9px" height="6px">
-                                        <use xlink:href="images/sprite.svg#arrow-rounded-down-9x6"></use>
+                                        <use xlink:href="/sprite.svg#arrow-rounded-down-9x6"></use>
                                     </svg>
                                 </button>
                             </div>
@@ -183,62 +148,15 @@
                                     <a class="nav-links__item-link" href="/index">
                                         <div class="nav-links__item-body">
                                             Начало
-                                            <svg class="nav-links__item-arrow" width="9px" height="6px">
-                                                <use xlink:href="images/sprite.svg#arrow-rounded-down-9x6"></use>
-                                            </svg>
                                         </div>
                                     </a>
-                                    <div class="nav-links__submenu nav-links__submenu--type--menu">
-                                        <!-- .menu -->
-                                        <div class="menu menu--layout--classic ">
-                                            <div class="menu__submenus-container"></div>
-                                            <ul class="menu__list">
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="index.html">
-                                                        Home 1 Slideshow
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="index-2.html">
-                                                        Home 2 Slideshow
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="index-3.html">
-                                                        Home 1 Finder
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="index-4.html">
-                                                        Home 2 Finder
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="offcanvas-cart.html">
-                                                        Offcanvas Cart
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!-- .menu / end -->
-                                    </div>
                                 </li>
                                 <li class="nav-links__item nav-links__item--has-submenu">
                                     <a class="nav-links__item-link" href="#">
                                         <div class="nav-links__item-body">
                                             Меню
                                             <svg class="nav-links__item-arrow" width="9px" height="6px">
-                                                <use xlink:href="images/sprite.svg#arrow-rounded-down-9x6"></use>
+                                                <use xlink:href="/sprite.svg#arrow-rounded-down-9x6"></use>
                                             </svg>
                                         </div>
                                     </a>
@@ -280,7 +198,7 @@
                                         <div class="nav-links__item-body">
                                             Магазин
                                             <svg class="nav-links__item-arrow" width="9px" height="6px">
-                                                <use xlink:href="images/sprite.svg#arrow-rounded-down-9x6"></use>
+                                                <use xlink:href="/sprite.svg#arrow-rounded-down-9x6"></use>
                                             </svg>
                                         </div>
                                     </a>
@@ -315,7 +233,7 @@
                                         <div class="nav-links__item-body">
                                             Акаунт
                                             <svg class="nav-links__item-arrow" width="9px" height="6px">
-                                                <use xlink:href="images/sprite.svg#arrow-rounded-down-9x6"></use>
+                                                <use xlink:href="/sprite.svg#arrow-rounded-down-9x6"></use>
                                             </svg>
                                         </div>
                                     </a>
@@ -406,74 +324,13 @@
                                         <!-- .menu / end -->
                                     </div>
                                 </li>
-                                <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="blog-classic.html">
-                                        <div class="nav-links__item-body">
-                                            Blog
-                                            <svg class="nav-links__item-arrow" width="9px" height="6px">
-                                                <use xlink:href="images/sprite.svg#arrow-rounded-down-9x6"></use>
-                                            </svg>
-                                        </div>
-                                    </a>
-                                    <div class="nav-links__submenu nav-links__submenu--type--menu">
-                                        <!-- .menu -->
-                                        <div class="menu menu--layout--classic ">
-                                            <div class="menu__submenus-container"></div>
-                                            <ul class="menu__list">
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="blog-classic.html">
-                                                        Blog Classic
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="blog-grid.html">
-                                                        Blog Grid
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="blog-list.html">
-                                                        Blog List
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="blog-left-sidebar.html">
-                                                        Blog Left Sidebar
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="post.html">
-                                                        Post Page
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="post-without-sidebar.html">
-                                                        Post Without Sidebar
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!-- .menu / end -->
-                                    </div>
-                                </li>
                                 <th:block th:if="${session.sessionToken != null and session.sessionRole == 'ADMIN'}">
                                     <li class="nav-links__item  nav-links__item--has-submenu ">
                                         <a class="nav-links__item-link" href="">
                                             <div class="nav-links__item-body">
                                                 Административно меню
                                                 <svg class="nav-links__item-arrow" width="9px" height="6px">
-                                                    <use xlink:href="images/sprite.svg#arrow-rounded-down-9x6"></use>
+                                                    <use xlink:href="/sprite.svg#arrow-rounded-down-9x6"></use>
                                                 </svg>
                                             </div>
                                         </a>
@@ -531,191 +388,6 @@
                                     </li>
                                 </th:block>
                             </ul>
-                        </div>
-                        <!-- .nav-links / end -->
-                        <div class="nav-panel__indicators">
-                            <div class="indicator">
-                                <a href="wishlist.html" class="indicator__button">
-                                            <span class="indicator__area">
-                                                <svg width="20px" height="20px">
-                                                    <use xlink:href="images/sprite.svg#heart-20"></use>
-                                                </svg>
-                                                <span class="indicator__value">0</span>
-                                            </span>
-                                </a>
-                            </div>
-                            <div class="indicator indicator--trigger--click">
-                                <a href="cart.html" class="indicator__button">
-                                            <span class="indicator__area">
-                                                <svg width="20px" height="20px">
-                                                    <use xlink:href="images/sprite.svg#cart-20"></use>
-                                                </svg>
-                                                <span class="indicator__value">3</span>
-                                            </span>
-                                </a>
-                                <div class="indicator__dropdown">
-                                    <!-- .dropcart -->
-                                    <div class="dropcart dropcart--style--dropdown">
-                                        <div class="dropcart__body">
-                                            <div class="dropcart__products-list">
-                                                <div class="dropcart__product">
-                                                    <div class="product-image dropcart__product-image">
-                                                        <a href="product.html" class="product-image__body">
-                                                            <img class="product-image__img"
-                                                                 src="images/products/product-1.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="dropcart__product-info">
-                                                        <div class="dropcart__product-name"><a href="product.html">Electric
-                                                            Planer Brandix KL370090G 300 Watts</a></div>
-                                                        <ul class="dropcart__product-options">
-                                                            <li>Color: Yellow</li>
-                                                            <li>Material: Aluminium</li>
-                                                        </ul>
-                                                        <div class="dropcart__product-meta">
-                                                            <span class="dropcart__product-quantity">2</span> ×
-                                                            <span class="dropcart__product-price">$699.00</span>
-                                                        </div>
-                                                    </div>
-                                                    <button type="button"
-                                                            class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
-                                                        <svg width="10px" height="10px">
-                                                            <use xlink:href="images/sprite.svg#cross-10"></use>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                                <div class="dropcart__product">
-                                                    <div class="product-image dropcart__product-image">
-                                                        <a href="product.html" class="product-image__body">
-                                                            <img class="product-image__img"
-                                                                 src="images/products/product-2.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="dropcart__product-info">
-                                                        <div class="dropcart__product-name"><a href="product.html">Undefined
-                                                            Tool IRadix DPS3000SY 2700 watts</a></div>
-                                                        <div class="dropcart__product-meta">
-                                                            <span class="dropcart__product-quantity">1</span> ×
-                                                            <span class="dropcart__product-price">$849.00</span>
-                                                        </div>
-                                                    </div>
-                                                    <button type="button"
-                                                            class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
-                                                        <svg width="10px" height="10px">
-                                                            <use xlink:href="images/sprite.svg#cross-10"></use>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                                <div class="dropcart__product">
-                                                    <div class="product-image dropcart__product-image">
-                                                        <a href="product.html" class="product-image__body">
-                                                            <img class="product-image__img"
-                                                                 src="images/products/product-5.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="dropcart__product-info">
-                                                        <div class="dropcart__product-name"><a href="product.html">Brandix
-                                                            Router Power Tool 2017ERXPK</a></div>
-                                                        <ul class="dropcart__product-options">
-                                                            <li>Color: True Red</li>
-                                                        </ul>
-                                                        <div class="dropcart__product-meta">
-                                                            <span class="dropcart__product-quantity">3</span> ×
-                                                            <span class="dropcart__product-price">$1,210.00</span>
-                                                        </div>
-                                                    </div>
-                                                    <button type="button"
-                                                            class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
-                                                        <svg width="10px" height="10px">
-                                                            <use xlink:href="images/sprite.svg#cross-10"></use>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="dropcart__totals">
-                                                <table>
-                                                    <tr>
-                                                        <th>Subtotal</th>
-                                                        <td>$5,877.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Shipping</th>
-                                                        <td>$25.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Tax</th>
-                                                        <td>$0.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Total</th>
-                                                        <td>$5,902.00</td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div class="dropcart__buttons">
-                                                <a class="btn btn-secondary" href="cart.html">View Cart</a>
-                                                <a class="btn btn-primary" href="checkout.html">Checkout</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- .dropcart / end -->
-                                </div>
-                            </div>
-                            <div class="indicator indicator--trigger--click">
-                                <a href="account-login.html" class="indicator__button">
-                                            <span class="indicator__area">
-                                                <svg width="20px" height="20px">
-                                                    <use xlink:href="images/sprite.svg#person-20"></use>
-                                                </svg>
-                                            </span>
-                                </a>
-                                <div class="indicator__dropdown">
-                                    <div class="account-menu">
-                                        <form class="account-menu__form">
-                                            <div class="account-menu__form-title">Log In to Your Account</div>
-                                            <div class="form-group">
-                                                <label for="header-signin-email" class="sr-only">Email address</label>
-                                                <input id="header-signin-email" type="email"
-                                                       class="form-control form-control-sm" placeholder="Email address">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="header-signin-password" class="sr-only">Password</label>
-                                                <div class="account-menu__form-forgot">
-                                                    <input id="header-signin-password" type="password"
-                                                           class="form-control form-control-sm" placeholder="Password">
-                                                    <a href="" class="account-menu__form-forgot-link">Forgot?</a>
-                                                </div>
-                                            </div>
-                                            <div class="form-group account-menu__form-button">
-                                                <button type="submit" class="btn btn-primary btn-sm">Login</button>
-                                            </div>
-                                            <div class="account-menu__form-link"><a href="account-login.html">Create An
-                                                Account</a></div>
-                                        </form>
-                                        <div class="account-menu__divider"></div>
-                                        <a href="account-dashboard.html" class="account-menu__user">
-                                            <div class="account-menu__user-avatar">
-                                                <img src="images/avatars/avatar-3.jpg" alt="">
-                                            </div>
-                                            <div class="account-menu__user-info">
-                                                <div class="account-menu__user-name">Helena Garcia</div>
-                                                <div class="account-menu__user-email">stroyka@example.com</div>
-                                            </div>
-                                        </a>
-                                        <div class="account-menu__divider"></div>
-                                        <ul class="account-menu__links">
-                                            <li><a href="account-profile.html">Edit Profile</a></li>
-                                            <li><a href="account-orders.html">Order History</a></li>
-                                            <li><a href="account-addresses.html">Addresses</a></li>
-                                            <li><a href="account-password.html">Password</a></li>
-                                        </ul>
-                                        <div class="account-menu__divider"></div>
-                                        <ul class="account-menu__links">
-                                            <li><a href="account-login.html">Logout</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
