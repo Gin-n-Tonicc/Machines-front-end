@@ -35,4 +35,14 @@ public class MainController {
         model.addAttribute("offers" ,offerClient.getAllOffers(page, size, search, subcategoryId, cityId, offerState, offerSaleType, minPrice, maxPrice, bulgarian, offerSort));
         return "index";
     }
+
+    @GetMapping("aboutUs")
+    public String aboutUs(){
+        return "aboutUs";
+    }
+
+    @GetMapping("contact")
+    public String contact(){
+        return "contact";
+    }
 }
