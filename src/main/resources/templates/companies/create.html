@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <name>Създай фирма</name>
+    <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- site__body -->
+    <div class="site__body">
+        <!-- Toast notification container -->
+        <div id="toast" class="toast"></div>
+
+        <!-- Hidden error message container for Thymeleaf -->
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
+            appear here</p>
+
+        <div class="block">
+            <div class="container">
+                <div>
+                    <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
+                        <div class="card flex-grow-1 mb-md-0">
+                            <div class="card-body">
+                                <th:block th:if="${session.sessionToken != null}">
+                                    <h3 class="card-name" style="text-align: center;">Създай фирма</h3>
+                                    <div style="text-align: center;">
+                                        <form th:action="@{/companies/create}" th:object="${company}" method="post"
+                                              enctype="multipart/form-data">
+                                            <!-- Basic Info -->
+                                            <div class="form-group">
+                                                <label for="name">Име на фирмата:</label>
+                                                <input type="text" id="name" name="name" th:field="*{name}"
+                                                       class="form-control" placeholder="Име на фирмата"
+                                                       required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="phoneNumber">Телефонен номер:</label>
+                                                <input type="text" id="phoneNumber" name="phoneNumber"
+                                                       th:field="*{phoneNumber}" class="form-control"
+                                                       placeholder="Телефонен номер" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="description">Описание на фирмата:</label>
+                                                <textarea id="description" name="description" th:field="*{description}"
+                                                          class="form-control" placeholder="Описание на обявата"
+                                                          required></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="eik">ЕИК:</label>
+                                                <input type="text" id="eik" name="eik"
+                                                       th:field="*{eik}" class="form-control"
+                                                       placeholder="ЕИК" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="website">Вашият уеб сайт линк:</label>
+                                                <input type="url" id="website" name="website"
+                                                       th:field="*{website}"
+                                                       class="form-control" placeholder="Вашият уеб сайт линк">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="fax">Факс:</label>
+                                                <input type="text" id="fax" name="fax"
+                                                       th:field="*{fax}" class="form-control"
+                                                       placeholder="Факс">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="cityId">Град:</label>
+                                                <select id="cityId" th:field="*{cityId}" class="form-control" required>
+                                                    <option th:each="city : ${cities}" th:value="${city.id}"
+                                                            th:text="${city.name}"></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="address">Адрес:</label>
+                                                <input type="text" id="address" name="address"
+                                                       th:field="*{address}" class="form-control"
+                                                       placeholder="Адрес" required>
+                                            </div>
+
+                                            <!-- Main Picture -->
+                                            <div class="form-group">
+                                                <label for="mainPicture">Главна снимка на фирмата:</label>
+                                                <input type="file" id="mainPicture" name="mainPicture"
+                                                       class="form-control"
+                                                       onchange="previewMainPicture(event)" required>
+                                                <img th:if="${mainPictureUrl}" id="mainPicturePreview"
+                                                     th:src="@{${mainPictureUrl}}"
+                                                     alt="Main Picture" width="100" class="mt-2">
+                                            </div>
+
+                                            <!-- Additional Pictures -->
+                                            <div class="form-group">
+                                                <label for="pictures">Допълнителни снимки към фирмата:</label>
+                                                <input type="file" id="pictures" name="pictures" class="form-control"
+                                                       multiple onchange="previewAdditionalPictures(event)" required>
+                                                <div id="additionalPicturesPreview" class="picture-row">
+                                                    <div th:each="url : ${additionalPictureUrls}">
+                                                        <img th:src="@{${url}}" alt="Additional Picture" width="100"
+                                                             class="mt-2">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary mt-4">Запази фирма</button>
+                                        </form>
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${session.sessionToken == null}">
+                                    <div class="site">
+                                        <h1 style="text-align: center;">Отказан достъп</h1>
+                                        <p style="text-align: center;">Впиши се в сайта, за да имаш
+                                            достъп до тази функционалност!
+                                        </p>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- site__body / end -->
+            <!-- site__footer -->
+        </div>
+    </div>
+</div>
+<th:block th:insert="~{fragments/footer}"></th:block>
+<!-- Include the toast.js file -->
+<script th:src="@{/js/toast.js}"></script>
+<!-- JavaScript to Toggle Extra Info -->
+<script>
+    document.getElementById('toggleExtraInfo').addEventListener('click', function() {
+        var extraInfoDiv = document.getElementById('extraInfo');
+        if (extraInfoDiv.style.display === 'none' || extraInfoDiv.style.display === '') {
+            extraInfoDiv.style.display = 'block';
+            this.textContent = 'Скрий допълнителна информация'; // Change button text to 'Hide'
+        } else {
+            extraInfoDiv.style.display = 'none';
+            this.textContent = 'Покажи допълнителна информация'; // Change button text to 'Show'
+        }
+    });
+</script>
+
+<script>
+    function previewMainPicture(event) {
+        const input = event.target;
+        const reader = new FileReader();
+        reader.onload = function() {
+            const dataURL = reader.result;
+            let mainPicturePreview = document.getElementById('mainPicturePreview');
+            if (!mainPicturePreview) {
+                mainPicturePreview = document.createElement('img');
+                mainPicturePreview.id = 'mainPicturePreview';
+                mainPicturePreview.width = 100;
+                mainPicturePreview.classList.add('mt-2');
+                input.insertAdjacentElement('afterend', mainPicturePreview);
+            }
+            mainPicturePreview.src = dataURL;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+
+    function previewAdditionalPictures(event) {
+        const input = event.target;
+        const previewContainer = document.getElementById('additionalPicturesPreview');
+        previewContainer.innerHTML = ''; // Clear existing previews
+        for (let i = 0; i < input.files.length; i++) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const dataURL = reader.result;
+                const img = document.createElement('img');
+                img.src = dataURL;
+                img.width = 100;
+                img.classList.add('mt-2');
+                previewContainer.appendChild(img);
+            };
+            reader.readAsDataURL(input.files[i]);
+        }
+    }
+</script>
+
+<style>
+    .picture-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* Adjust the gap between images as needed */
+    }
+    .picture-row img {
+        margin-top: 0; /* Remove top margin to align with other pictures */
+    }
+</style>
+</body>
+</html>

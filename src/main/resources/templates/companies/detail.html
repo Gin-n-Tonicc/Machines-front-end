@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>Детайли</title>
+    <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- site__body -->
+    <div class="site__body">
+        <div class="page-header">
+            <div class="page-header__container container">
+                <div class="page-header__breadcrumb">
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <div class="container">
+                <div class="product product--layout--standard" data-layout="standard">
+                    <div class="product__content">
+                        <!-- .product__gallery -->
+                        <div class="product__gallery">
+                            <div class="product-gallery">
+                                <!-- Featured Image Carousel -->
+                                <div class="product-gallery__featured">
+                                    <button class="product-gallery__zoom">
+                                        <svg width="24px" height="24px">
+                                            <use xlink:href="/sprite.svg#zoom-in-24"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="owl-carousel" id="product-image">
+                                        <div class="product-image product-image--location--gallery">
+                                            <a th:href="@{${company.mainPicture.path}}" data-width="700" data-height="700"
+                                               class="product-image__body" target="_blank">
+                                                <img th:src="@{${company.mainPicture.path}}" class="product-image__img"
+                                                     alt="Main Image">
+                                            </a>
+                                        </div>
+                                        <div th:each="picture : ${company.pictures}">
+                                            <div class="product-image product-image--location--gallery">
+                                                <a th:href="@{${picture.path}}" data-width="700" data-height="700"
+                                                   class="product-image__body" target="_blank">
+                                                    <img th:src="@{${picture.path}}" class="product-image__img"
+                                                         alt="Additional Image">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Thumbnail Carousel -->
+                                <div class="product-gallery__carousel">
+                                    <div class="owl-carousel" id="product-carousel">
+                                        <a th:href="@{${company.mainPicture.path}}"
+                                           class="product-image product-gallery__carousel-item">
+                                            <div class="product-image__body">
+                                                <img th:src="@{${company.mainPicture.path}}"
+                                                     class="product-image__img product-gallery__carousel-image"
+                                                     alt="Main Image">
+                                            </div>
+                                        </a>
+                                        <div th:each="picture : ${company.pictures}">
+                                            <a th:href="@{${picture.path}}"
+                                               class="product-image product-gallery__carousel-item">
+                                                <div class="product-image__body">
+                                                    <img th:src="@{${picture.path}}"
+                                                         class="product-image__img product-gallery__carousel-image"
+                                                         alt="Additional Image">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .product__gallery / end -->
+
+                        <!-- .product__info -->
+                        <div class="product__info">
+                            <h1 class="product__name" th:text="${company.name}"></h1>
+                            <br><br>
+                            <div class="spec__section">
+                                <h3 class="spec__section-title">Общи характерискити </h3>
+                                <table class="product__meta-table">
+                                    <tbody>
+                                    <tr>
+                                        <td class="spec__name">Собственик на фирмата</td>
+                                        <td class="spec__value"
+                                            th:text="${company.owner.name} + ' ' + ${company.owner.surname}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="spec__name">Тел. за връзка</td>
+                                        <td class="spec__value" th:text="${company.phoneNumber}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="spec__name">Град</td>
+                                        <td class="spec__value" th:text="${company.city.name}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="spec__name">Адрес</td>
+                                        <td class="spec__value" th:text="${company.address}"></td>
+                                    </tr>
+                                    <tr th:if="${company.website} != null">
+                                        <td class="spec__name">Уеб сайт</td>
+                                        <td class="spec__value" th:text="${company.website}"></td>
+                                    </tr>
+                                    <tr th:if="${company.eik} != null">
+                                        <td class="spec__name">ЕИК</td>
+                                        <td class="spec__value" th:text="${company.eik}"></td>
+                                    </tr>
+                                    <tr th:if="${company.fax} != null">
+                                        <td class="spec__name">Факс</td>
+                                        <td class="spec__value" th:text="${company.fax}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br><br>
+                            <div class="typography">
+                                <h3>За фирмата</h3>
+                                <div class="product__description" th:text="${company.description}"></div>
+                            </div>
+                            <br><br>
+                        </div>
+                        <th:block th:if="${session.sessionToken != null and session.sessionRole == 'ADMIN'}">
+                            <a th:href="@{/companies/update/{id}(id=${company.id})}">
+                                <button type="button" class="btn btn-info">Редактирай
+                                </button>
+                            </a>
+                            <form th:action="@{/companies/delete/admin/{id}(id=${company.id})}"
+                                  method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Изтрий
+                                </button>
+                            </form>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- site__body / end -->
+<!-- site__footer -->
+<th:block th:insert="~{fragments/footer}"></th:block>
+<!-- Include the toast.js file -->
+<script th:src="@{/js/toast.js}"></script>
+</body>
+</html>
