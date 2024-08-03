@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>За нас</title>
+    <th:block th:insert="~{fragments/links}"></th:block>
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- desktop site__header / end -->
+    <!-- site__body -->
+    <div class="site__body">
+        <!-- .block-slideshow -->
+        <div class="block about-us">
+            <div class="container">
+                <div class="card mb-0">
+                    <div class="card-body contact-us">
+                        <div class="contact-us__container">
+                            <div class="row">
+                                <div class="col-12 col-lg-6 pb-4 pb-lg-0">
+                                    <h4 class="contact-us__header card-title">Свържете се с нас</h4>
+                                    <div class="contact-us__address">
+                                        <p>
+                                            <strong>Телефон за връзка: </strong> 0899122997
+                                        </p>
+                                        <p>
+                                            <strong>Имейл: </strong> info@mashinite.com
+                                        </p>
+                                        <p>
+                                            <strong>МОЛ: </strong>
+                                            Сергей Станчев
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <h4 class="contact-us__header card-title">Въпроси и предложения</h4>
+                                    <form id="contact-form" action="mailto:info@mashinite.com" method="GET" enctype="text/plain">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="form-name">Вашето име</label>
+                                                <input type="text" id="form-name" name="name" class="form-control" placeholder="Вашето име">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="form-email">Вашият имейл</label>
+                                                <input type="email" id="form-email" name="email" class="form-control" placeholder="Вашият имейл">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="form-subject">Тема</label>
+                                            <input type="text" id="form-subject" name="subject" class="form-control" placeholder="Тема">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="form-message">Съобщение</label>
+                                            <textarea id="form-message" name="message" class="form-control" rows="4"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Изпрати</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:insert="~{fragments/footer}"></th:block>
+</body>
+</html>

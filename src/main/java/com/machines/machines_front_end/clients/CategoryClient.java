@@ -1,5 +1,6 @@
 package com.machines.machines_front_end.clients;
 
+import com.machines.machines_front_end.config.FeignClientConfiguration;
 import com.machines.machines_front_end.dtos.request.CategoryRequestDTO;
 import com.machines.machines_front_end.dtos.response.CategoryAdminResponseDTO;
 import com.machines.machines_front_end.dtos.response.CategoryResponseDTO;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@FeignClient(name = "machines-api-category", url = "${backend.base-url}/categories")
+@FeignClient(name = "machines-api-category", url = "${backend.base-url}/categories", configuration = FeignClientConfiguration.class)
 public interface CategoryClient {
 
     @GetMapping("/all")

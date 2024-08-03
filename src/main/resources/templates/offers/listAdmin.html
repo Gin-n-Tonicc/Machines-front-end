@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>Обяви</title>
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- site__body -->
+    <div class="site__body">
+        <!-- Toast notification container -->
+        <div id="toast" class="toast"></div>
+
+        <!-- Hidden error message container for Thymeleaf -->
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
+            appear here</p>
+        <div class="block">
+            <div class="container">
+                <div>
+                    <div class="col-md-10 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
+                        <div class="card flex-grow-1 mb-md-0">
+                            <div class="card-body">
+                                <th:block th:if="${session.sessionRole == 'ADMIN'}">
+                                    <div class="products-view__list products-list" data-layout="list"
+                                         data-with-features="false"
+                                         data-mobile-grid-columns="2">
+                                        <div class="products-list__body">
+                                            <!--                                    PRODUCT ITEM-->
+                                            <!--                                    PRODUCT ITEM-->
+                                            <!--                                    PRODUCT ITEM-->
+                                            <!--                                    PRODUCT ITEM-->
+                                            <div th:each="offer : ${offers}" class="products-list__item">
+                                                <div class="product-card product-card--hidden-actions">
+                                                    <div class="product-card__badges-list">
+                                                        <div th:switch="${offer.offerState.name()}">
+                                                            <div th:case="'NEW'"
+                                                                 class="product-card__badge product-card__badge--new">
+                                                                НОВ
+                                                            </div>
+                                                            <div th:case="'NEW_IMPORTATION'"
+                                                                 class="product-card__badge product-card__badge--hot">
+                                                                НОВ ВНОС
+                                                            </div>
+                                                            <div th:case="'USED'"
+                                                                 class="product-card__badge product-card__badge--sale">
+                                                                ИЗПОЛЗВАНО
+                                                            </div>
+                                                        </div>
+                                                        <div th:switch="${offer.OfferSaleType.name()}">
+                                                            <div th:case="'SALE'"
+                                                                 class="product-card__badge product-card__badge--new">ЗА
+                                                                ПРОДАН
+                                                            </div>
+                                                            <div th:case="'FOR_RENT'"
+                                                                 class="product-card__badge product-card__badge--hot">
+                                                                ПОД НАЕМ
+                                                            </div>
+                                                            <div th:case="'SERVICES'"
+                                                                 class="product-card__badge product-card__badge--sale">
+                                                                УСЛУГИ
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-card__image product-image">
+                                                        <a class="product-image__body">
+                                                            <img th:src="@{${offer.mainPicture.path}}"
+                                                                 class="product-image__img" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-card__info">
+                                                        <div class="product-card__name">
+                                                            <a th:href="@{/offers/{id}(id=${offer.id})}"
+                                                               th:text="${offer.title}"></a>
+                                                        </div>
+                                                        <ul class="product-card__features-list">
+                                                            <li th:text="'Българско : ' + (${offer.isBulgarian} ? 'ДА' : 'НЕ')"></li>
+                                                            <li th:if="${offer.model != null}"
+                                                                th:text="'Модел: ' + ${offer.model}"></li>
+                                                            <li th:if="${offer.manufactureYear != null}"
+                                                                th:text="'Година на производство: ' + ${offer.manufactureYear}"></li>
+                                                            <li th:text="'Телефонен номер: ' + ${offer.phoneNumber}"></li>
+                                                            <li th:text="'Собственик на обявата : ' + ${offer.owner.name} + ' ' + ${offer.owner.surname}"></li>
+                                                            <li th:text="'Дата на създаване: ' + ${offer.createdAt}"></li>
+                                                            <li th:if="${offer.deletedAt != null}" th:text="'Дата на изтриване: ' + ${offer.deletedAt}"></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="product-card__actions">
+                                                        <div class="product-card__prices"
+                                                             th:text="'Цена: ' + ${offer.price} + ' лв.'"></div>
+                                                        <div class="product-card__buttons">
+                                                            <a href="#" th:href="@{/offers/admin/{id}(id=${offer.id})}"
+                                                               class="btn btn-secondary product-card__addtocart product-card__addtocart--list">
+                                                                Прочети повече
+                                                            </a>
+                                                        </div>
+                                                        <br>
+                                                        <a th:href="@{/offers/update/{id}(id=${offer.id})}">
+                                                            <button type="button" class="btn btn-info">Редактирай
+                                                            </button>
+                                                        </a><br>
+                                                        <th:block th:if="${offer.deletedAt == null}">
+                                                            <form th:action="@{/offers/delete/admin/{id}(id=${offer.id})}"
+                                                                  method="post" style="display:inline;">
+                                                                <button type="submit" class="btn btn-danger">Изтрий
+                                                                </button>
+                                                            </form>
+                                                        </th:block>
+                                                        <th:block th:if="${offer.deletedAt != null}">
+                                                            <form th:action="@{/offers/delete/admin/{id}(id=${offer.id})}"
+                                                                  method="post" style="display:inline;">
+                                                                <button type="submit" class="btn btn-success">
+                                                                    Възстанови
+                                                                </button>
+                                                            </form>
+                                                        </th:block>
+                                                        </td>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pagination">
+                                            <!-- Previous Page Link -->
+                                            <div th:if="${offers.hasPrevious()}">
+                                                <a th:href="@{/offers/admin(page=${offers.number}, size=${offers.size})}" class="pagination__link">Предишна</a>
+                                            </div>
+
+                                            <!-- Page Number Display -->
+                                            <span>Страница <span th:text="${offers.number + 1}"></span> от <span th:text="${offers.totalPages}"></span></span>
+
+                                            <!-- Next Page Link -->
+                                            <div th:if="${offers.hasNext()}">
+                                                <a th:href="@{/offers/admin(page=${offers.number + 2}, size=${offers.size})}" class="pagination__link">Следваща</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${session.sessionRole != 'ADMIN'}">
+                                    <div class="site">
+                                        <h1 style="text-align: center;">Отказан достъп</h1>
+                                        <p style="text-align: center;">Само администраторите на платформата имат достъп
+                                            до тази страница!</p>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- site__body / end -->
+            <!-- site__footer -->
+        </div>
+    </div>
+</div>
+<th:block th:insert="~{fragments/footer}"></th:block>
+<!-- Include the toast.js file -->
+<script th:src="@{/js/toast.js}"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables JavaScript -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- Initialize DataTables -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize DataTables with default page length
+        var table = $('#example').DataTable({
+            paging: true,
+            lengthChange: false,
+            pageLength: 5,
+            language: {
+                paginate: {
+                    previous: '«',
+                    next: '»'
+                }
+            }
+        });
+
+        // Handle page length change
+        $('#pageLengthSelect').on('change', function() {
+            var pageLength = $(this).val();
+            table.page.len(parseInt(pageLength)).draw();
+        });
+
+        // Toggle between active and inactive entities
+        $('#toggleActiveInactive').on('change', function() {
+            var showActive = $(this).prop('checked');
+            table.rows().every(function() {
+                var row = this.node();
+                var deletedAt = $(row).find('td:nth-child(4)').text().trim();
+                if (showActive) {
+                    // Show active entities
+                    if (deletedAt) {
+                        $(row).hide();
+                    } else {
+                        $(row).show();
+                    }
+                } else {
+                    // Show all entities
+                    $(row).show();
+                }
+            });
+        }).trigger('change');  // Trigger change event on page load to ensure initial state
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const pageSizeSelect = document.getElementById('pageSizeSelect');
+
+        // Function to reload page with new page size
+        function updatePageSize(pageSize) {
+            const currentPage = new URLSearchParams(window.location.search).get('page') || 1;
+            window.location.href = `/offers?page=${currentPage}&size=${pageSize}`;
+        }
+
+        // Event listener for page size change
+        pageSizeSelect.addEventListener('change', function() {
+            const pageSize = pageSizeSelect.value;
+            updatePageSize(pageSize);
+        });
+
+        // Set the initial value based on current page size
+        const currentSize = new URLSearchParams(window.location.search).get('size') || 5;
+        pageSizeSelect.value = currentSize;
+    });
+</script>
+</body>
+</html>
