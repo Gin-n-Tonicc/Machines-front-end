@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="Mashinite е водещият български портал за машини, предлагащ широк асортимент от оборудване и резервни части за различни индустрии.
+    Машини и оборудване. Безплатни обяви за строителни, транспортни машини и други, кранове, мотокари, платформи. Покупко-продажба на автосервизно оборудване, медицинско и лабораторно оборудване.
+    Категории машини. Категория за обяви на машини.">
+    <meta name="keywords" content="машини, mashini, mashinite, mashina, машина, обяви, продан, части, машинни части, оборудване, индустриално оборудване, строителна техника, селскостопански машини, резервни части, Mashinite, България,
+    потребители, всички потребители">
+    <meta name="author" content="Екипът на Mashinite">
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Mashinite - Водещ портал за машини в България">
+    <meta property="og:description" content="Mashinite предлага най-доброто място за търговия с машини, резервни части и производствени оборудвания.
+    Потлебители на Mashinite. Потребители на машини.">
+    <meta property="og:type" content="website">
+
+    <title>Потребители</title>
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- site__body -->
+    <div class="site__body">
+        <!-- Toast notification container -->
+        <div id="toast" class="toast"></div>
+
+        <!-- Hidden error message container for Thymeleaf -->
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
+            appear here</p>
+        <div class="block">
+            <div class="container">
+                <div>
+                    <div class="col-md-10 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
+                        <div class="card flex-grow-1 mb-md-0">
+                            <div class="card-body">
+                                <th:block th:if="${session.sessionRole == 'ADMIN'}">
+                                    <h3 class="card-title" style="text-align: center;">Потребители</h3>
+                                    <div style="text-align: center;">
+                                        <br>
+                                        <!-- Toggle switch for active/inactive entities -->
+                                        <div class="form-check form-switch" style="text-align: center;">
+                                            <input class="form-check-input" type="checkbox" id="toggleActiveInactive">
+                                            <label class="form-check-label" for="toggleActiveInactive">Покажи
+                                                неизтритите записи</label>
+                                        </div>
+                                        <br>
+                                        <!-- Dropdown for page length selection -->
+                                        <div class="form-group" style="text-align: center;">
+                                            <label for="pageLengthSelect">Брой записи:</label>
+                                            <select id="pageLengthSelect" class="form-select"
+                                                    style="display: inline-block; width: auto;">
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                        </div>
+                                        <br>
+                                        <div class="table-responsive">
+                                            <table id="example" class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Име</th>
+                                                    <th>Презиме</th>
+                                                    <th>Имейл</th>
+                                                    <th>Роля</th>
+                                                    <th>Активиран</th>
+                                                    <th>Дата на създаване</th>
+                                                    <th>Последна дата на промяна</th>
+                                                    <th>Дата на изтриване</th>
+                                                    <th>Изтрий/редактирай</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="user : ${users}">
+                                                    <td th:text="${user.name}"></td>
+                                                    <td th:text="${user.surname}"></td>
+                                                    <td th:text="${user.email}"></td>
+                                                    <td th:text="${user.role}"></td>
+                                                    <td th:text="${user.enabled}"></td>
+                                                    <td th:text="${user.createdAt}"></td>
+                                                    <td th:text="${user.updatedAt}"></td>
+                                                    <td th:text="${user.deletedAt}"></td>
+                                                    <td>
+                                                        <a th:href="@{/users/update/{id}(id=${user.id})}">
+                                                            <button type="button" class="btn btn-info">Редактирай
+                                                            </button>
+                                                        </a>
+                                                        <th:block th:if="${user.deletedAt == null}">
+                                                            <form th:action="@{/users/delete/{id}(id=${user.id})}"
+                                                                  method="post" style="display:inline;">
+                                                                <button type="submit" class="btn btn-danger">Изтрий
+                                                                </button>
+                                                            </form>
+                                                        </th:block>
+                                                        <th:block th:if="${user.deletedAt != null}">
+                                                            <form th:action="@{/users/delete/{id}(id=${user.id})}"
+                                                                  method="post" style="display:inline;">
+                                                                <button type="submit" class="btn btn-success">
+                                                                    Възстанови
+                                                                </button>
+                                                            </form>
+                                                        </th:block>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${session.sessionRole != 'ADMIN'}">
+                                    <div class="site">
+                                        <h1 style="text-align: center;">Отказан достъп</h1>
+                                        <p style="text-align: center;">Само администраторите на платформата имат достъп
+                                            до тази страница!</p>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- site__body / end -->
+            <!-- site__footer -->
+        </div>
+    </div>
+</div>
+<th:block th:insert="~{fragments/footer}"></th:block>
+<!-- Include the toast.js file -->
+<script th:src="@{/js/toast.js}"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables JavaScript -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- Initialize DataTables -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize DataTables with default page length
+        var table = $('#example').DataTable({
+            paging: true,
+            lengthChange: false,
+            pageLength: 5,
+            language: {
+                paginate: {
+                    previous: '«',
+                    next: '»'
+                }
+            }
+        });
+
+        // Handle page length change
+        $('#pageLengthSelect').on('change', function() {
+            var pageLength = $(this).val();
+            table.page.len(parseInt(pageLength)).draw();
+        });
+
+        // Toggle between active and inactive entities
+        $('#toggleActiveInactive').on('change', function() {
+            var showActive = $(this).prop('checked');
+            table.rows().every(function() {
+                var row = this.node();
+                var deletedAt = $(row).find('td:nth-child(4)').text().trim();
+                if (showActive) {
+                    // Show active entities
+                    if (deletedAt) {
+                        $(row).hide();
+                    } else {
+                        $(row).show();
+                    }
+                } else {
+                    // Show all entities
+                    $(row).show();
+                }
+            });
+        }).trigger('change');  // Trigger change event on page load to ensure initial state
+    });
+</script>
+</body>
+</html>

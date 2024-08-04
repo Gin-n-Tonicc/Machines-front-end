@@ -1,14 +1,13 @@
 package com.machines.machines_front_end.controller;
 
 import com.machines.machines_front_end.clients.CityClient;
-import com.machines.machines_front_end.clients.FileClient;
 import com.machines.machines_front_end.clients.CompanyClient;
+import com.machines.machines_front_end.clients.FileClient;
 import com.machines.machines_front_end.dtos.File;
 import com.machines.machines_front_end.dtos.request.CompanyRequestDTO;
 import com.machines.machines_front_end.dtos.response.CompanyAdminResponseDTO;
 import com.machines.machines_front_end.dtos.response.CompanyResponseDTO;
 import com.machines.machines_front_end.enums.CompanySort;
-import com.machines.machines_front_end.enums.OfferSort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -41,7 +40,7 @@ public class CompanyController {
             Model model
     ) {
         model.addAttribute("cities", cityClient.getAll());
-        model.addAttribute("companies" ,companyClient.getAllCompanies(page, size, search, cityId, companySort));
+        model.addAttribute("companies", companyClient.getAllCompanies(page, size, search, cityId, companySort));
         return "companies/list";
     }
 
@@ -61,8 +60,8 @@ public class CompanyController {
 
     @GetMapping("/admin")
     public String listCompaniesAdmin(@RequestParam(defaultValue = "1") int page,
-                                  @RequestParam(defaultValue = "5") int size,
-                                  Model model) {
+                                     @RequestParam(defaultValue = "5") int size,
+                                     Model model) {
         Page<CompanyAdminResponseDTO> companies = companyClient.getAllAdmin(page, size);
         model.addAttribute("companies", companies);
         return "companies/listAdmin";
@@ -86,9 +85,9 @@ public class CompanyController {
 
     @PostMapping("/create")
     public String createCompany(@ModelAttribute("company") CompanyRequestDTO companyDTO,
-                              @RequestPart("mainPicture") MultipartFile mainPicture,
-                              @RequestPart("pictures") MultipartFile[] pictures,
-                              Model model) {
+                                @RequestPart("mainPicture") MultipartFile mainPicture,
+                                @RequestPart("pictures") MultipartFile[] pictures,
+                                Model model) {
         try {
             File profileFile = fileClient.upload(mainPicture);
             Set<UUID> additionalPicturesIds = new HashSet<>();
@@ -118,10 +117,10 @@ public class CompanyController {
 
     @PostMapping("/update/{id}")
     public String updateCompany(@PathVariable("id") UUID id,
-                              @ModelAttribute("company") CompanyRequestDTO companyDTO,
-                              @RequestPart(value = "mainPicture", required = false) MultipartFile mainPicture,
-                              @RequestPart(value = "pictures", required = false) MultipartFile[] pictures,
-                              Model model) {
+                                @ModelAttribute("company") CompanyRequestDTO companyDTO,
+                                @RequestPart(value = "mainPicture", required = false) MultipartFile mainPicture,
+                                @RequestPart(value = "pictures", required = false) MultipartFile[] pictures,
+                                Model model) {
         try {
             if (mainPicture != null && !mainPicture.isEmpty()) {
                 File profileFile = fileClient.upload(mainPicture);

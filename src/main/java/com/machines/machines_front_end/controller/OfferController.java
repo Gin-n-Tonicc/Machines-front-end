@@ -52,7 +52,7 @@ public class OfferController {
     ) {
         model.addAttribute("subcategories", subcategoryClient.getAll());
         model.addAttribute("cities", cityClient.getAll());
-        model.addAttribute("offers" ,offerClient.getAllOffers(page, size, search, subcategoryId, cityId, offerState, offerSaleType, minPrice, maxPrice, bulgarian, offerSort));
+        model.addAttribute("offers", offerClient.getAllOffers(page, size, search, subcategoryId, cityId, offerState, offerSaleType, minPrice, maxPrice, bulgarian, offerSort));
         return "offers/list";
     }
 
@@ -81,8 +81,8 @@ public class OfferController {
 
     @GetMapping("/all/user")
     public String getAllForLoggedUser(@RequestParam(defaultValue = "1") int page,
-                                               @RequestParam(defaultValue = "5") int size,
-                                               Model model) {
+                                      @RequestParam(defaultValue = "5") int size,
+                                      Model model) {
         Page<OfferAdminResponseDTO> offers = offerClient.getAllForLoggedUser(page, size);
         model.addAttribute("offers", offers);
         return "offers/myOffers";

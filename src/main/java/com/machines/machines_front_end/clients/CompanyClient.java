@@ -16,10 +16,10 @@ import java.util.UUID;
 public interface CompanyClient {
     @GetMapping("/all")
     Page<CompanyResponseDTO> getAllCompanies(@RequestParam int page,
-    @RequestParam int size,
-    @RequestParam(required = false) String search,
-    @RequestParam(required = false) UUID cityId,
-    @RequestParam(required = false, defaultValue = "def") CompanySort companySort
+                                             @RequestParam int size,
+                                             @RequestParam(required = false) String search,
+                                             @RequestParam(required = false) UUID cityId,
+                                             @RequestParam(required = false, defaultValue = "def") CompanySort companySort
     );
 
     @GetMapping("/{id}/admin")

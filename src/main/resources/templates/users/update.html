@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="Mashinite е водещият български портал за машини, предлагащ широк асортимент от оборудване и резервни части за различни индустрии.
+    Машини и оборудване. Безплатни обяви за строителни, транспортни машини и други, кранове, мотокари, платформи. Покупко-продажба на автосервизно оборудване, медицинско и лабораторно оборудване.
+    Редактирай потребител. Потлебители на Mashinite.">
+    <meta name="keywords" content="машини, mashini, mashinite, mashina, машина, обяви, продан, части, машинни части, оборудване, индустриално оборудване, строителна техника, селскостопански машини, резервни части, Mashinite, България,
+    потребители, редактирай, редактирай потребители, редактирай потребител на машини">
+    <meta name="author" content="Екипът на Mashinite">
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Mashinite - Водещ портал за машини в България">
+    <meta property="og:description" content="Mashinite предлага най-доброто място за търговия с машини, резервни части и производствени оборудвания.
+    Редактирай потребител. Потлебители на Mashinite.">
+    <meta property="og:type" content="website">
+
+    <title>Редактирай потребител</title>
+    <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- site__body -->
+    <div class="site__body">
+        <!-- Toast notification container -->
+        <div id="toast" class="toast"></div>
+
+        <!-- Hidden error message container for Thymeleaf -->
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
+            appear here</p>
+        <div class="block">
+            <div class="container">
+                <div>
+                    <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
+                        <div class="card flex-grow-1 mb-md-0">
+                            <div class="card-body">
+                                <th:block th:if="${session.sessionRole == 'ADMIN'}">
+                                    <h3 class="card-title" style="text-align: center;">Редактирай информация за потребител</h3>
+                                    <div style="text-align: center;">
+                                        <form th:action="@{/users/{id}(id=${user.id})}"
+                                              th:object="${user}" method="post">
+                                            <div class="form-group">
+                                                <label>Име на потребител</label>
+                                                <input type="text" id="name" name="name" th:field="*{name}"
+                                                       class="form-control"
+                                                       placeholder="Въведи името на потребителя" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Презиме</label>
+                                                <input type="text" id="surname" name="surname" th:field="*{surname}"
+                                                       class="form-control"
+                                                       placeholder="Въведи презимето на потребителя" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Имейл</label>
+                                                <input type="email" id="email" name="email" th:field="*{email}"
+                                                       class="form-control"
+                                                       placeholder="Въведи имейл" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="role">Роля</label>
+                                                <select id="role" name="role" th:field="*{role}" class="form-control" required>
+                                                    <option value="USER">USER</option>
+                                                    <option value="ADMIN">ADMIN</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Активиран</label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" id="enabledTrue" name="enabled" th:field="*{enabled}" value="true" required>
+                                                    <label class="form-check-label" for="enabledTrue">Да</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" id="enabledFalse" name="enabled" th:field="*{enabled}" value="false" required>
+                                                    <label class="form-check-label" for="enabledFalse">Не</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Промени парола</label>
+                                                <input type="password" id="password" name="password" th:field="*{password}"
+                                                       class="form-control"
+                                                       placeholder="Промени парола">
+                                            </div>
+                                            <div id="error-message" style="color: red;"></div>
+                                            <button type="submit" class="btn btn-primary mt-4"
+                                                    style="text-align: center;">
+                                                Редактирай потребител
+                                            </button>
+                                        </form>
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${session.sessionRole != 'ADMIN'}">
+                                    <div class="site">
+                                        <h1 style="text-align: center;">Отказан достъп</h1>
+                                        <p style="text-align: center;">Само администраторите на платформата имат достъп
+                                            до тази страница!</p>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- site__body / end -->
+            <!-- site__footer -->
+        </div>
+    </div>
+</div>
+<th:block th:insert="~{fragments/footer}"></th:block>
+<!-- Include the toast.js file -->
+<script th:src="@{/js/toast.js}"></script>
+</body>
+</html>
