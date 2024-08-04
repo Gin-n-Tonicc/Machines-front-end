@@ -45,4 +45,9 @@ public class MainController {
     public String contact() {
         return "contact";
     }
+
+    @GetMapping("privacy-policy")
+    public String privacyPolicy() {
+        return "privacyPolicy";
+    }
 }
