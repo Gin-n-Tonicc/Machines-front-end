@@ -5,18 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no">
-    <meta name="description" content="Създайте нова обява на Mashinite - водещият български портал за машини. Обяви за машини в Mashinite. Разгледайте подробности, снимки и информация за най-различни машини.
-    Mashinite е водещият български портал за машини, предлагащ широк асортимент от оборудване и резервни части за различни индустрии.
-    Машини и оборудване. Безплатни обяви за строителни, транспортни машини и други, кранове, мотокари, платформи. Покупко-продажба на автосервизно оборудване, медицинско и лабораторно оборудване.">
-    <meta name="keywords" content="обява, машини, продажба, информация за машини, създай обява, Mashinite, български портал за машини">
+    <meta name="description" content="Mashinite е водещият български портал за машини, предлагащ широк асортимент от оборудване и резервни части за различни индустрии.
+    Машини и оборудване. Безплатни обяви за строителни, транспортни машини и други, кранове, мотокари, платформи. Покупко-продажба на автосервизно оборудване, медицинско и лабораторно оборудване.
+    Фирми за машини. Бизнес каталог. Бизнес каталог на фирми за машини. Публикувай фирма за машини, рекламирай фирмата си. Направи си фирма напълно безплатно в Mashinite">
+    <meta name="keywords" content="машини, mashini, mashinite, mashina, машина, обяви, продан, части, машинни части, оборудване, индустриално оборудване, строителна техника, селскостопански машини, резервни части, Mashinite, България,
+    фирма, обави, публикувай фирма за машини, рекламирай машини, рекламирай фирма, бизнес каталог, бизнес каталог за фирми">
     <meta name="author" content="Екипът на Mashinite">
 
     <!-- Open Graph meta tags -->
-    <meta property="og:title" content="Създай обява - Mashinite">
-    <meta property="og:description" content="Обяви за машини в Mashinite. Разгледайте подробности, снимки и информация за най-различни машини.">
-    <meta property="og:type" content="website">
+    <meta property="og:title" content="Mashinite - Водещ портал за машини в България">
+    <meta property="og:description" content="Mashinite предлага най-доброто място за търговия с машини, резервни части и производствени оборудвания.
+    Фирми за машини. Бизнес каталог. Бизнес каталог на фирми за машини. Публикувай фирма за машини, рекламирай фирмата си. Направи си фирма напълно безплатно в Mashinite">
 
-    <title>Обяви</title>
+    <title>Фирми</title>
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <th:block th:insert="~{fragments/links}"></th:block>
     <link rel="stylesheet" th:href="@{/css/toast.css}">
@@ -50,84 +51,49 @@
                                             <!--                                    PRODUCT ITEM-->
                                             <!--                                    PRODUCT ITEM-->
                                             <!--                                    PRODUCT ITEM-->
-                                            <div th:each="offer : ${offers}" class="products-list__item">
+                                            <div th:each="company : ${companies}" class="products-list__item">
                                                 <div class="product-card product-card--hidden-actions">
-                                                    <div class="product-card__badges-list">
-                                                        <div th:switch="${offer.offerState.name()}">
-                                                            <div th:case="'NEW'"
-                                                                 class="product-card__badge product-card__badge--new">
-                                                                НОВ
-                                                            </div>
-                                                            <div th:case="'NEW_IMPORTATION'"
-                                                                 class="product-card__badge product-card__badge--hot">
-                                                                НОВ ВНОС
-                                                            </div>
-                                                            <div th:case="'USED'"
-                                                                 class="product-card__badge product-card__badge--sale">
-                                                                ИЗПОЛЗВАНО
-                                                            </div>
-                                                        </div>
-                                                        <div th:switch="${offer.OfferSaleType.name()}">
-                                                            <div th:case="'SALE'"
-                                                                 class="product-card__badge product-card__badge--new">ЗА
-                                                                ПРОДАН
-                                                            </div>
-                                                            <div th:case="'FOR_RENT'"
-                                                                 class="product-card__badge product-card__badge--hot">
-                                                                ПОД НАЕМ
-                                                            </div>
-                                                            <div th:case="'SERVICES'"
-                                                                 class="product-card__badge product-card__badge--sale">
-                                                                УСЛУГИ
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                     <div class="product-card__image product-image">
                                                         <a class="product-image__body">
-                                                            <img th:src="@{${offer.mainPicture.path}}"
+                                                            <img th:src="@{${company.mainPicture.path}}"
                                                                  class="product-image__img" alt="">
                                                         </a>
                                                     </div>
                                                     <div class="product-card__info">
                                                         <div class="product-card__name">
-                                                            <a th:href="@{/offers/{id}(id=${offer.id})}"
-                                                               th:text="${offer.title}"></a>
+                                                            <a th:href="@{/companies/{id}(id=${company.id})}"
+                                                               th:text="${company.name}"></a>
                                                         </div>
                                                         <ul class="product-card__features-list">
-                                                            <li th:text="'Българско : ' + (${offer.isBulgarian} ? 'ДА' : 'НЕ')"></li>
-                                                            <li th:if="${offer.model != null}"
-                                                                th:text="'Модел: ' + ${offer.model}"></li>
-                                                            <li th:if="${offer.manufactureYear != null}"
-                                                                th:text="'Година на производство: ' + ${offer.manufactureYear}"></li>
-                                                            <li th:text="'Телефонен номер: ' + ${offer.phoneNumber}"></li>
-                                                            <li th:text="'Собственик на обявата : ' + ${offer.owner.name} + ' ' + ${offer.owner.surname}"></li>
-                                                            <li th:text="'Дата на създаване: ' + ${offer.createdAt}"></li>
-                                                            <li th:if="${offer.deletedAt != null}" th:text="'Дата на изтриване: ' + ${offer.deletedAt}"></li>
+                                                            <li th:text="'Телефонен номер : ' + ${company.phoneNumber}"></li>
+                                                            <li th:text="'Собственик на фирмата : ' + ${company.owner.name} + ' ' + ${company.owner.surname}"></li>
+                                                            <li th:text="'Град : ' + ${company.city.name}"></li>
+                                                            <li th:text="'Адрес : ' + ${company.address}"></li>
+                                                            <li th:text="'Дата на създаване: ' + ${company.createdAt}"></li>
+                                                            <li th:if="${company.deletedAt != null}" th:text="'Дата на изтриване: ' + ${company.deletedAt}"></li>
                                                         </ul>
                                                     </div>
                                                     <div class="product-card__actions">
-                                                        <div class="product-card__prices"
-                                                             th:text="'Цена: ' + ${offer.price} + ' лв.'"></div>
                                                         <div class="product-card__buttons">
-                                                            <a href="#" th:href="@{/offers/admin/{id}(id=${offer.id})}"
+                                                            <a href="#" th:href="@{/companies/admin/{id}(id=${company.id})}"
                                                                class="btn btn-secondary product-card__addtocart product-card__addtocart--list">
                                                                 Прочети повече
                                                             </a>
                                                         </div>
                                                         <br>
-                                                        <a th:href="@{/offers/update/{id}(id=${offer.id})}">
+                                                        <a th:href="@{/companies/update/{id}(id=${company.id})}">
                                                             <button type="button" class="btn btn-info">Редактирай
                                                             </button>
                                                         </a><br>
-                                                        <th:block th:if="${offer.deletedAt == null}">
-                                                            <form th:action="@{/offers/delete/admin/{id}(id=${offer.id})}"
+                                                        <th:block th:if="${company.deletedAt == null}">
+                                                            <form th:action="@{/companies/delete/admin/{id}(id=${company.id})}"
                                                                   method="post" style="display:inline;">
                                                                 <button type="submit" class="btn btn-danger">Изтрий
                                                                 </button>
                                                             </form>
                                                         </th:block>
-                                                        <th:block th:if="${offer.deletedAt != null}">
-                                                            <form th:action="@{/offers/delete/admin/{id}(id=${offer.id})}"
+                                                        <th:block th:if="${company.deletedAt != null}">
+                                                            <form th:action="@{/companies/delete/admin/{id}(id=${company.id})}"
                                                                   method="post" style="display:inline;">
                                                                 <button type="submit" class="btn btn-success">
                                                                     Възстанови
@@ -141,16 +107,16 @@
                                         </div>
                                         <div class="pagination">
                                             <!-- Previous Page Link -->
-                                            <div th:if="${offers.hasPrevious()}">
-                                                <a th:href="@{/offers/admin(page=${offers.number}, size=${offers.size})}" class="pagination__link">Предишна</a>
+                                            <div th:if="${companies.hasPrevious()}">
+                                                <a th:href="@{/companies/admin(page=${companies.number}, size=${companies.size})}" class="pagination__link">Предишна</a>
                                             </div>
 
                                             <!-- Page Number Display -->
-                                            <span>Страница <span th:text="${offers.number + 1}"></span> от <span th:text="${offers.totalPages}"></span></span>
+                                            <span>Страница <span th:text="${companies.number + 1}"></span> от <span th:text="${companies.totalPages}"></span></span>
 
                                             <!-- Next Page Link -->
-                                            <div th:if="${offers.hasNext()}">
-                                                <a th:href="@{/offers/admin(page=${offers.number + 2}, size=${offers.size})}" class="pagination__link">Следваща</a>
+                                            <div th:if="${companies.hasNext()}">
+                                                <a th:href="@{/companies/admin(page=${companies.number + 2}, size=${companies.size})}" class="pagination__link">Следваща</a>
                                             </div>
                                         </div>
                                     </div>
@@ -234,7 +200,7 @@
         // Function to reload page with new page size
         function updatePageSize(pageSize) {
             const currentPage = new URLSearchParams(window.location.search).get('page') || 1;
-            window.location.href = `/offers?page=${currentPage}&size=${pageSize}`;
+            window.location.href = `/companies?page=${currentPage}&size=${pageSize}`;
         }
 
         // Event listener for page size change

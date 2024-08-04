@@ -229,6 +229,40 @@
                                     </div>
                                 </li>
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
+                                    <a class="nav-links__item-link" href="/companies">
+                                        <div class="nav-links__item-body">
+                                            Бизнес каталог
+                                            <svg class="nav-links__item-arrow" width="9px" height="6px">
+                                                <use xlink:href="/sprite.svg#arrow-rounded-down-9x6"></use>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                    <div class="nav-links__submenu nav-links__submenu--type--menu">
+                                        <!-- .menu -->
+                                        <div class="menu menu--layout--classic ">
+                                            <div class="menu__submenus-container"></div>
+                                            <ul class="menu__list">
+                                                <li class="menu__item">
+                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                                    <div class="menu__item-submenu-offset"></div>
+                                                    <a class="menu__item-link" href="/companies">
+                                                        Фирми
+                                                    </a>
+                                                </li>
+                                                <th:block th:if="${session.sessionToken != null}">
+                                                    <li class="menu__item">
+                                                        <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                                        <div class="menu__item-submenu-offset"></div>
+                                                        <a class="menu__item-link" href="/companies/create">
+                                                            Създай фирма
+                                                        </a>
+                                                    </li>
+                                                </th:block>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-links__item  nav-links__item--has-submenu ">
                                     <a class="nav-links__item-link" href="">
                                         <div class="nav-links__item-body">
                                             Акаунт
@@ -265,60 +299,18 @@
                                                 </th:block>
                                                 <th:block th:if="${session.sessionToken != null}">
                                                     <li class="menu__item">
+                                                        <a class="menu__item-link" href="/companies/all/user">
+                                                            <span class="align-middle">Моите фирми</span>
+                                                        </a>
+                                                    </li>
+                                                </th:block>
+                                                <th:block th:if="${session.sessionToken != null}">
+                                                    <li class="menu__item">
                                                         <a class="menu__item-link" href="/logout">
                                                             <span class="align-middle">Излез</span>
                                                         </a>
                                                     </li>
                                                 </th:block>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="account-dashboard.html">
-                                                        Dashboard
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="account-profile.html">
-                                                        Edit Profile
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="account-orders.html">
-                                                        Order History
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="account-order-details.html">
-                                                        Order Details
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="account-addresses.html">
-                                                        Address Book
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="account-edit-address.html">
-                                                        Edit Address
-                                                    </a>
-                                                </li>
-                                                <li class="menu__item">
-                                                    <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
-                                                    <div class="menu__item-submenu-offset"></div>
-                                                    <a class="menu__item-link" href="account-password.html">
-                                                        Change Password
-                                                    </a>
-                                                </li>
                                             </ul>
                                         </div>
                                         <!-- .menu / end -->
@@ -391,15 +383,30 @@
                                     <a class="nav-links__item-link" href="/aboutUs">
                                         <div class="nav-links__item-body">
                                             За нас
+                                            <svg class="nav-links__item-arrow" width="9px" height="6px">
+                                                <use xlink:href="/sprite.svg#arrow-rounded-down-9x6"></use>
+                                            </svg>
                                         </div>
                                     </a>
-                                </li>
-                                <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="/contact">
-                                        <div class="nav-links__item-body">
-                                            Контакти
+                                    <div class="nav-links__submenu nav-links__submenu--type--menu">
+                                        <!-- .menu -->
+                                        <div class="menu menu--layout--classic ">
+                                            <div class="menu__submenus-container"></div>
+                                            <ul class="menu__list">
+                                                <li class="menu__item">
+                                                    <a class="menu__item-link" href="/aboutUs">
+                                                        <span class="align-middle">За нас</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu__item">
+                                                    <a class="menu__item-link" href="/contact">
+                                                        <span class="align-middle">Контакти</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
-                                    </a>
+                                        <!-- .menu / end -->
+                                    </div>
                                 </li>
                             </ul>
                         </div>

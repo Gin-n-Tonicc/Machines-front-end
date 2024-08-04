@@ -5,7 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no">
-    <title>Създай обява</title>
+    <meta name="description" content="Създайте нова обява на Mashinite - водещият български портал за машини. Редактирайте обява.
+    Mashinite е водещият български портал за машини, предлагащ широк асортимент от оборудване и резервни части за различни индустрии.
+    Машини и оборудване. Безплатни обяви за строителни, транспортни машини и други, кранове, мотокари, платформи. Покупко-продажба на автосервизно оборудване, медицинско и лабораторно оборудване.">
+    <meta name="keywords" content="обява, машини, продажба, информация за машини, създай обява, Mashinite, български портал за машини">
+    <meta name="author" content="Екипът на Mashinite">
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Създай обява - Mashinite">
+    <meta property="og:description" content="Обяви за машини в Mashinite. Редактирайте обява.">
+    <meta property="og:type" content="website">
+
+    <title>Редактирай обява</title>
     <th:block th:insert="~{fragments/links}"></th:block>
     <link rel="stylesheet" th:href="@{/css/toast.css}">
 </head>
@@ -40,7 +51,7 @@
                                             <div class="form-group">
                                                 <label for="title">Име на продукта/обявата:</label>
                                                 <input type="text" id="title" name="title" th:field="*{title}"
-                                                       class="form-control" placeholder="Product/Ad Name" required>
+                                                       class="form-control" placeholder="Име на продукта/обявата" required>
                                             </div>
 
                                             <!-- Phone Number -->
@@ -48,14 +59,14 @@
                                                 <label for="phoneNumber">Телефонен номер:</label>
                                                 <input type="text" id="phoneNumber" name="phoneNumber"
                                                        th:field="*{phoneNumber}" class="form-control"
-                                                       placeholder="Phone Number" required>
+                                                       placeholder="Телефонен номер" required>
                                             </div>
 
                                             <!-- Description -->
                                             <div class="form-group">
                                                 <label for="description">Описание на обявата:</label>
                                                 <textarea id="description" name="description" th:field="*{description}"
-                                                          class="form-control" placeholder="Description"
+                                                          class="form-control" placeholder="Описание на обявата"
                                                           required></textarea>
                                             </div>
 
@@ -64,14 +75,14 @@
                                                 <label for="websiteURL">Вашият уеб сайт линк:</label>
                                                 <input type="url" id="websiteURL" name="websiteURL"
                                                        th:field="*{websiteURL}"
-                                                       class="form-control" placeholder="Website URL" required>
+                                                       class="form-control" placeholder="Вашият уеб сайт линк" required>
                                             </div>
 
                                             <!-- Price -->
                                             <div class="form-group">
                                                 <label for="price">Цена:</label>
                                                 <input type="number" id="price" name="price" th:field="*{price}"
-                                                       class="form-control" placeholder="Price" step="0.01" required>
+                                                       class="form-control" placeholder="Цена" step="0.01" required>
                                             </div>
 
                                             <!-- Is Bulgarian -->
@@ -279,7 +290,7 @@
                                 <th:block th:if="${session.sessionToken == null}">
                                     <div class="site">
                                         <h1 style="text-align: center;">Отказан достъп</h1>
-                                        <p style="text-align: center;">Само администраторите на платформата имат достъп
+                                        <p style="text-align: center;">Само създателят на фирмата и администраторите на платформата имат достъп
                                             до тази страница!
                                         </p>
                                     </div>
