@@ -42,9 +42,10 @@ public class AuthenticationController {
 
 
     @PostMapping("/login")
-    public String login(AuthenticationRequest authenticationRequest, Model model, HttpServletRequest httpServletRequest) {
+    public String login(AuthenticationRequest authenticationRequest, Model model, HttpServletRequest httpServletRequest, HttpSession httpSession) {
         try {
             AuthenticationResponse authenticationResponse = authenticationClient.login(authenticationRequest);
+            httpSession.setAttribute("userId", authenticationResponse.getUser().getId());
             sessionManager.setSessionToken(httpServletRequest, authenticationResponse.getAccessToken(), authenticationResponse.getUser().getRole().toString());
             return REDIRECT_INDEX; // Redirect to a success page, e.g., home page
         } catch (Exception e) {

@@ -3,7 +3,6 @@ package com.machines.machines_front_end.controller;
 import com.machines.machines_front_end.clients.CategoryClient;
 import com.machines.machines_front_end.clients.UserClient;
 import com.machines.machines_front_end.dtos.auth.AdminUserDTO;
-import com.machines.machines_front_end.dtos.response.CategoryResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -38,7 +37,6 @@ public class UserController {
     @GetMapping("/update/{id}")
     public String showUpdateUserForm(@PathVariable UUID id, Model model) {
         AdminUserDTO user = userClient.getByIdAdmin(id);
-        List<CategoryResponseDTO> categories = categoryClient.getAll();
         model.addAttribute("user", user);
         return "users/update";
     }
@@ -48,7 +46,7 @@ public class UserController {
         try {
             System.out.println(userDTO.toString());
             userClient.update(id, userDTO);
-            return "redirect:/users";
+            return "redirect:/index";
         } catch (Exception e) {
             String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
                     ? e.getCause().getMessage()

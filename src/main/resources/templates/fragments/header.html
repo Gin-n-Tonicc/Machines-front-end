@@ -306,6 +306,13 @@
                                                 </th:block>
                                                 <th:block th:if="${session.sessionToken != null}">
                                                     <li class="menu__item">
+                                                        <a class="menu__item-link" th:href="@{/users/update/{id}(id=${session.userId})}">
+                                                            <span class="align-middle">Редактирай профил</span>
+                                                        </a>
+                                                    </li>
+                                                </th:block>
+                                                <th:block th:if="${session.sessionToken != null}">
+                                                    <li class="menu__item">
                                                         <a class="menu__item-link" href="/logout">
                                                             <span class="align-middle">Излез</span>
                                                         </a>

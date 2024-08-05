@@ -42,68 +42,51 @@
                     <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
                         <div class="card flex-grow-1 mb-md-0">
                             <div class="card-body">
-                                <th:block th:if="${session.sessionRole == 'ADMIN'}">
-                                    <h3 class="card-title" style="text-align: center;">Редактирай информация за потребител</h3>
-                                    <div style="text-align: center;">
-                                        <form th:action="@{/users/{id}(id=${user.id})}"
-                                              th:object="${user}" method="post">
-                                            <div class="form-group">
-                                                <label>Име на потребител</label>
-                                                <input type="text" id="name" name="name" th:field="*{name}"
-                                                       class="form-control"
-                                                       placeholder="Въведи името на потребителя" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Презиме</label>
-                                                <input type="text" id="surname" name="surname" th:field="*{surname}"
-                                                       class="form-control"
-                                                       placeholder="Въведи презимето на потребителя" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Имейл</label>
-                                                <input type="email" id="email" name="email" th:field="*{email}"
-                                                       class="form-control"
-                                                       placeholder="Въведи имейл" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="role">Роля</label>
-                                                <select id="role" name="role" th:field="*{role}" class="form-control" required>
-                                                    <option value="USER">USER</option>
-                                                    <option value="ADMIN">ADMIN</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Активиран</label>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" id="enabledTrue" name="enabled" th:field="*{enabled}" value="true" required>
-                                                    <label class="form-check-label" for="enabledTrue">Да</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" id="enabledFalse" name="enabled" th:field="*{enabled}" value="false" required>
-                                                    <label class="form-check-label" for="enabledFalse">Не</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Промени парола</label>
-                                                <input type="password" id="password" name="password" th:field="*{password}"
-                                                       class="form-control"
-                                                       placeholder="Промени парола">
-                                            </div>
-                                            <div id="error-message" style="color: red;"></div>
-                                            <button type="submit" class="btn btn-primary mt-4"
-                                                    style="text-align: center;">
-                                                Редактирай потребител
-                                            </button>
-                                        </form>
-                                    </div>
-                                </th:block>
-                                <th:block th:if="${session.sessionRole != 'ADMIN'}">
-                                    <div class="site">
-                                        <h1 style="text-align: center;">Отказан достъп</h1>
-                                        <p style="text-align: center;">Само администраторите на платформата имат достъп
-                                            до тази страница!</p>
-                                    </div>
-                                </th:block>
+
+                                <h3 class="card-title" style="text-align: center;">Редактирай информация за
+                                    потребител</h3>
+                                <div style="text-align: center;">
+                                    <form th:action="@{/users/{id}(id=${user.id})}"
+                                          th:object="${user}" method="post">
+                                        <div class="form-group">
+                                            <label>Име на потребител</label>
+                                            <input type="text" id="name" name="name" th:field="*{name}"
+                                                   class="form-control"
+                                                   placeholder="Въведи името на потребителя" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Презиме</label>
+                                            <input type="text" id="surname" name="surname" th:field="*{surname}"
+                                                   class="form-control"
+                                                   placeholder="Въведи презимето на потребителя" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Имейл</label>
+                                            <input type="email" id="email" name="email" th:field="*{email}"
+                                                   class="form-control"
+                                                   placeholder="Въведи имейл" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="role">Роля</label>
+                                            <select id="role" name="role" th:field="*{role}" class="form-control"
+                                                    required>
+                                                <option value="USER">USER</option>
+                                                <option value="ADMIN">ADMIN</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Промени парола</label>
+                                            <input type="password" id="password" name="password" th:field="*{password}"
+                                                   class="form-control"
+                                                   placeholder="Промени парола">
+                                        </div>
+                                        <div id="error-message" style="color: red;"></div>
+                                        <button type="submit" class="btn btn-primary mt-4"
+                                                style="text-align: center;">
+                                            Редактирай потребител
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
