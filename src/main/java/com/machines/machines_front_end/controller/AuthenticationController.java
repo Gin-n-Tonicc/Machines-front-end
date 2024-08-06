@@ -128,4 +128,5 @@ public class AuthenticationController {
             return "reset-password"; // Return to the form with an error message
         }
     }
+
 }

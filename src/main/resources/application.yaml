@@ -19,6 +19,10 @@ spring:
       static-locations: classpath:/static/
 backend:
   base-url: http://localhost:8080/api/v1
+  # src/main/resources/application.yml
+frontend:
+  login-url: "/login"
+  redirect-url: "/process-oauth2"
 eureka:
   client:
     serviceUrl:

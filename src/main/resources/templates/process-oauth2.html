@@ -1,0 +1,29 @@
+<!-- src/main/resources/templates/process-oauth2.html -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="">
+
+<head>
+    <title>Processing OAuth2</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+
+            if (code) {
+                // Redirect to backend for processing the authorization code
+                window.location.href = `/oauth2/authenticate/google?code=${code}`;
+            } else {
+                console.error('No code found in URL');
+                window.location.href = '/login';
+            }
+        };
+    </script>
+
+
+
+</head>
+<body>
+<p>Processing OAuth2...</p>
+<script type="text/javascript" th:src="@{/js/oauth2-callback.js}"></script>
+</body>
+</html>

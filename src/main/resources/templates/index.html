@@ -16,6 +16,19 @@
     <meta property="og:type" content="website">
 
     <title>Машините</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            const user = JSON.parse(sessionStorage.getItem('user'));
+
+            if (user) {
+                document.getElementById('welcome-message').innerText = `Welcome, ${user.name}!`;
+                document.getElementById('user-email').innerText = `Email: ${user.email}`;
+            } else {
+                // Redirect to login if no user data in session
+                window.location.href = '/login';
+            }
+        };
+    </script>
     <th:block th:insert="~{fragments/links}"></th:block>
 </head>
 
@@ -41,6 +54,9 @@
                                     <div class="block-slideshow__slide-image block-slideshow__slide-image--mobile"
                                          style="background-image: url('images/slides/slide-1-mobile1.jpg')"></div>
                                     <div class="block-slideshow__slide-content">
+                                        <h1 id="welcome-message">Welcome!</h1>
+                                        <p id="user-email">Email: </p>
+                                        <p>This is the home page.</p>
                                         <div class="block-slideshow__slide-title">Добре дошли<br>
                                             в първия български портал<br>
                                             за машини
