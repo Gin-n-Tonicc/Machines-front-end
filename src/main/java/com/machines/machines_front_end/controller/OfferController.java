@@ -12,6 +12,7 @@ import com.machines.machines_front_end.dtos.response.OfferSingleAdminResponseDTO
 import com.machines.machines_front_end.enums.OfferSaleType;
 import com.machines.machines_front_end.enums.OfferSort;
 import com.machines.machines_front_end.enums.OfferState;
+import com.machines.machines_front_end.enums.OfferType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -264,5 +265,24 @@ public class OfferController {
     public String deleteOfferAdmin(@PathVariable UUID id) {
         offerClient.delete(id);
         return "redirect:/offers/admin";
+    }
+
+    @GetMapping("/promote/{id}/form")
+    public String showPromotionForm(@PathVariable UUID id, Model model) {
+        model.addAttribute("id", id);
+        return "/offers/offer-types";
+    }
+
+    @GetMapping("/promote/{id}")
+    public String promoteOffer(
+            @PathVariable UUID id,
+            @RequestParam(name = "customerName") String customerName,
+            @RequestParam(name = "offerType") OfferType offerType,
+            Model model
+    ) {
+        String response = offerClient.promoteOffer(id, customerName, offerType);
+
+        model.addAttribute("response", response);
+        return "redirect:" + response;
     }
 }
