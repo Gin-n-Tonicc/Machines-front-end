@@ -141,6 +141,9 @@
                             <h4 class="product-card__prices" th:text="'Цена: лв.' + ${offer.price}"></h4>
                         </div>
                         <th:block th:if="${session.sessionToken != null and session.sessionRole == 'ADMIN'}">
+                            <a th:href="@{/offers/promote/{id}/form(id=${offer.id})}">
+                                <button type="button" class="btn btn-warning">Промотирай</button>
+                            </a>
                             <a th:href="@{/offers/update/{id}(id=${offer.id})}">
                                 <button type="button" class="btn btn-info">Редактирай
                                 </button>

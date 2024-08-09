@@ -6,6 +6,7 @@ import com.machines.machines_front_end.enums.OfferType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
@@ -22,7 +23,8 @@ public class OfferDTO extends BaseDTO {
     private OfferState offerState;
     private OfferSaleType offerSaleType;
     private OfferType offerType = OfferType.BASIC;
-
+    private LocalDateTime renewedAt;
+    private LocalDateTime promotedAt;
     // *********************************
     // **   EXTRA INFO | EXTRA INFO   **
     // *********************************

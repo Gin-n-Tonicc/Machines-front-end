@@ -50,4 +50,9 @@ public class MainController {
     public String privacyPolicy() {
         return "privacyPolicy";
     }
+
+    @GetMapping("failure")
+    public String failure() {
+        return "failure";
+    }
 }

@@ -115,6 +115,9 @@
                                                             </a>
                                                         </div>
                                                         <br>
+                                                        <a th:href="@{/offers/promote/{id}/form(id=${offer.id})}">
+                                                            <button type="button" class="btn btn-warning">Промотирай</button>
+                                                        </a>
                                                         <a th:href="@{/offers/update/{id}(id=${offer.id})}">
                                                             <button type="button" class="btn btn-info">Редактирай
                                                             </button>

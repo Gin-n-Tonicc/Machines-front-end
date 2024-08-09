@@ -8,11 +8,13 @@ import com.machines.machines_front_end.dtos.response.OfferSingleAdminResponseDTO
 import com.machines.machines_front_end.enums.OfferSaleType;
 import com.machines.machines_front_end.enums.OfferSort;
 import com.machines.machines_front_end.enums.OfferState;
+import com.machines.machines_front_end.enums.OfferType;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @FeignClient(name = "machines-api-offer", url = "${backend.base-url}/offers", configuration = FeignClientConfiguration.class)
@@ -53,4 +55,10 @@ public interface OfferClient {
 
     @DeleteMapping("/{id}")
     void delete(@PathVariable UUID id);
+
+    @GetMapping("/promote/{id}")
+    String promoteOffer(
+            @PathVariable("id") UUID id,
+            @RequestParam("customerName") String customerName,
+            @RequestParam("offerType") OfferType offerType);
 }

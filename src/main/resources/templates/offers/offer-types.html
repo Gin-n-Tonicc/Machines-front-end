@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="Промотирайте обява на Mashinite - водещият български портал за машини. Попълнете информацията за вашето обявление,
+    включително снимки, описание, цена и други детайли. Mashinite е водещият български портал за машини, предлагащ широк асортимент от оборудване и резервни части за различни индустрии.
+    Машини и оборудване. Безплатни обяви за строителни, транспортни машини и други, кранове, мотокари, платформи. Покупко-продажба на автосервизно оборудване, медицинско и лабораторно оборудване.">
+    <meta name="keywords"
+          content="обява, промотиране, промотирай обява, машини, продажба, информация за машини, създай обява, Mashinite, български портал за машини">
+    <meta name="author" content="Екипът на Mashinite">
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Промотирай обява - Mashinite">
+    <meta property="og:description"
+          content="Промотирайте обява за машини на Mashinite. Промотирайте обява. Добавете подробности, снимки и информация за продажба на вашите машини.">
+    <meta property="og:type" content="website">
+
+    <title>Промотирай обява</title>
+    <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- site__body -->
+    <div class="site__body">
+        <!-- Toast notification container -->
+        <div id="toast" class="toast"></div>
+
+        <!-- Hidden error message container for Thymeleaf -->
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
+            appear here</p>
+
+        <div class="block">
+            <div class="container">
+                <div>
+                    <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
+                        <div class="card flex-grow-1 mb-md-0">
+                            <div class="card-body">
+                                <th:block th:if="${session.sessionToken != null}">
+                                    <h3 class="card-title" style="text-align: center;">Промотирай обява</h3>
+                                    <div style="text-align: center;">
+                                        <form th:action="@{'/offers/promote/' + ${id}}" method="get">
+                                            <div class="form-group">
+                                                <label for="customerName">Име на потребителя:</label>
+                                                <input type="text" id="customerName" name="customerName"
+                                                       class="form-control"
+                                                       placeholder="Име на потребител"
+                                                       required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="offerType">Тип оферта:</label>
+                                                <select id="offerType" name="offerType" class="form-control" required>
+                                                    <option value="BASIC" selected>В момента сте на обикновена обява</option>
+                                                    <option value="VIP">VIP обява</option>
+                                                    <option value="TOP">TOP обява</option>
+                                                </select>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary mt-4">Промотирай</button>
+                                        </form>
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${session.sessionToken == null}">
+                                    <div class="site">
+                                        <h1 style="text-align: center;">Отказан достъп</h1>
+                                        <p style="text-align: center;">Само създателят на обявата и администраторите на платформата
+                                            имат достъп до тази функционалност!
+                                        </p>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- site__body / end -->
+            <!-- site__footer -->
+        </div>
+    </div>
+</div>
+<th:block th:insert="~{fragments/footer}"></th:block>
+<!-- Include the toast.js file -->
+<script th:src="@{/js/toast.js}"></script>
+</body>
+</html>
