@@ -16,19 +16,6 @@
     <meta property="og:type" content="website">
 
     <title>Машините</title>
-    <script type="text/javascript">
-        window.onload = function () {
-            const user = JSON.parse(sessionStorage.getItem('user'));
-
-            if (user) {
-                document.getElementById('welcome-message').innerText = `Welcome, ${user.name}!`;
-                document.getElementById('user-email').innerText = `Email: ${user.email}`;
-            } else {
-                // Redirect to login if no user data in session
-                window.location.href = '/login';
-            }
-        };
-    </script>
     <th:block th:insert="~{fragments/links}"></th:block>
 </head>
 
