@@ -294,7 +294,8 @@
                 <div class="block block-products-carousel" data-layout="grid-5" data-mobile-grid-columns="2">
                     <div class="container">
                         <div class="block-header">
-                            <h3 class="block-header__title">Разгледайте подобни обяви</h3>
+                            <h3 class="block-header__title" th:text ="${vipText}"></h3>
+
                             <div class="block-header__divider"></div>
                             <div class="block-header__arrows-list">
                                 <button class="block-header__arrow block-header__arrow--left" type="button">
@@ -316,7 +317,7 @@
                                     <div class="block-products-carousel__cell">
                                         <div class="product-card product-card--hidden-actions">
                                             <div class="product-card__badges-list">
-                                                <div th:switch="${offer.OfferType.name()}">
+                                                <div th:switch="${similarOffer.OfferType.name()}">
                                                     <div th:case="'VIP'" class="product-card__badge product-card__badge--vip">VIP</div>
                                                     <div th:case="'TOP'" class="product-card__badge product-card__badge--top">TOP</div>
                                                 </div>

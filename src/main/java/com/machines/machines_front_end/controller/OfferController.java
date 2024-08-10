@@ -60,6 +60,14 @@ public class OfferController {
     @GetMapping("/{id}")
     public String getOfferById(@PathVariable UUID id, Model model) {
         OfferResponseDTO offer = offerClient.getById(id);
+
+        if (offer.getOfferType() == OfferType.TOP || offer.getOfferType() == OfferType.VIP) {
+            offer.setSimilarOffers(offerClient.getByOwner(1, 10, offer.getOwner().getId()).toList());
+            model.addAttribute("vipText", "Разгледайте други обяви на този потребител");
+        } else{
+            model.addAttribute("vipText", "Разгледайте подобни обяви");
+        }
+
         model.addAttribute("offer", offer);
         return "offers/detail";
     }

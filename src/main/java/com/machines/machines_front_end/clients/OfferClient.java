@@ -11,6 +11,7 @@ import com.machines.machines_front_end.enums.OfferState;
 import com.machines.machines_front_end.enums.OfferType;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,12 +35,18 @@ public interface OfferClient {
             @RequestParam(required = false, defaultValue = "def") OfferSort offerSort
     );
 
+    @GetMapping("/top")
+    List<OfferResponseDTO> getTopOffers();
 
     @GetMapping("/all/admin")
     Page<OfferAdminResponseDTO> getAllAdmin(@RequestParam int page, @RequestParam int size);
 
     @GetMapping("/all/user")
     Page<OfferAdminResponseDTO> getAllForLoggedUser(@RequestParam int page, @RequestParam int size);
+
+    @GetMapping("/byOwner")
+    Page<OfferResponseDTO> getByOwner(@RequestParam int page, @RequestParam int size,
+                                                             @RequestParam UUID userId);
 
     @GetMapping("/{id}")
     OfferResponseDTO getById(@PathVariable UUID id);
