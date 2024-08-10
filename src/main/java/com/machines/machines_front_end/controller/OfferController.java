@@ -64,7 +64,7 @@ public class OfferController {
         if (offer.getOfferType() == OfferType.TOP || offer.getOfferType() == OfferType.VIP) {
             offer.setSimilarOffers(offerClient.getByOwner(1, 10, offer.getOwner().getId()).toList());
             model.addAttribute("vipText", "Разгледайте други обяви на този потребител");
-        } else{
+        } else {
             model.addAttribute("vipText", "Разгледайте подобни обяви");
         }
 

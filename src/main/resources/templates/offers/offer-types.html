@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no">
-    <meta name="description" content="Промотирайте обява на Mashinite - водещият български портал за машини. Попълнете информацията за вашето обявление,
-    включително снимки, описание, цена и други детайли. Mashinite е водещият български портал за машини, предлагащ широк асортимент от оборудване и резервни части за различни индустрии.
-    Машини и оборудване. Безплатни обяви за строителни, транспортни машини и други, кранове, мотокари, платформи. Покупко-продажба на автосервизно оборудване, медицинско и лабораторно оборудване.">
+    <meta name="description" content="Промотирайте обява на Mashinite - водещият български портал за машини. Попълнете информацията за вашето обявление, включително снимки, описание, цена и други детайли. Mashinite е водещият български портал за машини, предлагащ широк асортимент от оборудване и резервни части за различни индустрии. Машини и оборудване. Безплатни обяви за строителни, транспортни машини и други, кранове, мотокари, платформи. Покупко-продажба на автосервизно оборудване, медицинско и лабораторно оборудване.">
     <meta name="keywords"
           content="обява, промотиране, промотирай обява, машини, продажба, информация за машини, създай обява, Mashinite, български портал за машини">
     <meta name="author" content="Екипът на Mashinite">
@@ -21,6 +19,40 @@
     <title>Промотирай обява</title>
     <th:block th:insert="~{fragments/links}"></th:block>
     <link rel="stylesheet" th:href="@{/css/toast.css}">
+    <style>
+        .promotion-info {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .promotion-info h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .promotion-info p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .promotion-info ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .promotion-info ul li {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -34,8 +66,7 @@
         <div id="toast" class="toast"></div>
 
         <!-- Hidden error message container for Thymeleaf -->
-        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
-            appear here</p>
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will appear here</p>
 
         <div class="block">
             <div class="container">
@@ -71,15 +102,26 @@
                                 <th:block th:if="${session.sessionToken == null}">
                                     <div class="site">
                                         <h1 style="text-align: center;">Отказан достъп</h1>
-                                        <p style="text-align: center;">Само създателят на обявата и администраторите на платформата
-                                            имат достъп до тази функционалност!
-                                        </p>
+                                        <p style="text-align: center;">Само създателят на обявата и администраторите на платформата имат достъп до тази функционалност!</p>
                                     </div>
                                 </th:block>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Promotion Information Section -->
+            <div class="promotion-info">
+                <h2>Как да се отличите с Вашата обява?</h2>
+                <p>За да се отличава Вашата обява от останалите, можете да я публикувате като "ВИП" обява или обява с етикет "ТОП".</p>
+                <ul>
+                    <li><strong>Предимства на "ВИП обявите":</strong> Етикет и рамка, значително отличаваща обявата Ви от останалите. Препратка съм други ваши обяви при разглеждане на обявата.
+                    Винаги обявата Ви ще бъде показана преди всички обикновени обяви.</li>
+                    <li><strong>Предимства на "ТОП обявите":</strong> Етикет и рамка, значително отличаваща обявата Ви от останалите. Препратка съм други ваши обяви при разглеждане на обявата.
+                        Винаги обявата Ви ще бъде показана преди всички обикновени и VIP обяви. Препратка към вашата обява в началната страница на сайта.</li>
+                    <li>След изтичането на сроковете Вашата обява преминава автоматично в режим "Безплатна".</li>
+                </ul>
             </div>
             <!-- site__body / end -->
             <!-- site__footer -->
