@@ -8,7 +8,8 @@
     <meta name="description" content="Създайте нова обява на Mashinite - водещият български портал за машини. Моите обяви за машини в Mashinite.
     Mashinite е водещият български портал за машини, предлагащ широк асортимент от оборудване и резервни части за различни индустрии.
     Машини и оборудване. Безплатни обяви за строителни, транспортни машини и други, кранове, мотокари, платформи. Покупко-продажба на автосервизно оборудване, медицинско и лабораторно оборудване.">
-    <meta name="keywords" content="обява, машини, продажба, информация за машини, създай обява, Mashinite, български портал за машини">
+    <meta name="keywords"
+          content="обява, машини, продажба, информация за машини, създай обява, Mashinite, български портал за машини">
     <meta name="author" content="Екипът на Mashinite">
 
     <!-- Open Graph meta tags -->
@@ -40,122 +41,128 @@
                 <div>
                     <div class="col-md-10 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
                         <div class="card flex-grow-1 mb-md-0">
-                            <div class="card-body">
 
-                                <div class="products-view__list products-list" data-layout="list"
-                                     data-with-features="false"
-                                     data-mobile-grid-columns="2">
-                                    <div class="products-list__body">
-                                        <!--                                    PRODUCT ITEM-->
-                                        <!--                                    PRODUCT ITEM-->
-                                        <!--                                    PRODUCT ITEM-->
-                                        <!--                                    PRODUCT ITEM-->
-                                        <div th:each="offer : ${offers}" class="products-list__item">
-                                            <div class="product-card product-card--hidden-actions">
-                                                <div class="product-card__badges-list">
-                                                    <div th:switch="${offer.offerState.name()}">
-                                                        <div th:case="'NEW'"
-                                                             class="product-card__badge product-card__badge--new">
-                                                            НОВ
-                                                        </div>
-                                                        <div th:case="'NEW_IMPORTATION'"
-                                                             class="product-card__badge product-card__badge--hot">
-                                                            НОВ ВНОС
-                                                        </div>
-                                                        <div th:case="'USED'"
-                                                             class="product-card__badge product-card__badge--sale">
-                                                            ИЗПОЛЗВАНО
-                                                        </div>
+                            <div class="products-view__list products-list" data-layout="list"
+                                 data-with-features="false"
+                                 data-mobile-grid-columns="2">
+                                <div class="products-list__body">
+                                    <!--                                    PRODUCT ITEM-->
+                                    <!--                                    PRODUCT ITEM-->
+                                    <!--                                    PRODUCT ITEM-->
+                                    <!--                                    PRODUCT ITEM-->
+                                    <div th:each="offer : ${offers}" class="products-list__item">
+                                        <div class="product-card product-card--hidden-actions">
+                                            <div class="product-card__badges-list">
+                                                <div th:switch="${offer.OfferType.name()}">
+                                                    <div th:case="'VIP'"
+                                                         class="product-card__badge product-card__badge--vip">VIP
                                                     </div>
-                                                    <div th:switch="${offer.OfferSaleType.name()}">
-                                                        <div th:case="'SALE'"
-                                                             class="product-card__badge product-card__badge--new">ЗА
-                                                            ПРОДАН
-                                                        </div>
-                                                        <div th:case="'FOR_RENT'"
-                                                             class="product-card__badge product-card__badge--hot">
-                                                            ПОД НАЕМ
-                                                        </div>
-                                                        <div th:case="'SERVICES'"
-                                                             class="product-card__badge product-card__badge--sale">
-                                                            УСЛУГИ
-                                                        </div>
+                                                    <div th:case="'TOP'"
+                                                         class="product-card__badge product-card__badge--top">TOP
                                                     </div>
                                                 </div>
-                                                <div class="product-card__image product-image">
-                                                    <a class="product-image__body">
-                                                        <img th:src="@{${offer.mainPicture.path}}"
-                                                             class="product-image__img" alt="">
+                                                <div th:switch="${offer.offerState.name()}">
+                                                    <div th:case="'NEW'"
+                                                         class="product-card__badge product-card__badge--new">
+                                                        НОВ
+                                                    </div>
+                                                    <div th:case="'NEW_IMPORTATION'"
+                                                         class="product-card__badge product-card__badge--hot">
+                                                        НОВ ВНОС
+                                                    </div>
+                                                    <div th:case="'USED'"
+                                                         class="product-card__badge product-card__badge--sale">
+                                                        ИЗПОЛЗВАНО
+                                                    </div>
+                                                </div>
+                                                <div th:switch="${offer.OfferSaleType.name()}">
+                                                    <div th:case="'SALE'"
+                                                         class="product-card__badge product-card__badge--new">ЗА
+                                                        ПРОДАН
+                                                    </div>
+                                                    <div th:case="'FOR_RENT'"
+                                                         class="product-card__badge product-card__badge--hot">
+                                                        ПОД НАЕМ
+                                                    </div>
+                                                    <div th:case="'SERVICES'"
+                                                         class="product-card__badge product-card__badge--sale">
+                                                        УСЛУГИ
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-card__image product-image">
+                                                <a class="product-image__body">
+                                                    <img th:src="@{${offer.mainPicture.path}}"
+                                                         class="product-image__img" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="product-card__info">
+                                                <div class="product-card__name">
+                                                    <a th:href="@{/offers/{id}(id=${offer.id})}"
+                                                       th:text="${offer.title}"></a>
+                                                </div>
+                                                <ul class="product-card__features-list">
+                                                    <li th:text="'Българско : ' + (${offer.isBulgarian} ? 'ДА' : 'НЕ')"></li>
+                                                    <li th:if="${offer.model != null}"
+                                                        th:text="'Модел: ' + ${offer.model}"></li>
+                                                    <li th:if="${offer.manufactureYear != null}"
+                                                        th:text="'Година на производство: ' + ${offer.manufactureYear}"></li>
+                                                    <li th:text="'Телефонен номер : ' + ${offer.phoneNumber}"></li>
+                                                    <li th:text="'Собственик на обявата : ' + ${offer.owner.name} + ' ' + ${offer.owner.surname}"></li>
+                                                </ul>
+                                            </div>
+                                            <div class="product-card__actions">
+                                                <div class="product-card__prices"
+                                                     th:text="'Цена: ' + ${offer.price} + ' лв.'"></div>
+                                                <div class="product-card__buttons">
+                                                    <a href="#" th:href="@{/offers/{id}(id=${offer.id})}"
+                                                       class="btn btn-secondary product-card__addtocart product-card__addtocart--list">
+                                                        Прочети повече
                                                     </a>
                                                 </div>
-                                                <div class="product-card__info">
-                                                    <div class="product-card__name">
-                                                        <a th:href="@{/offers/{id}(id=${offer.id})}"
-                                                           th:text="${offer.title}"></a>
-                                                    </div>
-                                                    <ul class="product-card__features-list">
-                                                        <li th:text="'Българско : ' + (${offer.isBulgarian} ? 'ДА' : 'НЕ')"></li>
-                                                        <li th:if="${offer.model != null}"
-                                                            th:text="'Модел: ' + ${offer.model}"></li>
-                                                        <li th:if="${offer.manufactureYear != null}"
-                                                            th:text="'Година на производство: ' + ${offer.manufactureYear}"></li>
-                                                        <li th:text="'Телефонен номер : ' + ${offer.phoneNumber}"></li>
-                                                        <li th:text="'Собственик на обявата : ' + ${offer.owner.name} + ' ' + ${offer.owner.surname}"></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product-card__actions">
-                                                    <div class="product-card__prices"
-                                                         th:text="'Цена: ' + ${offer.price} + ' лв.'"></div>
-                                                    <div class="product-card__buttons">
-                                                        <a href="#" th:href="@{/offers/{id}(id=${offer.id})}"
-                                                           class="btn btn-secondary product-card__addtocart product-card__addtocart--list">
-                                                            Прочети повече
-                                                        </a>
-                                                    </div>
-                                                    <br>
-                                                    <a th:href="@{/offers/promote/{id}/form(id=${offer.id})}">
-                                                        <button type="button" class="btn btn-warning">Промотирай</button>
-                                                    </a>
-                                                    <a th:href="@{/offers/update/{id}(id=${offer.id})}">
-                                                        <button type="button" class="btn btn-info">Редактирай
+                                                <br>
+                                                <a th:href="@{/offers/promote/{id}/form(id=${offer.id})}">
+                                                    <button type="button" class="btn btn-warning">Промотирай</button>
+                                                </a>
+                                                <a th:href="@{/offers/update/{id}(id=${offer.id})}">
+                                                    <button type="button" class="btn btn-info">Редактирай
+                                                    </button>
+                                                </a><br>
+                                                <th:block th:if="${offer.deletedAt == null}">
+                                                    <form th:action="@{/offers/delete/{id}(id=${offer.id})}"
+                                                          method="post" style="display:inline;">
+                                                        <button type="submit" class="btn btn-danger">Изтрий
                                                         </button>
-                                                    </a><br>
-                                                    <th:block th:if="${offer.deletedAt == null}">
-                                                        <form th:action="@{/offers/delete/{id}(id=${offer.id})}"
-                                                              method="post" style="display:inline;">
-                                                            <button type="submit" class="btn btn-danger">Изтрий
-                                                            </button>
-                                                        </form>
-                                                    </th:block>
-                                                    <th:block th:if="${offer.deletedAt != null}">
-                                                        <form th:action="@{/offers/delete/{id}(id=${offer.id})}"
-                                                              method="post" style="display:inline;">
-                                                            <button type="submit" class="btn btn-success">
-                                                                Възстанови
-                                                            </button>
-                                                        </form>
-                                                    </th:block>
-                                                    </td>
-                                                </div>
+                                                    </form>
+                                                </th:block>
+                                                <th:block th:if="${offer.deletedAt != null}">
+                                                    <form th:action="@{/offers/delete/{id}(id=${offer.id})}"
+                                                          method="post" style="display:inline;">
+                                                        <button type="submit" class="btn btn-success">
+                                                            Възстанови
+                                                        </button>
+                                                    </form>
+                                                </th:block>
+                                                </td>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="pagination">
-                                        <!-- Previous Page Link -->
-                                        <div th:if="${offers.hasPrevious()}">
-                                            <a th:href="@{/offers/admin(page=${offers.number}, size=${offers.size})}"
-                                               class="pagination__link">Предишна</a>
-                                        </div>
+                                </div>
+                                <div class="pagination">
+                                    <!-- Previous Page Link -->
+                                    <div th:if="${offers.hasPrevious()}">
+                                        <a th:href="@{/offers/admin(page=${offers.number}, size=${offers.size})}"
+                                           class="pagination__link">Предишна</a>
+                                    </div>
 
-                                        <!-- Page Number Display -->
-                                        <span>Страница <span th:text="${offers.number + 1}"></span> от <span
-                                                th:text="${offers.totalPages}"></span></span>
+                                    <!-- Page Number Display -->
+                                    <span>Страница <span th:text="${offers.number + 1}"></span> от <span
+                                            th:text="${offers.totalPages}"></span></span>
 
-                                        <!-- Next Page Link -->
-                                        <div th:if="${offers.hasNext()}">
-                                            <a th:href="@{/offers/admin(page=${offers.number + 2}, size=${offers.size})}"
-                                               class="pagination__link">Следваща</a>
-                                        </div>
+                                    <!-- Next Page Link -->
+                                    <div th:if="${offers.hasNext()}">
+                                        <a th:href="@{/offers/admin(page=${offers.number + 2}, size=${offers.size})}"
+                                           class="pagination__link">Следваща</a>
                                     </div>
                                 </div>
                             </div>
@@ -244,5 +251,82 @@
         pageSizeSelect.value = currentSize;
     });
 </script>
+<style>
+    /* VIP Badge */
+    .product-card__badge--vip {
+        background: linear-gradient(45deg, #ffd700, #ffae42);
+        color: white;
+        font-weight: bold;
+        padding: 7px 15px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.75);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+    }
+
+    .product-card__badge--vip::before {
+        content: "\2605"; /* Star Icon */
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    /* TOP Badge */
+    .product-card__badge--top {
+        background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        color: white;
+        font-weight: bold;
+        padding: 7px 15px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 15px rgba(255, 75, 43, 0.75);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+    }
+
+    .product-card__badge--top::before {
+        content: "\2605"; /* Star Icon */
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    /* Badge Animation */
+    .product-card__badge--vip, .product-card__badge--top {
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /* General Badge Enhancements */
+    .product-card__badges-list {
+        display: flex;
+        gap: 10px;
+    }
+
+    .product-card__badge {
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        transition: transform 0.3s;
+    }
+
+    .product-card__badge:hover {
+        transform: translateY(-3px);
+    }
+
+</style>
 </body>
 </html>

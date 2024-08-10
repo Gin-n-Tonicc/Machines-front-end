@@ -100,7 +100,7 @@
                             <h1 class="product__name" th:text="${offer.title}"></h1>
                             <br><br>
                             <div class="spec__section">
-                                <h3 class="spec__section-title">Общи характерискити </h3>
+                                <h3 class="spec__section-title">Общи характеристики </h3>
                                 <table class="product__meta-table">
                                     <tbody>
                                     <tr>
@@ -315,17 +315,11 @@
                                      th:each="similarOffer : ${offer.similarOffers}">
                                     <div class="block-products-carousel__cell">
                                         <div class="product-card product-card--hidden-actions">
-                                            <!-- Quick View Button -->
-                                            <button class="product-card__quickview" type="button"
-                                                    data-toggle="modal"
-                                                    th:data-target="'#quickviewModal_' + ${similarOffer.id}"
-                                                    th:data-id="${similarOffer.id}">
-                                                <svg width="16px" height="16px">
-                                                    <use xlink:href="/sprite.svg#quickview-16"></use>
-                                                </svg>
-                                                <span class="fake-svg-icon"></span>
-                                            </button>
                                             <div class="product-card__badges-list">
+                                                <div th:switch="${offer.OfferType.name()}">
+                                                    <div th:case="'VIP'" class="product-card__badge product-card__badge--vip">VIP</div>
+                                                    <div th:case="'TOP'" class="product-card__badge product-card__badge--top">TOP</div>
+                                                </div>
                                                 <div th:switch="${similarOffer.offerState.name()}">
                                                     <div th:case="'NEW'"
                                                          class="product-card__badge product-card__badge--new">НОВ
@@ -491,6 +485,83 @@
 <!-- site__footer -->
 <th:block th:insert="~{fragments/footer}"></th:block>
 <!-- Include the toast.js file -->
-<script th:src="@{/js/toast.js}"></script>
+<script th:src="@{/js/toast.js}"></script><style>
+    /* VIP Badge */
+    .product-card__badge--vip {
+        background: linear-gradient(45deg, #ffd700, #ffae42);
+        color: white;
+        font-weight: bold;
+        padding: 7px 15px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.75);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+    }
+
+    .product-card__badge--vip::before {
+        content: "\2605"; /* Star Icon */
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    /* TOP Badge */
+    .product-card__badge--top {
+        background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        color: white;
+        font-weight: bold;
+        padding: 7px 15px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 15px rgba(255, 75, 43, 0.75);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+    }
+
+    .product-card__badge--top::before {
+        content: "\2605"; /* Star Icon */
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    /* Badge Animation */
+    .product-card__badge--vip, .product-card__badge--top {
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /* General Badge Enhancements */
+    .product-card__badges-list {
+        display: flex;
+        gap: 10px;
+    }
+
+    .product-card__badge {
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        transition: transform 0.3s;
+    }
+
+    .product-card__badge:hover {
+        transform: translateY(-3px);
+    }
+
+</style>
+
 </body>
 </html>
