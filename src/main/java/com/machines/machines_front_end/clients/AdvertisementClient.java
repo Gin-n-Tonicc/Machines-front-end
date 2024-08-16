@@ -21,7 +21,7 @@ public interface AdvertisementClient {
     @GetMapping("/{id}")
     Advertisement getById(@PathVariable UUID id);
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/admin")
     Advertisement getByIdAdmin(@PathVariable UUID id);
 
     @PostMapping("/create")

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="Mashinite е водещият български портал за машини, предлагащ широк асортимент от оборудване и резервни части за различни индустрии.
+    Машини и оборудване. Безплатни обяви за строителни, транспортни машини и други, кранове, мотокари, платформи. Покупко-продажба на автосервизно оборудване, медицинско и лабораторно оборудване.
+    Създай реклама. Категория за обяви на машини.">
+    <meta name="keywords" content="машини, mashini, mashinite, mashina, машина, обяви, продан, части, машинни части, оборудване, индустриално оборудване, строителна техника, селскостопански машини, резервни части, Mashinite, България,
+    реклама, машини реклама, макегории машини, реклами">
+    <meta name="author" content="Екипът на Mashinite">
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Mashinite - Водещ портал за машини в България">
+    <meta property="og:description" content="Mashinite предлага най-доброто място за търговия с машини, резервни части и производствени оборудвания.
+    Създай реклама. Категория машини. Машинни реклами.">
+    <meta property="og:type" content="website">
+
+    <title>Създай реклама</title>
+    <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- site__body -->
+    <div class="site__body">
+        <!-- Toast notification container -->
+        <div id="toast" class="toast"></div>
+
+        <!-- Hidden error message container for Thymeleaf -->
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
+            appear here</p>
+        <div class="block">
+            <div class="container">
+                <div>
+                    <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
+                        <div class="card flex-grow-1 mb-md-0">
+                            <div class="card-body">
+                                <th:block th:if="${session.sessionRole == 'ADMIN'}">
+                                    <h3 class="card-title" style="text-align: center;">Създай реклама</h3>
+                                    <div style="text-align: center;">
+                                        <form th:action="@{/advertisements/create}" th:object="${advertisement}"
+                                              method="post" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <label for="title">Заглавие на рекламата</label>
+                                                <input type="text" id="title" name="title" th:field="*{title}"
+                                                       class="form-control"
+                                                       placeholder="Въведи заглавие на рекламата" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="pictures">Допълнителни снимки към обявата:</label>
+                                                <input type="file" id="pictures" name="pictures" class="form-control"
+                                                       multiple onchange="previewAdditionalPictures(event)" required>
+                                                <div id="additionalPicturesPreview" class="picture-row">
+                                                    <div th:each="url : ${additionalPictureUrls}">
+                                                        <img th:src="@{${url}}" alt="Additional Picture" width="100"
+                                                             class="mt-2">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="targetUrl">Целеви URL</label>
+                                                <input type="url" id="targetUrl" name="targetUrl"
+                                                       th:field="*{targetUrl}"
+                                                       class="form-control" placeholder="Въведи целеви URL" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="position">Позиция на сайта</label>
+                                                <select id="position" name="position" th:field="*{position}"
+                                                        class="form-control" required>
+                                                    <option value="Top">Горе</option>
+                                                    <option value="Center">Център</option>
+                                                    <option value="Bottom">Долу</option>
+                                                    <option value="Gallery">Галерия</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="startDate">Начална дата</label>
+                                                <input type="date" id="startDate" name="startDate"
+                                                       th:field="*{startDate}"
+                                                       class="form-control" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="endDate">Крайна дата</label>
+                                                <input type="date" id="endDate" name="endDate" th:field="*{endDate}"
+                                                       class="form-control" required>
+                                            </div>
+
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" id="active" name="active" th:field="*{active}"
+                                                       class="form-check-input">
+                                                <label for="active" class="form-check-label">Активна реклама</label>
+                                            </div>
+
+                                            <div id="error-message" style="color: red;"></div>
+
+                                            <button type="submit" class="btn btn-primary mt-4"
+                                                    style="text-align: center;">
+                                                Създай реклама
+                                            </button>
+                                        </form>
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${session.sessionRole != 'ADMIN'}">
+                                    <div class="site">
+                                        <h1 style="text-align: center;">Отказан достъп</h1>
+                                        <p style="text-align: center;">Само администраторите на платформата имат достъп
+                                            до тази страница!
+                                        </p>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- site__body / end -->
+            <!-- site__footer -->
+        </div>
+    </div>
+</div>
+<th:block th:insert="~{fragments/footer}"></th:block>
+<!-- Include the toast.js file -->
+<script th:src="@{/js/toast.js}"></script>
+
+<script>
+    function previewMainPicture(event) {
+        const input = event.target;
+        const reader = new FileReader();
+        reader.onload = function() {
+            const dataURL = reader.result;
+            let mainPicturePreview = document.getElementById('mainPicturePreview');
+            if (!mainPicturePreview) {
+                mainPicturePreview = document.createElement('img');
+                mainPicturePreview.id = 'mainPicturePreview';
+                mainPicturePreview.width = 100;
+                mainPicturePreview.classList.add('mt-2');
+                input.insertAdjacentElement('afterend', mainPicturePreview);
+            }
+            mainPicturePreview.src = dataURL;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+
+    function previewAdditionalPictures(event) {
+        const input = event.target;
+        const previewContainer = document.getElementById('additionalPicturesPreview');
+        previewContainer.innerHTML = ''; // Clear existing previews
+        for (let i = 0; i < input.files.length; i++) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const dataURL = reader.result;
+                const img = document.createElement('img');
+                img.src = dataURL;
+                img.width = 100;
+                img.classList.add('mt-2');
+                previewContainer.appendChild(img);
+            };
+            reader.readAsDataURL(input.files[i]);
+        }
+    }
+</script>
+
+<style>
+    .picture-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* Adjust the gap between images as needed */
+    }
+    .picture-row img {
+        margin-top: 0; /* Remove top margin to align with other pictures */
+    }
+</style>
+</body>
+</html>

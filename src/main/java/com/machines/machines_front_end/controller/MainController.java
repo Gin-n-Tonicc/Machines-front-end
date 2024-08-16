@@ -1,6 +1,8 @@
 package com.machines.machines_front_end.controller;
 
+import com.machines.machines_front_end.clients.AdvertisementClient;
 import com.machines.machines_front_end.clients.OfferClient;
+import com.machines.machines_front_end.dtos.Advertisement;
 import com.machines.machines_front_end.enums.OfferSaleType;
 import com.machines.machines_front_end.enums.OfferSort;
 import com.machines.machines_front_end.enums.OfferState;
@@ -18,9 +20,11 @@ import java.util.UUID;
 @Slf4j
 public class MainController {
     private final OfferClient offerClient;
+    private final AdvertisementClient advertisementClient;
 
     @GetMapping("index")
     public String home(Model model) {
+        model.addAttribute("advertisements", advertisementClient.getAll());
         model.addAttribute("offers", offerClient.getTopOffers());
         return "index";
     }
@@ -28,6 +32,11 @@ public class MainController {
     @GetMapping("aboutUs")
     public String aboutUs() {
         return "aboutUs";
+    }
+
+    @GetMapping("forAdvertisement")
+    public String forAdvertisement() {
+        return "forAdvertisement";
     }
 
     @GetMapping("contact")
