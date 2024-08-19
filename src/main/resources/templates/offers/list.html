@@ -55,6 +55,72 @@
                                     <h4 class="widget-filters__title widget__title">Филтри</h4>
                                     <form method="get" action="/offers">
                                         <div class="widget-filters__list">
+
+                                            <!-- Sort By Filter -->
+                                            <div class="widget-filters__item">
+                                                <div class="filter filter--opened" data-collapse-item>
+                                                    <button type="button" class="filter__title" data-collapse-trigger>
+                                                        Сортирай
+                                                        <svg class="filter__arrow" width="12px" height="7px">
+                                                            <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                                        </svg>
+                                                    </button>
+                                                    <div class="filter__body" data-collapse-content>
+                                                        <div class="filter__container">
+                                                            <select class="form-control form-control-sm" id="offerSort"
+                                                                    name="offerSort">
+                                                                <option value="def">По подразбиране
+                                                                </option>
+                                                                <option value="alphaDesc">По азбучен ред</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Items per Page Filter -->
+                                            <div class="widget-filters__item">
+                                                <div class="filter filter--opened" data-collapse-item>
+                                                    <button type="button" class="filter__title" data-collapse-trigger>
+                                                        Брой обяви на страница
+                                                        <svg class="filter__arrow" width="12px" height="7px">
+                                                            <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                                        </svg>
+                                                    </button>
+                                                    <div class="filter__body" data-collapse-content>
+                                                        <div class="filter__container">
+                                                            <select class="form-control form-control-sm"
+                                                                    id="pageSizeSelect" name="size">
+                                                                <option value="3">3</option>
+                                                                <option value="5">5</option>
+                                                                <option value="10">10</option>
+                                                                <option value="15">15</option>
+                                                                <option value="20">20</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Search Filter -->
+                                            <div class="widget-filters__item">
+                                                <div class="filter filter--opened" data-collapse-item>
+                                                    <button type="button" class="filter__title" data-collapse-trigger>
+                                                        Търсене
+                                                        <svg class="filter__arrow" width="12px" height="7px">
+                                                            <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                                        </svg>
+                                                    </button>
+                                                    <div class="filter__body" data-collapse-content>
+                                                        <div class="filter__container">
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                   id="search" name="search"
+                                                                   placeholder="Ключова дума за търсене...">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <!-- Categories Filter -->
                                             <div class="widget-filters__item">
                                                 <div class="filter filter--opened" data-collapse-item>
@@ -189,71 +255,6 @@
                                                                 <option value="true">Да</option>
                                                                 <option value="false">Не</option>
                                                             </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Sort By Filter -->
-                                            <div class="widget-filters__item">
-                                                <div class="filter filter--opened" data-collapse-item>
-                                                    <button type="button" class="filter__title" data-collapse-trigger>
-                                                        Сортирай
-                                                        <svg class="filter__arrow" width="12px" height="7px">
-                                                            <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
-                                                        </svg>
-                                                    </button>
-                                                    <div class="filter__body" data-collapse-content>
-                                                        <div class="filter__container">
-                                                            <select class="form-control form-control-sm" id="offerSort"
-                                                                    name="offerSort">
-                                                                <option value="def">По подразбиране
-                                                                </option>
-                                                                <option value="alphaDesc">По азбучен ред</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Items per Page Filter -->
-                                            <div class="widget-filters__item">
-                                                <div class="filter filter--opened" data-collapse-item>
-                                                    <button type="button" class="filter__title" data-collapse-trigger>
-                                                        Брой обяви на страница
-                                                        <svg class="filter__arrow" width="12px" height="7px">
-                                                            <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
-                                                        </svg>
-                                                    </button>
-                                                    <div class="filter__body" data-collapse-content>
-                                                        <div class="filter__container">
-                                                            <select class="form-control form-control-sm"
-                                                                    id="pageSizeSelect" name="size">
-                                                                <option value="3">3</option>
-                                                                <option value="5">5</option>
-                                                                <option value="10">10</option>
-                                                                <option value="15">15</option>
-                                                                <option value="20">20</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Search Filter -->
-                                            <div class="widget-filters__item">
-                                                <div class="filter filter--opened" data-collapse-item>
-                                                    <button type="button" class="filter__title" data-collapse-trigger>
-                                                        Търсене
-                                                        <svg class="filter__arrow" width="12px" height="7px">
-                                                            <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
-                                                        </svg>
-                                                    </button>
-                                                    <div class="filter__body" data-collapse-content>
-                                                        <div class="filter__container">
-                                                            <input type="text" class="form-control form-control-sm"
-                                                                   id="search" name="search"
-                                                                   placeholder="Ключова дума за търсене...">
                                                         </div>
                                                     </div>
                                                 </div>

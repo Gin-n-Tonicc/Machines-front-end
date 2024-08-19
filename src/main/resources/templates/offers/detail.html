@@ -8,12 +8,14 @@
     <meta name="description" content="Създайте нова обява на Mashinite - водещият български портал за машини. Детайли за обява за машини на Mashinite. Разгледайте подробности, снимки и информация за машината.
     Mashinite е водещият български портал за машини, предлагащ широк асортимент от оборудване и резервни части за различни индустрии.
     Машини и оборудване. Безплатни обяви за строителни, транспортни машини и други, кранове, мотокари, платформи. Покупко-продажба на автосервизно оборудване, медицинско и лабораторно оборудване.">
-    <meta name="keywords" content="обява, машини, продажба, информация за машини, създай обява, Mashinite, български портал за машини">
+    <meta name="keywords"
+          content="обява, машини, продажба, информация за машини, създай обява, Mashinite, български портал за машини">
     <meta name="author" content="Екипът на Mashinite">
 
     <!-- Open Graph meta tags -->
     <meta property="og:title" content="Създай обява - Mashinite">
-    <meta property="og:description" content="Детайли за обява за машини на Mashinite. Разгледайте подробности, снимки и информация за машината.">
+    <meta property="og:description"
+          content="Детайли за обява за машини на Mashinite. Разгледайте подробности, снимки и информация за машината.">
     <meta property="og:type" content="website">
 
     <title>Детайли</title>
@@ -105,7 +107,7 @@
                                     <tbody>
                                     <tr>
                                         <td class="spec__name">Цена</td>
-                                        <td class="spec__value" th:text="'лв.' + ${offer.price}"></td>
+                                        <td class="spec__value" th:text="${offer.price} + ' лв.'"></td>
                                     </tr>
                                     <tr>
                                         <td class="spec__name">Собственик на обявата</td>
@@ -137,8 +139,8 @@
                             </div>
                             <br><br>
                         </div>
-                        <div class="product-card__actions">
-                            <h4 class="product-card__prices" th:text="'Цена: лв.' + ${offer.price}"></h4>
+                        <div class="product-card__actions" style="padding-top: 20px;">
+                            <h4 class="product-card__prices" th:text="'Цена:' + ${offer.price} + ' лв.'"></h4>
                         </div>
                         <th:block th:if="${session.sessionToken != null and session.sessionRole == 'ADMIN'}">
                             <a th:href="@{/offers/promote/{id}/form(id=${offer.id})}">
@@ -179,111 +181,109 @@
                             </div>
                         </div>
                         <div class="product-tabs__content">
-                            <div class="product-tabs__content">
-                                <div class="product-tabs__pane product-tabs__pane--active" id="tab-description">
-                                    <div class="typography">
-                                        <h3>Описание на продукта</h3>
-                                        <div class="product__description" th:text="${offer.description}"></div>
+                            <div class="product-tabs__pane product-tabs__pane--active" id="tab-description">
+                                <div class="typography">
+                                    <h3>Описание на продукта</h3>
+                                    <div class="product__description" th:text="${offer.description}"></div>
+                                </div>
+                            </div>
+                            <div class="product-tabs__pane" id="tab-specification">
+                                <div class="spec__section">
+                                    <h2 class="spec__section-title">Общи характерискити </h2>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Цена</div>
+                                        <div class="spec__value" th:text="${offer.price} + ' лв.'"></div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Собственик на обявата</div>
+                                        <div class="spec__value"
+                                             th:text="${offer.owner.name} + ' ' + ${offer.owner.surname}"></div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Тел. за връзка</div>
+                                        <div class="spec__value" th:text="${offer.phoneNumber}"></div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Град</div>
+                                        <div class="spec__value" th:text="${offer.city.name}"></div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Категория</div>
+                                        <div class="spec__value" th:text="${offer.subcategory.name}"></div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Уеб сайт</div>
+                                        <div class="spec__value" th:text="${offer.websiteURL}"></div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">Българско</div>
+                                        <div class="spec__value" th:text="${offer.isBulgarian ? 'ДА' : 'НЕ'}"></div>
                                     </div>
                                 </div>
-                                <div class="product-tabs__pane" id="tab-specification">
-                                    <div class="spec__section">
-                                        <h2 class="spec__section-title">Общи характерискити </h2>
-                                        <div class="spec__row">
-                                            <div class="spec__name">Цена</div>
-                                            <div class="spec__value" th:text="'лв.' + ${offer.price}"></div>
-                                        </div>
-                                        <div class="spec__row">
-                                            <div class="spec__name">Собственик на обявата</div>
-                                            <div class="spec__value"
-                                                 th:text="${offer.owner.name} + ' ' + ${offer.owner.surname}"></div>
-                                        </div>
-                                        <div class="spec__row">
-                                            <div class="spec__name">Тел. за връзка</div>
-                                            <div class="spec__value" th:text="${offer.phoneNumber}"></div>
-                                        </div>
-                                        <div class="spec__row">
-                                            <div class="spec__name">Град</div>
-                                            <div class="spec__value" th:text="${offer.city.name}"></div>
-                                        </div>
-                                        <div class="spec__row">
-                                            <div class="spec__name">Категория</div>
-                                            <div class="spec__value" th:text="${offer.subcategory.name}"></div>
-                                        </div>
-                                        <div class="spec__row">
-                                            <div class="spec__name">Уеб сайт</div>
-                                            <div class="spec__value" th:text="${offer.websiteURL}"></div>
-                                        </div>
-                                        <div class="spec__row">
-                                            <div class="spec__name">Българско</div>
-                                            <div class="spec__value" th:text="${offer.isBulgarian ? 'ДА' : 'НЕ'}"></div>
-                                        </div>
+                            </div>
+                            <div class="product-tabs__pane" id="tab-more">
+                                <!-- Product Meta -->
+                                <h2 class="spec__section-title">Допълнителни характерискити</h2>
+                                <div class="spec__section">
+                                    <div class="spec__row" th:if="${offer.model != null}">
+                                        <div class="spec__name">Модел</div>
+                                        <div class="spec__value" th:text="${offer.model}"></div>
                                     </div>
-                                </div>
-                                <div class="product-tabs__pane" id="tab-more">
-                                    <!-- Product Meta -->
-                                    <h2 class="spec__section-title">Допълнителни характерискити</h2>
-                                    <div class="spec__section">
-                                        <div class="spec__row" th:if="${offer.model != null}">
-                                            <div class="spec__name">Модел</div>
-                                            <div class="spec__value" th:text="${offer.model}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.manufactureYear != null}">
-                                            <div class="spec__name">Година на производство</div>
-                                            <div class="spec__value" th:text="${offer.manufactureYear}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.powerSupplyVoltage != null}">
-                                            <div class="spec__name">Захранващо напрежение</div>
-                                            <div class="spec__value" th:text="${offer.powerSupplyVoltage}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.fuelType != null}">
-                                            <div class="spec__name">Тип гориво</div>
-                                            <div class="spec__value" th:text="${offer.fuelType}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.horsePower != null}">
-                                            <div class="spec__name">Конс. мощност</div>
-                                            <div class="spec__value" th:text="${offer.horsePower}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.consumption != null}">
-                                            <div class="spec__name">Консумация</div>
-                                            <div class="spec__value" th:text="${offer.consumption}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.outputPower != null}">
-                                            <div class="spec__name">Изх. мощност</div>
-                                            <div class="spec__value" th:text="${offer.outputPower}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.productivity != null}">
-                                            <div class="spec__name">Производителност (капацитет, дебит)</div>
-                                            <div class="spec__value" th:text="${offer.productivity}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.capacity != null}">
-                                            <div class="spec__name">Товароносимост</div>
-                                            <div class="spec__value" th:text="${offer.capacity}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.minRevolutions != null}">
-                                            <div class="spec__name">Мин. обороти</div>
-                                            <div class="spec__value" th:text="${offer.minRevolutions}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.nominalRevolutions != null}">
-                                            <div class="spec__name">Ном. обороти</div>
-                                            <div class="spec__value" th:text="${offer.nominalRevolutions}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.maxRevolutions != null}">
-                                            <div class="spec__name">Макс. обороти</div>
-                                            <div class="spec__value" th:text="${offer.maxRevolutions}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.dimensions != null}">
-                                            <div class="spec__name">Габаритни размери</div>
-                                            <div class="spec__value" th:text="${offer.dimensions}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.ownWeight != null}">
-                                            <div class="spec__name">Собствена маса</div>
-                                            <div class="spec__value" th:text="${offer.ownWeight}"></div>
-                                        </div>
-                                        <div class="spec__row" th:if="${offer.workMoves != null}">
-                                            <div class="spec__name">Работни ходове</div>
-                                            <div class="spec__value" th:text="${offer.workMoves}"></div>
-                                        </div>
+                                    <div class="spec__row" th:if="${offer.manufactureYear != null}">
+                                        <div class="spec__name">Година на производство</div>
+                                        <div class="spec__value" th:text="${offer.manufactureYear}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.powerSupplyVoltage != null}">
+                                        <div class="spec__name">Захранващо напрежение</div>
+                                        <div class="spec__value" th:text="${offer.powerSupplyVoltage}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.fuelType != null}">
+                                        <div class="spec__name">Тип гориво</div>
+                                        <div class="spec__value" th:text="${offer.fuelType}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.horsePower != null}">
+                                        <div class="spec__name">Конс. мощност</div>
+                                        <div class="spec__value" th:text="${offer.horsePower}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.consumption != null}">
+                                        <div class="spec__name">Консумация</div>
+                                        <div class="spec__value" th:text="${offer.consumption}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.outputPower != null}">
+                                        <div class="spec__name">Изх. мощност</div>
+                                        <div class="spec__value" th:text="${offer.outputPower}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.productivity != null}">
+                                        <div class="spec__name">Производителност (капацитет, дебит)</div>
+                                        <div class="spec__value" th:text="${offer.productivity}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.capacity != null}">
+                                        <div class="spec__name">Товароносимост</div>
+                                        <div class="spec__value" th:text="${offer.capacity}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.minRevolutions != null}">
+                                        <div class="spec__name">Мин. обороти</div>
+                                        <div class="spec__value" th:text="${offer.minRevolutions}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.nominalRevolutions != null}">
+                                        <div class="spec__name">Ном. обороти</div>
+                                        <div class="spec__value" th:text="${offer.nominalRevolutions}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.maxRevolutions != null}">
+                                        <div class="spec__name">Макс. обороти</div>
+                                        <div class="spec__value" th:text="${offer.maxRevolutions}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.dimensions != null}">
+                                        <div class="spec__name">Габаритни размери</div>
+                                        <div class="spec__value" th:text="${offer.dimensions}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.ownWeight != null}">
+                                        <div class="spec__name">Собствена маса</div>
+                                        <div class="spec__value" th:text="${offer.ownWeight}"></div>
+                                    </div>
+                                    <div class="spec__row" th:if="${offer.workMoves != null}">
+                                        <div class="spec__name">Работни ходове</div>
+                                        <div class="spec__value" th:text="${offer.workMoves}"></div>
                                     </div>
                                 </div>
                             </div>
@@ -293,8 +293,8 @@
                 <!-- .block-products-carousel -->
                 <div class="block block-products-carousel" data-layout="grid-5" data-mobile-grid-columns="2">
                     <div class="container">
-                        <div class="block-header">
-                            <h3 class="block-header__title" th:text ="${vipText}"></h3>
+                        <div class="block-header" style="padding-top: 40px;">
+                            <h3 class="block-header__title" th:text="${vipText}"></h3>
 
                             <div class="block-header__divider"></div>
                             <div class="block-header__arrows-list">
@@ -318,8 +318,12 @@
                                         <div class="product-card product-card--hidden-actions">
                                             <div class="product-card__badges-list">
                                                 <div th:switch="${similarOffer.OfferType.name()}">
-                                                    <div th:case="'VIP'" class="product-card__badge product-card__badge--vip">VIP</div>
-                                                    <div th:case="'TOP'" class="product-card__badge product-card__badge--top">TOP</div>
+                                                    <div th:case="'VIP'"
+                                                         class="product-card__badge product-card__badge--vip">VIP
+                                                    </div>
+                                                    <div th:case="'TOP'"
+                                                         class="product-card__badge product-card__badge--top">TOP
+                                                    </div>
                                                 </div>
                                                 <div th:switch="${similarOffer.offerState.name()}">
                                                     <div th:case="'NEW'"
@@ -359,7 +363,7 @@
                                                        th:text="${similarOffer.title}">Offer Title</a>
                                                 </div>
                                                 <div class="product-card__prices">
-                                                    <p th:text="${similarOffer.price}">Цена</p>
+                                                    <p th:text="${similarOffer.price} + ' лв.'">Цена</p>
                                                 </div>
                                                 <div class="product-card__buttons">
                                                     <a href="#" th:href="@{/offers/{id}(id=${similarOffer.id})}"
@@ -454,7 +458,8 @@
                                                                             th:text="${similarOffer.title}">Product
                                                                             Name</h1>
                                                                         <div class="product__description"
-                                                                             th:text="${similarOffer.description}">Product
+                                                                             th:text="${similarOffer.description}">
+                                                                            Product
                                                                             Description
                                                                         </div>
                                                                     </div>
@@ -486,7 +491,8 @@
 <!-- site__footer -->
 <th:block th:insert="~{fragments/footer}"></th:block>
 <!-- Include the toast.js file -->
-<script th:src="@{/js/toast.js}"></script><style>
+<script th:src="@{/js/toast.js}"></script>
+<style>
     /* VIP Badge */
     .product-card__badge--vip {
         background: linear-gradient(45deg, #ffd700, #ffae42);
