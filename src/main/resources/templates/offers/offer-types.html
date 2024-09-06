@@ -110,7 +110,23 @@
                     </div>
                 </div>
             </div>
+            <div class="container1">
+                <div class="vip">
+                    <h2>ВИП обява</h2>
+                    <p>Направете обявата "<strong>ВИП</strong>, като изпратите SMS със съдържание:
+                        <span class="sms-box" th:text="MASHINITE + ' ' + ${id}"></span> на номер
+                        <span class="sms-box">1092</span></p>
+                    <p class="price">Цената на SMS е 2.40лв. с ДДС</p>
+                </div>
 
+                <div class="top">
+                    <h2>ТОП обява</h2>
+                    <p>Направете обявата "<strong>ТОП</strong>", като изпратите SMS със съдържание:
+                        <span class="sms-box" th:text="MASHINITE + ' ' + ${id}"></span> на номер
+                        <span class="sms-box">1096</span></p>
+                    <p class="price">Цената на SMS е 6.00лв. с ДДС</p>
+                </div>
+            </div>
             <!-- Promotion Information Section -->
             <div class="promotion-info">
                 <h2>Как да се отличите с Вашата обява?</h2>
@@ -129,6 +145,42 @@
     </div>
 </div>
 <th:block th:insert="~{fragments/footer}"></th:block>
+<style>
+    .container1 {
+        display: flex;
+        justify-content: space-around;
+    }
+    .vip, .top {
+        padding: 20px;
+        border-radius: 10px;
+        color: white;
+        width: 35%;
+    }
+    .vip {
+        background-color: #009ee3;
+    }
+    .top {
+        background-color: #f7941e;
+    }
+    .sms-box {
+        background-color: #fdd;
+        color: red;
+        padding: 2px 5px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+    .info-box {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+    .price {
+        font-weight: bold;
+    }
+    .note {
+        color: red;
+        font-size: 12px;
+    }
+</style>
 <!-- Include the toast.js file -->
 <script th:src="@{/js/toast.js}"></script>
 </body>
