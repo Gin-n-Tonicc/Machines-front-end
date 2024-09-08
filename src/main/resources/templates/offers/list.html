@@ -16,7 +16,7 @@
     <meta property="og:description" content="Обяви за машини в Mashinite. Разгледайте подробности, снимки и информация за най-различни машини.">
     <meta property="og:type" content="website">
 
-    <title>Магазин</title>
+    <title>Обяви</title>
     <th:block th:insert="~{fragments/links}"></th:block>
     <link rel="stylesheet" th:href="@{/css/toast.css}">
 </head>
@@ -31,7 +31,7 @@
         <div class="page-header">
             <div class="page-header__container container">
                 <div class="page-header__title">
-                    <h1>Магазин</h1>
+                    <h1>Обяви</h1>
                 </div>
             </div>
         </div>
@@ -357,7 +357,6 @@
                                                         th:text="'Модел: ' + ${offer.model}"></li>
                                                     <li th:if="${offer.manufactureYear != null}"
                                                         th:text="'Година на производство: ' + ${offer.manufactureYear}"></li>
-                                                    <li th:text="'Телефонен номер : ' + ${offer.phoneNumber}"></li>
                                                     <li th:text="'Собственик на обявата : ' + ${offer.owner.name} + ' ' + ${offer.owner.surname}"></li>
                                                 </ul>
                                             </div>

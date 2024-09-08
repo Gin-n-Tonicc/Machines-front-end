@@ -116,7 +116,14 @@
                                     </tr>
                                     <tr>
                                         <td class="spec__name">Тел. за връзка</td>
-                                        <td class="spec__value" th:text="${offer.phoneNumber}"></td>
+                                        <th:block th:if="${session.sessionToken != null}">
+                                            <td class="spec__value" th:text="${offer.phoneNumber}"></td>
+                                        </th:block>
+                                        <th:block th:if="${session.sessionToken == null}">
+                                            <td class="spec__value">
+                                                <a href="/login" class="login-link">+359*********</a>
+                                            </td>
+                                        </th:block>
                                     </tr>
                                     <tr>
                                         <td class="spec__name">Град</td>
