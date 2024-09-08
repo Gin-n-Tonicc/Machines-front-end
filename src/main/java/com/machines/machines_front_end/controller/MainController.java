@@ -53,4 +53,9 @@ public class MainController {
     public String failure() {
         return "failure";
     }
+
+    @GetMapping("success")
+    public String success() {
+        return "success";
+    }
 }
