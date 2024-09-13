@@ -100,78 +100,13 @@
                 </div>
             </div>
         </div>
-        <!-- .block-slideshow / end -->
-        <!-- .block-features -->
-        <div class="block block-products-carousel" data-layout="grid-4" data-mobile-grid-columns="2">
-            <div class="container">
-                <div class="block-header">
-                    <h3 class="block-header__title">ТOP рекламни оферти</h3>
-                    <div class="block-header__divider"></div>
-                    <div class="block-header__arrows-list">
-                        <button class="block-header__arrow block-header__arrow--left" type="button">
-                            <svg width="7px" height="11px">
-                                <use xlink:href="images/sprite.svg#arrow-rounded-left-7x11"></use>
-                            </svg>
-                        </button>
-                        <button class="block-header__arrow block-header__arrow--right" type="button">
-                            <svg width="7px" height="11px">
-                                <use xlink:href="images/sprite.svg#arrow-rounded-right-7x11"></use>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <div class="block-products-carousel__slider">
-                    <div class="block-products-carousel__preloader"></div>
-                    <div class="block block-products-carousel" data-layout="grid-5" data-mobile-grid-columns="2">
-                        <div class="container">
-                            <div class="block-products-carousel__slider">
-                                <div class="owl-carousel">
-                                    <div class="block-products-carousel__column" th:each="advertisement : ${advertisements}">
-                                        <div class="block-products-carousel__cell">
-                                            <div class="product-card product-card--hidden-actions">
-                                                <div class="product-card__image product-image">
-                                                    <a th:href="${advertisement.targetUrl}" target="_blank" class="product-image__body">
-                                                        <img class="product-image__img"
-                                                             th:src="${advertisement.pictures[0].path}"
-                                                             th:alt="${advertisement.title}"
-                                                             data-index="0">
-                                                    </a>
-                                                    <!-- Google Ads Buttons -->
-                                                    <div class="product-card__ads-buttons">
-                                                        <a th:href="${advertisement.targetUrl}" class="btn-google-ads" target="_blank" rel="noopener noreferrer">
-                                                            ✅
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <!-- Product Info -->
-                                                <div class="product-card__info">
-                                                    <div class="product-card__name">
-                                                        <a th:href="${advertisement.targetUrl}" target="_blank" th:text="${advertisement.title}">Advertisement Title</a>
-                                                    </div>
-                                                </div>
-                                                <!-- Product Actions -->
-                                                <div class="product-card__actions">
-                                                    <div class="product-card__buttons">
-                                                        <a class="btn btn-primary product-card__addtocart" th:href="${advertisement.targetUrl}" target="_blank" role="button">Прочети повече</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- .block-features / end -->
         <!-- .block-products-carousel -->
         <div class="block block-products-carousel" data-layout="grid-4" data-mobile-grid-columns="2">
             <div class="container">
                 <div class="block-header">
-                    <h3 class="block-header__title">Нашите TOP обяви</h3>
+                    <h3 class="block-header__title">Нашите VIP и TOP обяви</h3>
                     <div class="block-header__divider"></div>
                     <div class="block-header__arrows-list">
                         <button class="block-header__arrow block-header__arrow--left" type="button">
