@@ -138,7 +138,14 @@
                                     </tr>
                                     <tr>
                                         <td class="spec__name">Уеб сайт</td>
-                                        <td class="spec__value" th:text="${offer.websiteURL}"></td>
+                                        <th:block th:if="${session.sessionToken != null}">
+                                            <td class="spec__value" th:text="${offer.websiteURL}"></td>
+                                        </th:block>
+                                        <th:block th:if="${session.sessionToken == null}">
+                                            <td class="spec__value">
+                                                <a href="/login" class="login-link">https://*******</a>
+                                            </td>
+                                        </th:block>
                                     </tr>
                                     <tr>
                                         <td class="spec__name">Българско</td>
@@ -211,7 +218,14 @@
                                     </div>
                                     <div class="spec__row">
                                         <div class="spec__name">Тел. за връзка</div>
-                                        <div class="spec__value" th:text="${offer.phoneNumber}"></div>
+                                        <th:block th:if="${session.sessionToken != null}">
+                                            <div class="spec__value" th:text="${offer.phoneNumber}"></div>
+                                        </th:block>
+                                        <th:block th:if="${session.sessionToken == null}">
+                                            <td class="spec__value">
+                                                <a href="/login" class="login-link">+359*********</a>
+                                            </td>
+                                        </th:block>
                                     </div>
                                     <div class="spec__row">
                                         <div class="spec__name">Град</div>
@@ -223,7 +237,14 @@
                                     </div>
                                     <div class="spec__row">
                                         <div class="spec__name">Уеб сайт</div>
-                                        <div class="spec__value" th:text="${offer.websiteURL}"></div>
+                                        <th:block th:if="${session.sessionToken != null}">
+                                            <div class="spec__value" th:text="${offer.websiteURL}"></div>
+                                        </th:block>
+                                        <th:block th:if="${session.sessionToken == null}">
+                                            <td class="spec__value">
+                                                <a href="/login" class="login-link">https://*******</a>
+                                            </td>
+                                        </th:block>
                                     </div>
                                     <div class="spec__row">
                                         <div class="spec__name">Българско</div>
