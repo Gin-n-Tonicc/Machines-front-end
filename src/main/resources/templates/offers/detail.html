@@ -118,17 +118,6 @@
                                             th:text="${offer.owner.name} + ' ' + ${offer.owner.surname}"></td>
                                     </tr>
                                     <tr>
-                                        <td class="spec__name">Тел. за връзка</td>
-                                        <th:block th:if="${session.sessionToken != null}">
-                                            <td class="spec__value" th:text="${offer.phoneNumber}"></td>
-                                        </th:block>
-                                        <th:block th:if="${session.sessionToken == null}">
-                                            <td class="spec__value">
-                                                <a href="/login" class="login-link">+359*********</a>
-                                            </td>
-                                        </th:block>
-                                    </tr>
-                                    <tr>
                                         <td class="spec__name">Град</td>
                                         <td class="spec__value" th:text="${offer.city.name}"></td>
                                     </tr>
@@ -158,6 +147,40 @@
                         </div>
                         <div class="product-card__actions" style="padding-top: 20px;">
                             <h4 class="product-card__prices" th:text="'Цена:' + ${offer.price} + ' лв.'"></h4>
+                            <th:block th:if="${session.sessionToken != null}">
+                                <div class="containerPhone">
+                                    <div class="buttonsPhone">
+                                        <div class="fixed-button-container">
+                                            <button id="callSmsBtn" class="action-button">Обади се / SMS</button>
+                                        </div>
+                                    </div>
+
+                                    <div id="phoneModal" class="modal">
+                                        <div class="modal-content">
+                                            <span class="close">&times;</span>
+                                            <p>Телефонен номер</p>
+                                            <h2 th:text="${offer.phoneNumber}"></h2>
+                                            <button class="modal-button call-btn" id="callBtn"
+                                                    data-phone-number="${offer.phoneNumber}">
+                                                Обади се
+                                            </button>
+                                            <button class="modal-button sms-btn" id="smsBtn"
+                                                    data-phone-number="${offer.phoneNumber}">
+                                                Изпрати SMS
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th:block>
+                            <th:block th:if="${session.sessionToken == null}">
+                                <div class="containerPhone">
+                                    <div class="buttonsPhone">
+                                        <div class="fixed-button-container">
+                                            <a class="action-button" href="/login">Обади се / SMS</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th:block>
                         </div>
                         <th:block th:if="${session.sessionToken != null and session.sessionRole == 'ADMIN'}">
                             <a th:href="@{/offers/promote/{id}/form(id=${offer.id})}">
@@ -215,17 +238,6 @@
                                         <div class="spec__name">Собственик на обявата</div>
                                         <div class="spec__value"
                                              th:text="${offer.owner.name} + ' ' + ${offer.owner.surname}"></div>
-                                    </div>
-                                    <div class="spec__row">
-                                        <div class="spec__name">Тел. за връзка</div>
-                                        <th:block th:if="${session.sessionToken != null}">
-                                            <div class="spec__value" th:text="${offer.phoneNumber}"></div>
-                                        </th:block>
-                                        <th:block th:if="${session.sessionToken == null}">
-                                            <td class="spec__value">
-                                                <a href="/login" class="login-link">+359*********</a>
-                                            </td>
-                                        </th:block>
                                     </div>
                                     <div class="spec__row">
                                         <div class="spec__name">Град</div>
@@ -598,8 +610,162 @@
     .product-card__badge:hover {
         transform: translateY(-3px);
     }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.containerPhone {
+    text-align: center;
+}
+
+.buttonsPhone {
+    display: flex;
+    gap: 10px;
+}
+
+.action-button {
+    padding: 15px 20px;
+    border: 1px solid #000;
+    background-color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#writeBtn {
+    background-color: #1a3f67;
+    color: white;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+h2 {
+    margin: 10px 0;
+    font-size: 24px;
+}
+
+.modal-button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.call-btn {
+    background-color: #1a3f67;
+    color: white;
+}
+
+.sms-btn, .cancel-btn {
+    background-color: white;
+    border: 1px solid #000;
+}
+
+.close {
+    font-size: 24px;
+    float: right;
+    cursor: pointer;
+}
+
+.fixed-button-container {
+    display: none; /* Hide by default */
+}
+
+/* Styles for small devices */
+@media (max-width: 768px) {
+    .fixed-button-container {
+        display: block; /* Show the button container on small devices */
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #fff; /* Optional: Background color to ensure it's visible */
+        padding: 10px 0;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional: Shadow for better visibility */
+        text-align: center;
+        z-index: 1000; /* Ensure it stays above other content */
+    }
+
+    .fixed-button-container .action-button {
+        background-color: #204fc2; /* Customize as needed */
+        color: #fff; /* Customize as needed */
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+}
+    @media (max-width: 600px) {
+    #callSmsBtn1 {
+        display: none;
+    }
+}
 
 </style>
+<script>
+    // Modal
+const modal = document.getElementById("phoneModal");
+const callSmsBtn = document.getElementById("callSmsBtn");
+const writeBtn = document.getElementById("writeBtn");
+const closeModal = document.querySelector(".close");
 
+// Show the modal on button click
+callSmsBtn.onclick = () => {
+    modal.style.display = "flex";
+};
+
+// Close the modal
+closeModal.onclick = () => {
+    modal.style.display = "none";
+};
+
+// Close modal if clicked outside
+window.onclick = (event) => {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+};
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the buttons by their IDs
+    const callBtn = document.getElementById('callBtn');
+    const smsBtn = document.getElementById('smsBtn');
+
+    // Get the phone number from the data attribute
+    const phoneNumber = callBtn.getAttribute('data-phone-number');
+
+    // Set the `href` for the call button
+    callBtn.addEventListener('click', function() {
+        window.location.href = 'tel:' + phoneNumber;
+    });
+
+    // Set the `href` for the SMS button
+    smsBtn.addEventListener('click', function() {
+        window.location.href = 'sms:' + phoneNumber;
+    });
+});
+</script>
 </body>
 </html>
