@@ -277,7 +277,8 @@ public class OfferController {
 
     @GetMapping("/promote/{id}/form")
     public String showPromotionForm(@PathVariable UUID id, Model model) {
-        model.addAttribute("id", id);
+        OfferResponseDTO offerResponseDTO = offerClient.getById(id);
+        model.addAttribute("id", offerResponseDTO.getUniqueShortId());
         return "/offers/offer-types";
     }
 

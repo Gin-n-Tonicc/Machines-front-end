@@ -25,6 +25,7 @@ public class OfferDTO extends BaseDTO {
     private OfferType offerType = OfferType.BASIC;
     private LocalDateTime renewedAt;
     private LocalDateTime promotedAt;
+    private Long uniqueShortId;
     // *********************************
     // **   EXTRA INFO | EXTRA INFO   **
     // *********************************
