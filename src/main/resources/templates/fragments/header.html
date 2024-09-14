@@ -1,7 +1,7 @@
 <html lang="en" dir="ltr" xmlns:th="">
 <header class="site__header d-lg-none">
     <!-- data-sticky-mode - one of [pullToShow, alwaysOnTop] -->
-    <div class="mobile-header mobile-header--sticky" data-sticky-mode="pullToShow">
+    <div class="mobile-header mobile-header--sticky" data-sticky-mode="alwaysOnTop">
         <div class="mobile-header__panel">
             <div class="container">
                 <div class="mobile-header__body">
@@ -13,7 +13,7 @@
                     <a class="mobile-header__logo" href="index">
                         <img th:src="@{/images/logo.png}" alt="Logo" width="200px" height="40px">
                     </a>
-                    <div class="search search--location--mobile-header mobile-header__search">
+                    <div class="search search--location--mobile-header mobile-header__search mobile-header__search--open search--suggestions-open">
                         <div class="search__body">
                             <form class="search__form" method="get" action="/offers" id="searchForm2">
                                 <!-- Search Input -->
@@ -29,6 +29,29 @@
                             </form>
                         </div>
                     </div>
+                    <style>
+                        /* Header styles */
+.mobile-header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensure the header is above other content */
+  background-color: #fff; /* Ensure the header has a background */
+  /* Other styles for the header */
+}
+
+/* Search bar styles */
+.search.search--location--mobile-header {
+  position: absolute; /* or use margin-top if you prefer */
+  top: 50px; /* Adjust based on header height */
+  left: 0;
+  width: 100%;
+  background-color: #fff; /* Ensure the search bar has a background */
+  /* Other styles for the search bar */
+}
+
+                    </style>
                     <div class="mobile-header__indicators">
                         <div class="indicator indicator--mobile-search indicator--mobile d-md-none">
                             <button class="indicator__button">
