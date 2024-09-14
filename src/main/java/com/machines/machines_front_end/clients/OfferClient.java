@@ -39,7 +39,19 @@ public interface OfferClient {
     List<OfferResponseDTO> getTopOffers();
 
     @GetMapping("/all/admin")
-    Page<OfferAdminResponseDTO> getAllAdmin(@RequestParam int page, @RequestParam int size);
+    Page<OfferAdminResponseDTO> getAllAdmin(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) UUID subcategoryId,
+            @RequestParam(required = false) UUID cityId,
+            @RequestParam(required = false) OfferState offerState,
+            @RequestParam(required = false) OfferSaleType offerSaleType,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) Boolean bulgarian,
+            @RequestParam(required = false, defaultValue = "def") OfferSort offerSort
+    );
 
     @GetMapping("/all/user")
     Page<OfferAdminResponseDTO> getAllForLoggedUser(@RequestParam int page, @RequestParam int size);
