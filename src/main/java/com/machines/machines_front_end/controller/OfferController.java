@@ -42,6 +42,7 @@ public class OfferController {
             @RequestParam(defaultValue = "5") int size,
             @RequestParam(required = false) String search,
             @RequestParam(required = false) UUID subcategoryId,
+            @RequestParam(required = false) UUID categoryId,
             @RequestParam(required = false) UUID cityId,
             @RequestParam(required = false) OfferState offerState,
             @RequestParam(required = false) OfferSaleType offerSaleType,
@@ -53,7 +54,7 @@ public class OfferController {
     ) {
         model.addAttribute("subcategories", subcategoryClient.getAll());
         model.addAttribute("cities", cityClient.getAll());
-        model.addAttribute("offers", offerClient.getAllOffers(page, size, search, subcategoryId, cityId, offerState, offerSaleType, minPrice, maxPrice, bulgarian, offerSort));
+        model.addAttribute("offers", offerClient.getAllOffers(page, size, search, subcategoryId, categoryId, cityId, offerState, offerSaleType, minPrice, maxPrice, bulgarian, offerSort));
         return "offers/list";
     }
 
@@ -84,6 +85,7 @@ public class OfferController {
                                   @RequestParam(defaultValue = "5") int size,
                                   @RequestParam(required = false) String search,
                                   @RequestParam(required = false) UUID subcategoryId,
+                                  @RequestParam(required = false) UUID categoryId,
                                   @RequestParam(required = false) UUID cityId,
                                   @RequestParam(required = false) OfferState offerState,
                                   @RequestParam(required = false) OfferSaleType offerSaleType,
@@ -94,7 +96,7 @@ public class OfferController {
                                   Model model) {
         model.addAttribute("subcategories", subcategoryClient.getAll());
         model.addAttribute("cities", cityClient.getAll());
-        model.addAttribute("offers", offerClient.getAllAdmin(page, size, search, subcategoryId, cityId, offerState, offerSaleType, minPrice, maxPrice, bulgarian, offerSort));
+        model.addAttribute("offers", offerClient.getAllAdmin(page, size, search, subcategoryId, categoryId, cityId, offerState, offerSaleType, minPrice, maxPrice, bulgarian, offerSort));
         return "offers/listAdmin";
     }
 
