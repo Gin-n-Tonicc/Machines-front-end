@@ -27,7 +27,8 @@
 <!-- site -->
 <div class="site">
     <!-- mobile site__header -->
-    <th:block th:insert="~{fragments/header}"></th:block><br>
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <br>
     <!-- site__body -->
     <div class="site__body">
         <div class="page-header">
@@ -723,6 +724,17 @@ h2 {
         display: none;
     }
 }
+.product-tabs__pane {
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+    transition: opacity 0.5s, height 0.5s; /* Smooth transition for opacity and height */
+}
+
+.product-tabs__pane--active {
+    height: auto; /* Ensure the height adjusts to the content */
+    opacity: 1; /* Make it visible */
+}
 
 </style>
 <script>
@@ -766,6 +778,38 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = 'sms:' + phoneNumber;
     });
 });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    // Get all the tab links and tab content panes
+    const tabs = document.querySelectorAll('.product-tabs__list a');
+    const panes = document.querySelectorAll('.product-tabs__pane');
+
+    // Add click event listener to each tab
+    tabs.forEach(tab => {
+    tab.addEventListener('click', function (event) {
+    event.preventDefault();  // Prevent default anchor behavior
+
+    // Remove 'active' class from all panes
+    panes.forEach(pane => pane.classList.remove('product-tabs__pane--active'));
+
+    // Remove 'active' class from all tabs (if you want to highlight the selected tab)
+    tabs.forEach(t => t.classList.remove('product-tabs__item--active'));
+
+    // Get the target pane id from the href (if it's an anchor link or use data-tab attribute)
+    const targetId = tab.getAttribute('href').substring(1);
+
+    // Find the corresponding pane and make it active
+    const targetPane = document.getElementById(targetId);
+    if (targetPane) {
+        targetPane.classList.add('product-tabs__pane--active');
+    }
+
+    // Optionally add an active class to the clicked tab (if you want to visually highlight it)
+    tab.classList.add('product-tabs__item--active');
+    });
+    });
+    });
 </script>
 </body>
 </html>
