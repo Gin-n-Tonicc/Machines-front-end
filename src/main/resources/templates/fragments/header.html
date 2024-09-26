@@ -129,12 +129,12 @@
                                                                     <!-- Loop through subcategories -->
                                                                     <th:block
                                                                             th:each="subcategory : ${category.subcategories}">
-                                                                        <div class="col-3">
+                                                                        <div class="col-5">
                                                                             <ul class="megamenu__links megamenu__links--level--0">
                                                                                 <li class="megamenu__item">
                                                                                     <a href="#"
                                                                                        th:href="@{/offers(subcategoryId=${subcategory.id})}">
-                                                                                        <span th:text="${subcategory.name}">Subcategory Name</span>
+                                                                                        <p th:text="${subcategory.name} + '  '">Subcategory Name</p>
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>
