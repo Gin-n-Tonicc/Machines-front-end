@@ -117,7 +117,8 @@
                                                 <!-- Product Actions -->
                                                 <div class="product-card__actions">
                                                     <div class="product-card__prices">
-                                                        <p th:text="${similarOffer.price}">Цена</p>
+                                                        <span th:text="${similarOffer.price}">Цена</span>
+                                                        лв.
                                                     </div>
                                                     <div class="product-card__buttons">
                                                         <a class="btn btn-primary product-card__addtocart"
@@ -149,11 +150,18 @@
                     <div class="block-banner__title">Лидер <br class="block-banner__mobile-br"> в пазара на машините
                     </div>
                     <div class="block-banner__text">Имаш машини за продан? Публикувай обява!</div>
-                    <div class="block-banner__button">
-                        <form action="/offers/create" method="get">
-                            <button type="submit" class="btn btn-sm btn-primary">Създай обява</button>
-                        </form>
-                    </div>
+                        <div class="block-banner__button">
+                            <th:block th:if="${session.sessionToken != null}">
+                                <form action="/offers/create" method="get">
+                                    <button type="submit" class="btn btn-sm btn-primary">Създай обява</button>
+                                </form>
+                            </th:block>
+                            <th:block th:if="${session.sessionToken == null}">
+                                <form action="/login" method="get">
+                                    <button type="submit" class="btn btn-sm btn-primary">Създай обява</button>
+                                </form>
+                            </th:block>
+                        </div>
                 </a>
             </div>
         </div>
