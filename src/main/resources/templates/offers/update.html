@@ -113,26 +113,32 @@
                                                 </select>
                                             </div>
 
-                                            <!--                                         Offer State -->
+                                            <!-- Offer State -->
                                             <div class="form-group">
-                                                <label for="offerState">Състояние на продукта:</label>
+                                                <label for="offerState">Състояние на машината:</label>
                                                 <select id="offerState" th:field="*{offerState}" class="form-control">
                                                     <option th:each="offerState : ${offerStates}"
                                                             th:value="${offerState}"
-                                                            th:text="${offerState}"></option>
+                                                            th:text="${#strings.equals(offerState, 'NEW') ? 'Нова' :
+                          #strings.equals(offerState, 'NEW_IMPORTATION') ? 'Нова внос' :
+                          #strings.equals(offerState, 'USED') ? 'Използвана' : ''}">
+                                                    </option>
                                                 </select>
                                             </div>
 
                                             <!-- Offer Sale Type -->
                                             <div class="form-group">
-                                                <label for="offerSaleType">Състояние на обявата:</label>
-                                                <select id="offerSaleType" th:field="*{offerSaleType}"
-                                                        class="form-control">
+                                                <label for="offerSaleType">Вид на обявата:</label>
+                                                <select id="offerSaleType" th:field="*{offerSaleType}" class="form-control">
                                                     <option th:each="offerSaleType : ${offerSaleTypes}"
                                                             th:value="${offerSaleType}"
-                                                            th:text="${offerSaleType}"></option>
+                                                            th:text="${#strings.equals(offerSaleType, 'SALE') ? 'За продан' :
+                          #strings.equals(offerSaleType, 'FOR_RENT') ? 'Под наем' :
+                          #strings.equals(offerSaleType, 'SERVICES') ? 'Услуги' : ''}">
+                                                    </option>
                                                 </select>
                                             </div>
+
 
                                             <!-- Auto Update -->
                                             <div class="form-group">

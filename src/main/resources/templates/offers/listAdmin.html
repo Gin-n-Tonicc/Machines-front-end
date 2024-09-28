@@ -59,6 +59,32 @@
                                         <form method="get" action="/offers/admin">
                                             <div class="widget-filters__list">
 
+                                                <!-- Price Filter -->
+                                                <div class="widget-filters__item">
+                                                    <div class="filter filter--opened" data-collapse-item>
+                                                        <button type="button" class="filter__title" data-collapse-trigger>
+                                                            Цена
+                                                            <svg class="filter__arrow" width="12px" height="7px">
+                                                                <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                                            </svg>
+                                                        </button>
+                                                        <div class="filter__body" data-collapse-content>
+                                                            <div class="filter__container">
+                                                                <div class="filter-price">
+                                                                    <div class="filter-price__slider"></div>
+                                                                    <div class="filter-price__title">Цена: <input
+                                                                            type="number"
+                                                                            class="form-control form-control-sm"
+                                                                            id="minPrice" name="minPrice"> – <input
+                                                                            type="number"
+                                                                            class="form-control form-control-sm"
+                                                                            id="maxPrice" name="maxPrice"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <!-- Sort By Filter -->
                                                 <div class="widget-filters__item">
                                                     <div class="filter filter--opened" data-collapse-item>
@@ -75,30 +101,6 @@
                                                                     <option value="def">По подразбиране
                                                                     </option>
                                                                     <option value="alphaDesc">По азбучен ред</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Items per Page Filter -->
-                                                <div class="widget-filters__item">
-                                                    <div class="filter filter--opened" data-collapse-item>
-                                                        <button type="button" class="filter__title" data-collapse-trigger>
-                                                            Брой обяви на страница
-                                                            <svg class="filter__arrow" width="12px" height="7px">
-                                                                <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
-                                                            </svg>
-                                                        </button>
-                                                        <div class="filter__body" data-collapse-content>
-                                                            <div class="filter__container">
-                                                                <select class="form-control form-control-sm"
-                                                                        id="pageSizeSelect" name="size">
-                                                                    <option value="3">3</option>
-                                                                    <option value="5">5</option>
-                                                                    <option value="10">10</option>
-                                                                    <option value="15">15</option>
-                                                                    <option value="20">20</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -237,32 +239,6 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- Price Filter -->
-                                                <div class="widget-filters__item">
-                                                    <div class="filter filter--opened" data-collapse-item>
-                                                        <button type="button" class="filter__title" data-collapse-trigger>
-                                                            Цена
-                                                            <svg class="filter__arrow" width="12px" height="7px">
-                                                                <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
-                                                            </svg>
-                                                        </button>
-                                                        <div class="filter__body" data-collapse-content>
-                                                            <div class="filter__container">
-                                                                <div class="filter-price">
-                                                                    <div class="filter-price__slider"></div>
-                                                                    <div class="filter-price__title">Цена: <input
-                                                                            type="number"
-                                                                            class="form-control form-control-sm"
-                                                                            id="minPrice" name="minPrice"> – <input
-                                                                            type="number"
-                                                                            class="form-control form-control-sm"
-                                                                            id="maxPrice" name="maxPrice"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                                 <!-- Bulgarian Filter -->
                                                 <div class="widget-filters__item">
                                                     <div class="filter filter--opened" data-collapse-item>
@@ -284,7 +260,31 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- Items per Page Filter -->
+                                                <div class="widget-filters__item">
+                                                    <div class="filter filter--opened" data-collapse-item>
+                                                        <button type="button" class="filter__title" data-collapse-trigger>
+                                                            Брой обяви на страница
+                                                            <svg class="filter__arrow" width="12px" height="7px">
+                                                                <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                                            </svg>
+                                                        </button>
+                                                        <div class="filter__body" data-collapse-content>
+                                                            <div class="filter__container">
+                                                                <select class="form-control form-control-sm"
+                                                                        id="pageSizeSelect" name="size">
+                                                                    <option value="3">3</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="10">10</option>
+                                                                    <option value="15">15</option>
+                                                                    <option value="20">20</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+
                                             <div class="widget-filters__actions d-flex">
                                                 <button type="submit" class="btn btn-primary">Филтрирай</button>
                                             </div>

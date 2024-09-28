@@ -8,12 +8,14 @@
     <meta name="description" content="Създайте нова обява на Mashinite - водещият български портал за машини. Попълнете информацията за вашето обявление,
     включително снимки, описание, цена и други детайли. Mashinite е водещият български портал за машини, предлагащ широк асортимент от оборудване и резервни части за различни индустрии.
     Машини и оборудване. Безплатни обяви за строителни, транспортни машини и други, кранове, мотокари, платформи. Покупко-продажба на автосервизно оборудване, медицинско и лабораторно оборудване.">
-    <meta name="keywords" content="обява, машини, продажба, информация за машини, създай обява, Mashinite, български портал за машини">
+    <meta name="keywords"
+          content="обява, машини, продажба, информация за машини, създай обява, Mashinite, български портал за машини">
     <meta name="author" content="Екипът на Mashinite">
 
     <!-- Open Graph meta tags -->
     <meta property="og:title" content="Създай обява - Mashinite">
-    <meta property="og:description" content="Създайте нова обява за машини на Mashinite. Добавете подробности, снимки и информация за продажба на вашите машини.">
+    <meta property="og:description"
+          content="Създайте нова обява за машини на Mashinite. Добавете подробности, снимки и информация за продажба на вашите машини.">
     <meta property="og:type" content="website">
 
     <title>Създай обява</title>
@@ -107,23 +109,28 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="offerState">Състояние на продукта:</label>
+                                                <label for="offerState">Състояние на машината:</label>
                                                 <select id="offerState" name="offerState" th:field="*{offerState}"
                                                         class="form-control">
                                                     <option th:each="offerState : ${offerStates}"
                                                             th:value="${offerState}"
-                                                            th:text="${offerState}"></option>
+                                                            th:text="${#strings.equals(offerState, 'NEW') ? 'Нова' :
+                          #strings.equals(offerState, 'NEW_IMPORTATION') ? 'Нов внос' :
+                          #strings.equals(offerState, 'USED') ? 'Използвана' : ''}">
+                                                    </option>
                                                 </select>
                                             </div>
 
+
                                             <div class="form-group">
                                                 <label for="offerSaleType">Вид на обявата:</label>
-                                                <select id="offerSaleType" name="offerSaleType"
-                                                        th:field="*{offerSaleType}"
-                                                        class="form-control">
+                                                <select id="offerSaleType" name="offerSaleType" th:field="*{offerSaleType}" class="form-control">
                                                     <option th:each="offerSaleType : ${offerSaleTypes}"
                                                             th:value="${offerSaleType}"
-                                                            th:text="${offerSaleType}"></option>
+                                                            th:text="${#strings.equals(offerSaleType, 'SALE') ? 'За продан' :
+                          #strings.equals(offerSaleType, 'FOR_RENT') ? 'Под наем' :
+                          #strings.equals(offerSaleType, 'SERVICES') ? 'Услуги' : ''}">
+                                                    </option>
                                                 </select>
                                             </div>
 
