@@ -22,7 +22,7 @@ public class MainController {
     private final OfferClient offerClient;
     private final AdvertisementClient advertisementClient;
 
-    @GetMapping("index")
+    @GetMapping
     public String home(Model model) {
         model.addAttribute("advertisements", advertisementClient.getAll());
         model.addAttribute("offers", offerClient.getTopOffers());
