@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthenticationController {
-    private static final String REDIRECT_INDEX = "redirect:/index";
+    private static final String REDIRECT_INDEX = "redirect:/";
     private static final String REDIRECT_LOGIN = "redirect:/login";
     private final AuthenticationClient authenticationClient;
     private final SessionManager sessionManager;
@@ -29,7 +29,7 @@ public class AuthenticationController {
     @GetMapping("login")
     public String login(HttpSession session) {
         if (session.getAttribute("sessionToken") != null) {
-            return "redirect:/index";
+            return "redirect:/";
         }
         return "login";
     }
@@ -37,7 +37,7 @@ public class AuthenticationController {
     @GetMapping("/logout")
     public ModelAndView logout(HttpServletRequest request) {
         sessionManager.invalidateSession(request);
-        return new ModelAndView("redirect:/index");
+        return new ModelAndView("redirect:/");
     }
 
 
@@ -57,7 +57,7 @@ public class AuthenticationController {
     @GetMapping("/register")
     public String showRegistrationForm(Model model, HttpSession session) {
         if (session.getAttribute("sessionToken") != null) {
-            return "redirect:/index";
+            return "redirect:/";
         }
 
         model.addAttribute("registerRequest", new RegisterRequest());

@@ -46,7 +46,7 @@ public class UserController {
         try {
             System.out.println(userDTO.toString());
             userClient.update(id, userDTO);
-            return "redirect:/index";
+            return "redirect:/";
         } catch (Exception e) {
             String errorMessage = (e.getCause() != null && e.getCause().getMessage() != null)
                     ? e.getCause().getMessage()

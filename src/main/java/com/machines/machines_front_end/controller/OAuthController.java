@@ -31,7 +31,7 @@ public class OAuthController {
             session.setAttribute("userId", authenticationResponse.getUser().getId());
             sessionManager.setSessionToken(request, authenticationResponse.getAccessToken(), authenticationResponse.getUser().getRole().toString());
 
-            return "redirect:/index";
+            return "redirect:/";
         } catch (Exception e) {
             return "redirect:/login?error=true";
         }
