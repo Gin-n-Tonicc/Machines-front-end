@@ -306,4 +306,20 @@ public class OfferController {
         model.addAttribute("response", response);
         return "redirect:" + response;
     }
+
+    @GetMapping("/promote/admin/{id}/form")
+    public String showPromotionFormAdmin(@PathVariable UUID id, Model model) {
+        OfferResponseDTO offerResponseDTO = offerClient.getById(id);
+        model.addAttribute("id", offerResponseDTO.getId());
+        return "/offers/offer-types-admin";
+    }
+
+    @GetMapping("/promote/admin/{id}")
+    public String promoteOfferAdmin(
+            @PathVariable UUID id,
+            @RequestParam(name = "offerType") OfferType offerType
+    ) {
+        offerClient.promoteOfferAdmin(id, offerType);
+        return "redirect:/offers/" + id;
+    }
 }

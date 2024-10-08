@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description"
+          content="Промотирайте обява на Mashinite - водещият български портал за машини. Попълнете информацията за вашето обявление, включително снимки, описание, цена и други детайли. Mashinite е водещият български портал за машини, предлагащ широк асортимент от оборудване и резервни части за различни индустрии. Машини и оборудване. Безплатни обяви за строителни, транспортни машини и други, кранове, мотокари, платформи. Покупко-продажба на автосервизно оборудване, медицинско и лабораторно оборудване.">
+    <meta name="keywords"
+          content="обява, промотиране, промотирай обява, машини, продажба, информация за машини, създай обява, Mashinite, български портал за машини">
+    <meta name="author" content="Екипът на Mashinite">
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Промотирай обява - Mashinite">
+    <meta property="og:description"
+          content="Промотирайте обява за машини на Mashinite. Промотирайте обява. Добавете подробности, снимки и информация за продажба на вашите машини.">
+    <meta property="og:type" content="website">
+
+    <title>Промотирай обява</title>
+    <th:block th:insert="~{fragments/links}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
+    <style>
+        .promotion-info {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .promotion-info h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .promotion-info p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .promotion-info ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .promotion-info ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- site -->
+<div class="site">
+    <!-- mobile site__header -->
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <!-- site__body -->
+    <div class="site__body">
+        <!-- Toast notification container -->
+        <div id="toast" class="toast"></div>
+
+        <!-- Hidden error message container for Thymeleaf -->
+        <p id="error-message-hidden" th:text="${error}" th:if="${error}" style="display: none;">Error message will
+            appear here</p>
+
+        <div class="block">
+            <div class="container">
+                <div>
+                    <div class="col-md-6 d-flex flex-column" style="padding-top: 20px; margin: 0 auto;">
+                        <div class="card flex-grow-1 mb-md-0">
+                            <div class="card-body">
+                                <th:block th:if="${session.sessionToken != null}">
+                                    <h3 class="card-title" style="text-align: center;">Промотирай обява</h3>
+                                    <div style="text-align: center;">
+                                        <form th:action="@{'/offers/promote/admin/' + ${id}}" method="get">
+                                            <div class="form-group">
+                                                <label for="offerType">Тип оферта:</label>
+                                                <select id="offerType" name="offerType" class="form-control" required>
+                                                    <option value="BASIC" selected>Обикновена</option>
+                                                    <option value="VIP">VIP обява</option>
+                                                    <option value="TOP">TOP обява</option>
+                                                </select>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary mt-4">Промотирай</button>
+                                        </form>
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${session.sessionToken == null}">
+                                    <div class="site">
+                                        <h1 style="text-align: center;">Отказан достъп</h1>
+                                        <p style="text-align: center;">Само създателят на обявата и администраторите на
+                                            платформата имат достъп до тази функционалност!</p>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <th:block th:if="${session.sessionToken != null}">
+                <div class="container1">
+                    <div class="vip">
+                        <h2>ВИП обява</h2>
+                        <p>Направете обявата "<strong>ВИП</strong>, като изпратите SMS със съдържание:
+                            <span class="sms-box" th:text="MASHINITE + ' ' + ${id}"></span> на номер
+                            <span class="sms-box">1092</span></p>
+                        <p><strong>Предимства на "ВИП обявите":</strong> Етикет и рамка, значително отличаваща обявата
+                            Ви
+                            от останалите. Препратка съм други ваши обяви при разглеждане на обявата.
+                            Винаги обявата Ви ще бъде показана преди всички обикновени обяви. Препратка към вашата
+                            обява в началната страница на сайта.
+                        </p>
+                        <p>След изтичането на сроковете Вашата обява преминава автоматично в режим "Безплатна".</p>
+                        <p class="price">Цената на SMS е 2.40лв. с ДДС</p>
+                    </div>
+
+                    <div class="top">
+                        <h2>ТОП обява</h2>
+                        <p>Направете обявата "<strong>ТОП</strong>", като изпратите SMS със съдържание:
+                            <span class="sms-box" th:text="MASHINITE + ' ' + ${id}"></span> на номер
+                            <span class="sms-box">1096</span></p>
+                        <p><strong>Предимства на "ТОП обявите":</strong> Етикет и рамка, значително отличаваща обявата
+                            Ви
+                            от останалите. Препратка съм други ваши обяви при разглеждане на обявата.
+                            Винаги обявата Ви ще бъде показана преди всички обикновени и VIP обяви. Препратка към вашата
+                            обява в началната страница на сайта.
+                        </p>
+                        <p>След изтичането на сроковете Вашата обява преминава автоматично в режим "Безплатна".</p>
+                        <p class="price">Цената на SMS е 6.00лв. с ДДС</p>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
+<th:block th:insert="~{fragments/footer}"></th:block>
+<style>
+    .container1 {
+     display: flex;
+     justify-content: space-around;
+     flex-wrap: wrap;
+ }
+
+ .vip, .top {
+     padding: 20px;
+     border-radius: 10px;
+     color: white;
+     width: 35%;
+ }
+
+ /* Make TOP below VIP on small screens */
+ @media (max-width: 768px) {
+     .vip, .top {
+         width: 100%;
+     }
+ }
+
+ .vip {
+     background-color: #009ee3;
+ }
+
+ .top {
+     background-color: #f7941e;
+ }
+
+ .sms-box {
+     background-color: #fdd;
+     color: red;
+     padding: 2px 5px;
+     border-radius: 5px;
+     font-weight: bold;
+ }
+
+ .info-box {
+     margin-top: 15px;
+     font-size: 14px;
+ }
+
+ .price {
+     font-weight: bold;
+ }
+
+ .note {
+     color: red;
+     font-size: 12px;
+ }
+
+</style>
+<!-- Include the toast.js file -->
+<script th:src="@{/js/toast.js}"></script>
+</body>
+</html>

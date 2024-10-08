@@ -82,4 +82,9 @@ public interface OfferClient {
             @PathVariable("id") UUID id,
             @RequestParam("customerName") String customerName,
             @RequestParam("offerType") OfferType offerType);
+
+    @PutMapping("/promote/{id}")
+    void promoteOfferAdmin(
+            @PathVariable("id") UUID id,
+            @RequestParam("offerType") OfferType offerType);
 }
