@@ -60,26 +60,28 @@
                                                    class="form-control"
                                                    placeholder="Въведи презимето на потребителя" required>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Имейл</label>
-                                            <input type="email" id="email" name="email" th:field="*{email}"
-                                                   class="form-control"
-                                                   placeholder="Въведи имейл" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="role">Роля</label>
-                                            <select id="role" name="role" th:field="*{role}" class="form-control"
-                                                    required>
-                                                <option value="USER">USER</option>
-                                                <option value="ADMIN">ADMIN</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Промени парола</label>
-                                            <input type="password" id="password" name="password" th:field="*{password}"
-                                                   class="form-control"
-                                                   placeholder="Промени парола">
-                                        </div>
+                                        <th:block th:if="${session.sessionRole == 'ADMIN'}">
+                                            <div class="form-group">
+                                                <label>Имейл</label>
+                                                <input type="email" id="email" name="email" th:field="*{email}"
+                                                       class="form-control"
+                                                       placeholder="Въведи имейл" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="role">Роля</label>
+                                                <select id="role" name="role" th:field="*{role}" class="form-control"
+                                                        required>
+                                                    <option value="USER">USER</option>
+                                                    <option value="ADMIN">ADMIN</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Промени парола</label>
+                                                <input type="password" id="password" name="password" th:field="*{password}"
+                                                       class="form-control"
+                                                       placeholder="Промени парола">
+                                            </div>
+                                        </th:block>
                                         <div id="error-message" style="color: red;"></div>
                                         <button type="submit" class="btn btn-primary mt-4"
                                                 style="text-align: center;">
