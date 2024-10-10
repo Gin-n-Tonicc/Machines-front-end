@@ -1,5 +1,6 @@
 package com.machines.machines_front_end.controller;
 
+import com.machines.machines_front_end.annotations.PageRoleGuard;
 import com.machines.machines_front_end.clients.CityClient;
 import com.machines.machines_front_end.clients.RegionClient;
 import com.machines.machines_front_end.dtos.request.CityRequestDTO;
@@ -28,6 +29,7 @@ public class CityController {
     private final RegionClient regionClient;
 
     @GetMapping("/create")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String showCreateCityForm(Model model) {
         List<RegionResponseDTO> regions = regionClient.getAll();
         model.addAttribute("regions", regions);
@@ -36,6 +38,7 @@ public class CityController {
     }
 
     @PostMapping("/create")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String createCity(@ModelAttribute("city") CityRequestDTO cityRequestDTO, Model model) {
         try {
             cityClient.create(cityRequestDTO);
@@ -52,6 +55,7 @@ public class CityController {
     }
 
     @GetMapping
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String listCities(Model model) {
         List<CityAdminResponseDTO> cities = cityClient.getAllAdmin();
         List<RegionAdminResponseDTO> regions = regionClient.getAllAdmin();
@@ -67,6 +71,7 @@ public class CityController {
     }
 
     @GetMapping("/update/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String showUpdateCityForm(@PathVariable UUID id, Model model) {
         CityAdminResponseDTO city = cityClient.getByIdAdmin(id);
         List<RegionResponseDTO> regions = regionClient.getAll();
@@ -76,6 +81,7 @@ public class CityController {
     }
 
     @PostMapping("/update/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String updateCity(@PathVariable UUID id, @ModelAttribute("city") CityRequestDTO cityDTO, Model model) {
         try {
             cityClient.update(id, cityDTO);
@@ -95,6 +101,7 @@ public class CityController {
     }
 
     @PostMapping("/delete/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String deleteCity(@PathVariable UUID id) {
         cityClient.delete(id);
         return "redirect:/cities";

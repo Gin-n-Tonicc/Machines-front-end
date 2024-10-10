@@ -1,5 +1,6 @@
 package com.machines.machines_front_end.controller;
 
+import com.machines.machines_front_end.annotations.PageRoleGuard;
 import com.machines.machines_front_end.clients.CityClient;
 import com.machines.machines_front_end.clients.FileClient;
 import com.machines.machines_front_end.clients.OfferClient;
@@ -74,6 +75,7 @@ public class OfferController {
     }
 
     @GetMapping("/admin/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String getOfferByIdAdmin(@PathVariable UUID id, Model model) {
         OfferSingleAdminResponseDTO offer = offerClient.getByIdAdmin(id);
         model.addAttribute("offer", offer);
@@ -81,6 +83,7 @@ public class OfferController {
     }
 
     @GetMapping("/admin")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String listOffersAdmin(@RequestParam(defaultValue = "1") int page,
                                   @RequestParam(defaultValue = "5") int size,
                                   @RequestParam(required = false) String search,
@@ -101,6 +104,7 @@ public class OfferController {
     }
 
     @GetMapping("/all/user")
+    @PageRoleGuard(redirectTo = "/", authenticated = true)
     public String getAllForLoggedUser(@RequestParam(defaultValue = "1") int page,
                                       @RequestParam(defaultValue = "5") int size,
                                       Model model) {
@@ -110,6 +114,7 @@ public class OfferController {
     }
 
     @GetMapping("/create")
+    @PageRoleGuard(redirectTo = "/login", authenticated = true)
     public String showCreateOfferForm(Model model) {
         model.addAttribute("cities", cityClient.getAll());
         model.addAttribute("subcategories", subcategoryClient.getAll());
@@ -120,6 +125,7 @@ public class OfferController {
     }
 
     @PostMapping("/create")
+    @PageRoleGuard(redirectTo = "/login", authenticated = true)
     public String createOffer(@ModelAttribute("offer") OfferRequestDTO offerDTO,
                               @RequestPart("mainPicture") MultipartFile mainPicture,
                               @RequestPart("pictures") MultipartFile[] pictures,
@@ -155,6 +161,7 @@ public class OfferController {
     }
 
     @PostMapping("/update/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true)
     public String updateOffer(@PathVariable("id") UUID id,
                               @ModelAttribute("offer") OfferRequestDTO offerDTO,
                               @RequestPart(value = "mainPicture", required = false) MultipartFile mainPicture,
@@ -206,6 +213,7 @@ public class OfferController {
     }
 
     @GetMapping("/update/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true)
     public String showUpdateForm(@PathVariable("id") UUID id, Model model) {
         try {
             OfferResponseDTO offerResponseDTO = offerClient.getById(id);
@@ -276,18 +284,21 @@ public class OfferController {
     }
 
     @PostMapping("/delete/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true)
     public String deleteOffer(@PathVariable UUID id) {
         offerClient.delete(id);
         return "redirect:/offers/all/user";
     }
 
     @PostMapping("/delete/admin/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String deleteOfferAdmin(@PathVariable UUID id) {
         offerClient.delete(id);
         return "redirect:/offers/admin";
     }
 
     @GetMapping("/promote/{id}/form")
+    @PageRoleGuard(redirectTo = "/", authenticated = true)
     public String showPromotionForm(@PathVariable UUID id, Model model) {
         OfferResponseDTO offerResponseDTO = offerClient.getById(id);
         model.addAttribute("id", offerResponseDTO.getUniqueShortId());
@@ -295,6 +306,7 @@ public class OfferController {
     }
 
     @GetMapping("/promote/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true)
     public String promoteOffer(
             @PathVariable UUID id,
             @RequestParam(name = "customerName") String customerName,
@@ -308,6 +320,7 @@ public class OfferController {
     }
 
     @GetMapping("/promote/admin/{id}/form")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String showPromotionFormAdmin(@PathVariable UUID id, Model model) {
         OfferResponseDTO offerResponseDTO = offerClient.getById(id);
         model.addAttribute("id", offerResponseDTO.getId());
@@ -315,6 +328,7 @@ public class OfferController {
     }
 
     @GetMapping("/promote/admin/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String promoteOfferAdmin(
             @PathVariable UUID id,
             @RequestParam(name = "offerType") OfferType offerType

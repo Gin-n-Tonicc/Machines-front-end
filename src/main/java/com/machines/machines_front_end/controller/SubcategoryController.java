@@ -1,5 +1,6 @@
 package com.machines.machines_front_end.controller;
 
+import com.machines.machines_front_end.annotations.PageRoleGuard;
 import com.machines.machines_front_end.clients.CategoryClient;
 import com.machines.machines_front_end.clients.SubcategoryClient;
 import com.machines.machines_front_end.dtos.request.SubcategoryRequestDTO;
@@ -27,6 +28,7 @@ public class SubcategoryController {
     private final CategoryClient categoryClient;
 
     @GetMapping("/create")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String showCreateSubcategoryForm(Model model) {
         List<CategoryResponseDTO> categories = categoryClient.getAll();
         model.addAttribute("categories", categories);
@@ -35,6 +37,7 @@ public class SubcategoryController {
     }
 
     @PostMapping("/create")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String createSubcategory(@ModelAttribute("subcategory") SubcategoryRequestDTO subcategoryDTO, Model model) {
         try {
             subcategoryClient.create(subcategoryDTO);
@@ -51,6 +54,7 @@ public class SubcategoryController {
     }
 
     @GetMapping
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String listSubcategories(Model model) {
         List<SubcategoryAdminResponseDTO> subcategories = subcategoryClient.getAllAdmin();
         List<CategoryAdminResponseDTO> categories = categoryClient.getAllAdmin();
@@ -67,6 +71,7 @@ public class SubcategoryController {
 
 
     @GetMapping("/update/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String showUpdateSubcategoryForm(@PathVariable UUID id, Model model) {
         SubcategoryAdminResponseDTO subcategory = subcategoryClient.getByIdAdmin(id);
         List<CategoryResponseDTO> categories = categoryClient.getAll();
@@ -76,6 +81,7 @@ public class SubcategoryController {
     }
 
     @PostMapping("/update/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String updateSubcategory(@PathVariable UUID id, @ModelAttribute("subcategory") SubcategoryRequestDTO subcategoryDTO, Model model) {
         try {
             subcategoryClient.update(id, subcategoryDTO);
@@ -95,6 +101,7 @@ public class SubcategoryController {
     }
 
     @PostMapping("/delete/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String deleteSubcategory(@PathVariable UUID id) {
         subcategoryClient.delete(id);
         return "redirect:/subcategories";

@@ -1,5 +1,6 @@
 package com.machines.machines_front_end.controller;
 
+import com.machines.machines_front_end.annotations.PageRoleGuard;
 import com.machines.machines_front_end.clients.SearchClient;
 import com.machines.machines_front_end.dtos.Search;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class SearchController {
     private final SearchClient searchClient;
 
     @GetMapping
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String listSearches(Model model) {
         List<Search> searches = searchClient.getAll();
 

@@ -44,7 +44,6 @@ public class UserController {
     @PostMapping("/{id}")
     public String updateUser(@PathVariable UUID id, @ModelAttribute("user") AdminUserDTO userDTO, Model model) {
         try {
-            System.out.println(userDTO.toString());
             userClient.update(id, userDTO);
             return "redirect:/";
         } catch (Exception e) {

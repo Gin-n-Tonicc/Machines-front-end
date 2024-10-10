@@ -1,5 +1,6 @@
 package com.machines.machines_front_end.controller;
 
+import com.machines.machines_front_end.annotations.PageRoleGuard;
 import com.machines.machines_front_end.clients.OAuthClient;
 import com.machines.machines_front_end.dtos.auth.AuthenticationResponse;
 import com.machines.machines_front_end.session.SessionManager;
@@ -22,6 +23,7 @@ public class OAuthController {
     private final SessionManager sessionManager;
 
     @GetMapping("/oauth2/authenticate/google")
+    @PageRoleGuard(redirectTo = "/", authenticated = false)
     public String authenticateWithGoogle(@RequestParam("code") String code,
                                          HttpServletRequest request) {
         try {

@@ -1,5 +1,6 @@
 package com.machines.machines_front_end.controller;
 
+import com.machines.machines_front_end.annotations.PageRoleGuard;
 import com.machines.machines_front_end.clients.CategoryClient;
 import com.machines.machines_front_end.clients.SubcategoryClient;
 import com.machines.machines_front_end.dtos.request.CategoryRequestDTO;
@@ -21,15 +22,16 @@ import java.util.UUID;
 public class CategoryController {
 
     private final CategoryClient categoryClient;
-    private final SubcategoryClient subcategoryClient;
 
     @GetMapping("/create")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String showCreateCategoryForm(Model model) {
         model.addAttribute("category", new CategoryRequestDTO());
         return "categories/create";
     }
 
     @PostMapping("/create")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String createCategory(@ModelAttribute("category") CategoryRequestDTO categoryDTO, Model model) {
         try {
             categoryClient.create(categoryDTO);
@@ -44,6 +46,7 @@ public class CategoryController {
     }
 
     @GetMapping
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String listCategories(Model model) {
         List<CategoryAdminResponseDTO> categories = categoryClient.getAllAdmin();
         model.addAttribute("categories", categories);
@@ -51,6 +54,7 @@ public class CategoryController {
     }
 
     @GetMapping("/update/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String showUpdateCategoryForm(@PathVariable UUID id, Model model) {
         CategoryResponseDTO category = categoryClient.getByIdAdmin(id);
         model.addAttribute("category", category);
@@ -58,6 +62,7 @@ public class CategoryController {
     }
 
     @PostMapping("/update/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String updateCategory(@PathVariable UUID id, @ModelAttribute("category") CategoryRequestDTO categoryDTO, Model model) {
         try {
             categoryClient.update(id, categoryDTO);
@@ -75,6 +80,7 @@ public class CategoryController {
     }
 
     @PostMapping("/delete/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String deleteCategory(@PathVariable UUID id) {
         categoryClient.delete(id);
         return "redirect:/categories";

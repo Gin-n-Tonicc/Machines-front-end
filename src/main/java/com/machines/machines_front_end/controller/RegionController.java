@@ -1,5 +1,6 @@
 package com.machines.machines_front_end.controller;
 
+import com.machines.machines_front_end.annotations.PageRoleGuard;
 import com.machines.machines_front_end.clients.CountryClient;
 import com.machines.machines_front_end.clients.RegionClient;
 import com.machines.machines_front_end.dtos.request.RegionRequestDTO;
@@ -28,6 +29,7 @@ public class RegionController {
     private final CountryClient countryClient;
 
     @GetMapping("/create")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String showCreateRegionForm(Model model) {
         List<CountryResponseDTO> countries = countryClient.getAll(false);
         model.addAttribute("countries", countries);
@@ -36,6 +38,7 @@ public class RegionController {
     }
 
     @PostMapping("/create")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String createRegion(@ModelAttribute("region") RegionRequestDTO regionRequestDTO, Model model) {
         try {
             regionClient.create(regionRequestDTO);
@@ -52,6 +55,7 @@ public class RegionController {
     }
 
     @GetMapping
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String listRegions(Model model) {
         List<RegionAdminResponseDTO> regions = regionClient.getAllAdmin();
         List<CountryAdminResponseDTO> countries = countryClient.getAllAdmin(false);
@@ -67,6 +71,7 @@ public class RegionController {
     }
 
     @GetMapping("/update/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String showUpdateRegionForm(@PathVariable UUID id, Model model) {
         RegionAdminResponseDTO region = regionClient.getByIdAdmin(id);
         List<CountryResponseDTO> countries = countryClient.getAll(false);
@@ -76,6 +81,7 @@ public class RegionController {
     }
 
     @PostMapping("/update/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String updateRegion(@PathVariable UUID id, @ModelAttribute("region") RegionRequestDTO regionDTO, Model model) {
         try {
             regionClient.update(id, regionDTO);
@@ -95,6 +101,7 @@ public class RegionController {
     }
 
     @PostMapping("/delete/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String deleteRegion(@PathVariable UUID id) {
         regionClient.delete(id);
         return "redirect:/regions";

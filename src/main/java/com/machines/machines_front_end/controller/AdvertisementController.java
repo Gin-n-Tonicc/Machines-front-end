@@ -1,5 +1,6 @@
 package com.machines.machines_front_end.controller;
 
+import com.machines.machines_front_end.annotations.PageRoleGuard;
 import com.machines.machines_front_end.clients.AdvertisementClient;
 import com.machines.machines_front_end.clients.FileClient;
 import com.machines.machines_front_end.dtos.Advertisement;
@@ -38,12 +39,14 @@ public class AdvertisementController {
     }
 
     @GetMapping("/create")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String showCreateAdvertisementForm(Model model) {
         model.addAttribute("advertisement", new Advertisement());
         return "advertisements/create";
     }
     
     @PostMapping("/create")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String createAdvertisement(@ModelAttribute("advertisement") AdvertisementRequest advertisementDTO, Model model,
                                       @RequestPart("pictures") MultipartFile[] pictures) {
         try {
@@ -76,6 +79,7 @@ public class AdvertisementController {
     }
     
     @PostMapping("/delete/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String deleteAdvertisement(@PathVariable UUID id) {
         advertisementClient.delete(id);
         return "redirect:/advertisements";

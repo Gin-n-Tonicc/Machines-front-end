@@ -1,5 +1,6 @@
 package com.machines.machines_front_end.controller;
 
+import com.machines.machines_front_end.annotations.PageRoleGuard;
 import com.machines.machines_front_end.clients.AuthenticationClient;
 import com.machines.machines_front_end.dtos.auth.AuthenticationRequest;
 import com.machines.machines_front_end.dtos.auth.AuthenticationResponse;
@@ -27,10 +28,8 @@ public class AuthenticationController {
     private final SessionManager sessionManager;
 
     @GetMapping("login")
+    @PageRoleGuard(redirectTo = "/", authenticated = false)
     public String login(HttpSession session) {
-        if (session.getAttribute("sessionToken") != null) {
-            return "redirect:/";
-        }
         return "login";
     }
 
@@ -42,6 +41,7 @@ public class AuthenticationController {
 
 
     @PostMapping("/login")
+    @PageRoleGuard(redirectTo = "/", authenticated = false)
     public String login(AuthenticationRequest authenticationRequest, Model model, HttpServletRequest httpServletRequest, HttpSession httpSession) {
         try {
             AuthenticationResponse authenticationResponse = authenticationClient.login(authenticationRequest);
@@ -55,16 +55,14 @@ public class AuthenticationController {
     }
 
     @GetMapping("/register")
-    public String showRegistrationForm(Model model, HttpSession session) {
-        if (session.getAttribute("sessionToken") != null) {
-            return "redirect:/";
-        }
-
+    @PageRoleGuard(redirectTo = "/", authenticated = false)
+    public String showRegistrationForm(Model model) {
         model.addAttribute("registerRequest", new RegisterRequest());
         return "register";
     }
 
     @PostMapping("/register")
+    @PageRoleGuard(redirectTo = "/", authenticated = false)
     public String registerUser(RegisterRequest request, Model model, HttpServletRequest httpServletRequest) {
         try {
             AuthenticationResponse authenticationResponse = authenticationClient.register(request);
@@ -79,19 +77,8 @@ public class AuthenticationController {
         }
     }
 
-    @GetMapping("/registrationConfirm")
-    public String confirmRegistration(@RequestParam("token") String token, Model model) {
-        try {
-            ResponseEntity<String> response = authenticationClient.confirmRegistration(token, null);
-            model.addAttribute("message", response.getBody());
-            return "registration-confirmation"; // Name of the confirmation Thymeleaf template
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "registration-confirmation"; // Return to the confirmation page with an error message
-        }
-    }
-
     @GetMapping("/forgot-password")
+    @PageRoleGuard(redirectTo = "/", authenticated = false)
     public String showForgotPasswordForm() {
         return "forgot-password"; // Name of the Thymeleaf template
     }

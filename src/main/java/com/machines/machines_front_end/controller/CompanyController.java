@@ -1,5 +1,6 @@
 package com.machines.machines_front_end.controller;
 
+import com.machines.machines_front_end.annotations.PageRoleGuard;
 import com.machines.machines_front_end.clients.CityClient;
 import com.machines.machines_front_end.clients.CompanyClient;
 import com.machines.machines_front_end.clients.FileClient;
@@ -52,6 +53,7 @@ public class CompanyController {
     }
 
     @GetMapping("/admin/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String getCompanyByIdAdmin(@PathVariable UUID id, Model model) {
         CompanyAdminResponseDTO company = companyClient.getByIdAdmin(id);
         model.addAttribute("company", company);
@@ -59,6 +61,7 @@ public class CompanyController {
     }
 
     @GetMapping("/admin")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String listCompaniesAdmin(@RequestParam(defaultValue = "1") int page,
                                      @RequestParam(defaultValue = "5") int size,
                                      Model model) {
@@ -68,6 +71,7 @@ public class CompanyController {
     }
 
     @GetMapping("/all/user")
+    @PageRoleGuard(redirectTo = "/", authenticated = true)
     public String getAllForLoggedUser(@RequestParam(defaultValue = "1") int page,
                                       @RequestParam(defaultValue = "5") int size,
                                       Model model) {
@@ -77,6 +81,7 @@ public class CompanyController {
     }
 
     @GetMapping("/create")
+    @PageRoleGuard(redirectTo = "/login", authenticated = true)
     public String showCreateCompanyForm(Model model) {
         model.addAttribute("cities", cityClient.getAll());
         model.addAttribute("company", new CompanyRequestDTO());
@@ -84,6 +89,7 @@ public class CompanyController {
     }
 
     @PostMapping("/create")
+    @PageRoleGuard(redirectTo = "/login", authenticated = true)
     public String createCompany(@ModelAttribute("company") CompanyRequestDTO companyDTO,
                                 @RequestPart("mainPicture") MultipartFile mainPicture,
                                 @RequestPart("pictures") MultipartFile[] pictures,
@@ -116,6 +122,7 @@ public class CompanyController {
     }
 
     @PostMapping("/update/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true)
     public String updateCompany(@PathVariable("id") UUID id,
                                 @ModelAttribute("company") CompanyRequestDTO companyDTO,
                                 @RequestPart(value = "mainPicture", required = false) MultipartFile mainPicture,
@@ -164,6 +171,7 @@ public class CompanyController {
     }
 
     @GetMapping("/update/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true)
     public String showUpdateForm(@PathVariable("id") UUID id, Model model) {
         try {
             CompanyResponseDTO companyResponseDTO = companyClient.getById(id);
@@ -211,12 +219,14 @@ public class CompanyController {
     }
 
     @PostMapping("/delete/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true)
     public String deleteCompany(@PathVariable UUID id) {
         companyClient.delete(id);
         return "redirect:/companies/all/user";
     }
 
     @PostMapping("/delete/admin/{id}")
+    @PageRoleGuard(redirectTo = "/", authenticated = true, role = "ADMIN")
     public String deleteCompanyAdmin(@PathVariable UUID id) {
         companyClient.delete(id);
         return "redirect:/companies/admin";
