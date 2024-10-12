@@ -26,7 +26,8 @@
 <!-- site -->
 <div class="site">
     <!-- mobile site__header -->
-    <th:block th:insert="~{fragments/header}"></th:block><br>
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <br>
     <!-- site__body -->
     <div class="site__body">
         <!-- Toast notification container -->
@@ -58,7 +59,12 @@
                                             <input type="password" id="confirmPassword" class="form-control"
                                                    placeholder="Повтори паролата" required>
                                         </div>
-                                        <button type="submit" class="btn btn-primary mt-4">Регистрирай се</button>
+                                        <div class="form-group">
+                                            <small class="form-text text-muted">
+                                                <a href="/login">Вече имаш профил? Натисни тук!</a>
+                                            </small>
+                                            <button type="submit" class="btn btn-primary mt-4">Регистрирай се</button>
+                                        </div>
                                         <div id="error-message" style="color: red;" hidden="hidden"></div>
                                     </form>
                                 </div>
