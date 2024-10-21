@@ -105,23 +105,31 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="pagination">
-                                        <!-- Previous Page Link -->
-                                        <div th:if="${companies.hasPrevious()}">
-                                            <a th:href="@{/companies/admin(page=${companies.number}, size=${companies.size})}"
-                                               class="pagination__link">Предишна</a>
-                                        </div>
+                                    <div th:if="${companies.totalElements > 0}">
+                                        <div class="pagination">
+                                            <!-- Previous Page Link -->
+                                            <div th:if="${companies.hasPrevious()}">
+                                                <a th:href="@{/companies/admin(page=${companies.number}, size=${companies.size})}"
+                                                   class="pagination__link">Предишна</a>
+                                            </div>
 
-                                        <!-- Page Number Display -->
-                                        <span>Страница <span th:text="${companies.number + 1}"></span> от <span
-                                                th:text="${companies.totalPages}"></span></span>
+                                            <!-- Page Number Display -->
+                                            <span>Страница <span th:text="${companies.number + 1}"></span> от <span th:text="${companies.totalPages}"></span></span>
 
-                                        <!-- Next Page Link -->
-                                        <div th:if="${companies.hasNext()}">
-                                            <a th:href="@{/companies/admin(page=${companies.number + 2}, size=${companies.size})}"
-                                               class="pagination__link">Следваща</a>
+                                            <!-- Next Page Link -->
+                                            <div th:if="${companies.hasNext()}">
+                                                <a th:href="@{/companies/admin(page=${companies.number + 2}, size=${companies.size})}"
+                                                   class="pagination__link">Следваща</a>
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <!-- No Companies Message -->
+                                    <div th:if="${companies.totalElements == 0}">
+                                        <br><br>
+                                        <p>Няма компании все още</p>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

@@ -17,6 +17,9 @@ public interface CategoryClient {
     @GetMapping("/all")
     List<CategoryResponseDTO> getAll();
 
+    @GetMapping("/all/withOffers")
+    List<CategoryResponseDTO> getAllCategoriesWithOffers();
+
     @GetMapping("/{id}")
     CategoryResponseDTO getById(@PathVariable UUID id);
 
