@@ -475,11 +475,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="pagination">
+                                    <div class="pagination" style="gap: 10px">
                                         <!-- Previous Page Link -->
                                         <div th:if="${offers.hasPrevious()}">
                                             <a th:href="@{/offers(page=${offers.number}, size=${offers.size})}"
-                                               class="pagination__link">Предишна</a>
+                                               class="pagination__link">Предишна </a>
                                         </div>
 
                                         <!-- Page Number Display -->
@@ -489,7 +489,7 @@
                                         <!-- Next Page Link -->
                                         <div th:if="${offers.hasNext()}">
                                             <a th:href="@{/offers(page=${offers.number + 2}, size=${offers.size})}"
-                                               class="pagination__link">Следваща</a>
+                                               class="pagination__link"> Следваща</a>
                                         </div>
                                     </div>
                                 </div>
