@@ -1,0 +1,5 @@
+@media (max-width: 767px) {
+    .custom-offer-header__container {
+        padding-top: 24px;
+    }
+}
